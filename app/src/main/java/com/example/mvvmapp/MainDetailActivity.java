@@ -55,7 +55,7 @@ public class MainDetailActivity extends BaseMvvmActivity<ActivityMainDetailBindi
                     PermissionsUtils.getInstance().chekPermissions(this, PermissionsUtil.PERMISSION_FILE, new PermissionsUtils.IPermissionsResult() {
                         @Override
                         public void passPermissons() {
-                            DownloadAPk.getInstance().downApk(mContext, "https://github.com/yezihengok/MvvmApp/blob/master/testapk/ESFileExplorer-V4.2.1.7.apk"
+                            DownloadAPk.getInstance().downApk(mContext, "http://s.duapps.com/apks/own/ESFileExplorer-V4.2.1.7.apk"
                                     , new DownloadAPk.DownLoadListener() {
                                         @Override
                                         public void onProgressUpdate(int progress) {
