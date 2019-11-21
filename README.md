@@ -22,6 +22,6 @@
 
 
 ####简单截图：
-![MvvmApp-master](https://github.com/yezihengok/Doutu-master/blob/master/screenshots/device-1.png)
-![MvvmApp-master](https://github.com/yezihengok/Doutu-master/blob/master/screenshots/device-2.png)
+![MvvmApp-master](https://github.com/yezihengok/MvvmApp/blob/master/screenshots/device-1.png)
+![MvvmApp-master](https://github.com/yezihengok/MvvmApp/blob/master/screenshots/device-2.png)
 
