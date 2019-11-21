@@ -55,8 +55,7 @@ public class MainDetailActivity extends BaseMvvmActivity<ActivityMainDetailBindi
                     PermissionsUtils.getInstance().chekPermissions(this, PermissionsUtil.PERMISSION_FILE, new PermissionsUtils.IPermissionsResult() {
                         @Override
                         public void passPermissons() {
-                            //"http://download.dinpay.com/member/Dinpay_V3.1.1_01.apk"
-                            DownloadAPk.getInstance().downApk(mContext, "https://blcs.oss-cn-shenzhen.aliyuncs.com/app/BLCS.apk"
+                            DownloadAPk.getInstance().downApk(mContext, "https://github.com/yezihengok/MvvmApp/blob/master/testapk/ESFileExplorer-V4.2.1.7.apk"
                                     , new DownloadAPk.DownLoadListener() {
                                         @Override
                                         public void onProgressUpdate(int progress) {
