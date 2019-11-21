@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lyShow_Frame"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <!--<View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#6BC6F7"/>-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/dialog_shape_bgs"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="提示"
+            android:padding="12dp"
+            android:textColor="@color/ui_black"
+            android:textSize="17sp" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="60dp"
+            android:gravity="center|top"
+            android:orientation="vertical"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:id="@+id/tvShow_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingLeft="2dp"
+                android:lineSpacingExtra="4dp"
+                tools:text="这是一条提示消息"
+                android:textColor="@color/ui_black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvShow_content_des"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="left|center"
+                android:textColor="@color/ui_blue"
+                android:textSize="14sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@color/comm_border" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50.0dip"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btShow_sure"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="@android:string/ok"
+                android:textColor="@color/ui_blue"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/spit"
+                android:layout_width="1px"
+                android:layout_height="fill_parent"
+                android:background="@color/comm_border" />
+
+            <Button
+                android:id="@+id/btShow_cancle"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="@android:string/cancel"
+                android:textColor="@color/ui_blue"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

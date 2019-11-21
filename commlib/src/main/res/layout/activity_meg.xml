@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <!-- 随便引用一个对象，只是为了生成一个占位的BR.viewModel-->
+        <variable
+            name="viewModel"
+            type="com.example.commlib.base.BaseMvvmViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</layout>

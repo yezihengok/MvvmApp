@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_write"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/iv_custom_notify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:src="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:id="@+id/tv_custom_notify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/iv_custom_notify"
+        android:text="正在下载"
+        android:layout_marginRight="16dp"
+        android:textColor="@color/black_aplsh70" />
+    <TextView
+        android:id="@+id/tv_custom_notify_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tv_custom_notify"
+        android:text="1000"
+        android:textColor="@color/color_blue"
+        />
+    <ProgressBar
+        android:id="@+id/pb_custom_notify"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_below="@+id/tv_custom_notify"
+        android:layout_marginTop="12dp"
+        android:layout_toRightOf="@+id/iv_custom_notify"
+        android:progressDrawable="@drawable/pb_notify_custom"
+        android:layout_width="match_parent"
+        android:visibility="invisible"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_custom_notify_finish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/tv_custom_notify"
+        android:layout_toRightOf="@+id/iv_custom_notify"
+        android:textSize="17sp"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        android:text="@string/app_name"/>
+
+</RelativeLayout>

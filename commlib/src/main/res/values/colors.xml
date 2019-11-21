@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_base_bg">#0e0000</color>
+    <color name="color_write">#ffffff</color>
+    <color name="white">#ffffff</color>
+    <color name="color_base_status_bg">#F2F2F2</color>
+    <!--029E89-->
+    <color name="color_theme">#84c832</color>
+    <color name="color_senior_line">#E5E5E5</color>
+    <color name="color_line">#D7DDE1</color>
+    <color name="color_transparent_100">#00000000</color>
+    <color name="color_red">#b94f42</color>
+    <color name="color_blue">#77ad69</color>
+    <color name="transparent">#00000000</color>
+    <!--全透明-->
+    <color name="alltmcolor">#00000000</color>
+
+    <color name="ui_gray2"> #CCCCCC</color>
+    <color name="gray">#DEDEDE</color>
+    <color name="black">#000000</color>
+    <color name="black_aplsh5">#0D000000</color> <!-- 5%透明度的黑色 -->
+    <color name="black_aplsh10">#1A000000</color> <!-- 10%透明度的黑色 -->
+    <color name="black_aplsh20">#33000000</color> <!-- 20%透明度的黑色 -->
+    <color name="black_aplsh25">#40000000</color> <!-- 25%透明度的黑色 -->
+    <color name="black_aplsh30">#4D000000</color> <!-- 30%透明度的黑色 -->
+    <color name="black_aplsh40">#66000000</color> <!-- 40%透明度的黑色 -->
+    <color name="black_aplsh50">#80000000</color> <!-- 50%透明度的黑色 -->
+    <color name="black_aplsh60">#99000000</color> <!-- 60%透明度的黑色 -->
+    <color name="black_aplsh70">#4d000000</color> <!-- 70%透明度的黑色 -->
+    <color name="new_blue">#165CDB</color>   <!-- 顶部栏文字  -->
+    <color name="new_blue_light">#4D88FB</color><!-- 按钮  -->
+    <color name="new_blue_dark">#313A54</color><!-- 文字 图标  -->
+    <color name="new_red">#EF2231</color>
+    <color name="new_gray_dark">#6E7587</color><!-- 用于时间摘要  -->
+    <color name="new_gray_light">#AFB9D3</color>
+    <color name="new_bg">#F5F5F5</color>          <!--默认背景色 -->
+    <color name="new_line">#D9D9D9</color>        <!-- 分割线  -->
+    <color name="new_color">#061b5d</color>
+    <color name="new_blue_lights">#8bb4ed</color>
+    <color name="new_blue_transparent">#1fff</color>
+
+
+    <color name="ui_bules">#165cdb</color> <!-- 蓝色调 -->
+    <color name="ui_btn_blues">#b30189FF</color> <!-- 蓝色副色调 按钮底色 (不可点击时) -->
+    <color name="ui_btn_blue">#0189FF</color> <!-- 蓝色副色调 按钮底色 -->
+
+    <color name="ui_bluee">#4d88fb</color> <!-- 蓝色主色调 -->
+    <color name="ui_blue">#26abf4</color>
+    <color name="ui_orange">#f6831d</color> <!-- 用于重要文字显示 小面积使用  -->
+    <color name="ui_black">#313a54</color> <!-- 字体主色 标题正文 -->
+    <color name="ui_light_black">#6e7587</color> <!-- 正文副色 用于摘要文字等 -->
+    <color name="comm_border">#ffc8c8cb</color>  <!-- 边框线 -->
+    <color name="ui_gray">#a0a0a0</color> <!-- 用于辅助性文字颜色 -->
+    <color name="ui_green">#01D095</color><!-- 绿色-->
+    <!--<color name="ui_light_gray">#D2D2D2</color> &lt;!&ndash; 用于分割线  及提示性文字 &ndash;&gt;-->
+    <color name="ui_light_gray">#d9d9d9</color> <!-- 用于分割线  及提示性文字 -->
+    <color name="ui_red">#E64346</color> <!-- 用于重点提示性文字 -->
+    <color name="ui_light_blue">#bde6fc</color> <!-- 用于按钮默认底色，少数使用 -->
+    <color name="ui_activity_bg">#F5F5F5</color> <!-- 用于界面底色背景 -->
+
+    <color name="colorAccent">#FF4081</color>
+
+
+</resources>

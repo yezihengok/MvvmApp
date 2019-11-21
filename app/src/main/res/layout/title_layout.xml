@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/titlet"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/title_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/back_white"
+            android:background="?android:attr/selectableItemBackground"
+            android:focusableInTouchMode="false"
+            android:drawablePadding="8dp"
+            android:text="返回"
+            android:textColor="@color/color_write"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="标题"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/color_write"
+            android:textSize="17sp" />
+
+    </RelativeLayout>
+</layout>

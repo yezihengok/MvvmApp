@@ -1,0 +1,2 @@
+include ':app', ':commlib'
+rootProject.name='MvvmApp'

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="bannerBean"
+            type="com.example.mvvmapp.bean.WanAndroidBannerBean"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/color_write">
+
+        <LinearLayout
+            android:id="@+id/topLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srlEnablePureScrollMode="true">
+
+        <ScrollView
+            android:id="@+id/mScrollView"
+            android:fillViewport="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:padding="10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:scaleType="fitXY"
+                    app:displayImg="@{bannerBean.imagePath}"
+                    app:displayType="@{4}"
+                    android:id="@+id/primary_message_details_img"/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:text="@{bannerBean.title}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <!--示例DataBinding 字符串拼接 注意单引号-->
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:text='@{"文章链接:"+bannerBean.url}'
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:text='@{"当前下载进度:"+bannerBean.progressValue+"%"}'
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <Button
+                    android:id="@+id/mUpdateButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="点击测试更新APK" />
+            </LinearLayout>
+        </ScrollView>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    </LinearLayout>
+</layout>

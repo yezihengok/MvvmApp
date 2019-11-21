@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="color_base_bg">#0e0000</color>
+    <color name="color_write">#ffffff</color>
+    <color name="color_base_status_bg">#F2F2F2</color>
+    <!--029E89-->
+    <color name="color_theme">#84c832</color>
+    <color name="color_senior_line">#E5E5E5</color>
+    <color name="color_line">#D7DDE1</color>
+    <color name="color_transparent_100">#00000000</color>
+    <color name="color_red">#b94f42</color>
+    <color name="color_blue">#77ad69</color>
+    <color name="transparent">#00000000</color>
+    <!--全透明-->
+    <color name="alltmcolor">#00000000</color>
+    <color name="ui_gray">#a0a0a0</color> <!-- 用于辅助性文字颜色 -->
+    <color name="ui_activity_bg">#EFF9FF</color> <!-- 用于界面底色背景 -->
+    <color name="ui_gray2"> #CCCCCC</color>
+    <color name="gray">#DEDEDE</color>
+    <color name="black_aplsh5">#0D000000</color> <!-- 5%透明度的黑色 -->
+    <color name="black_aplsh10">#1A000000</color> <!-- 10%透明度的黑色 -->
+    <color name="black_aplsh20">#33000000</color> <!-- 20%透明度的黑色 -->
+    <color name="black_aplsh25">#40000000</color> <!-- 25%透明度的黑色 -->
+    <color name="black_aplsh30">#4D000000</color> <!-- 30%透明度的黑色 -->
+    <color name="black_aplsh40">#66000000</color> <!-- 40%透明度的黑色 -->
+    <color name="black_aplsh50">#80000000</color> <!-- 50%透明度的黑色 -->
+    <color name="black_aplsh60">#99000000</color> <!-- 60%透明度的黑色 -->
+    <color name="black_aplsh70">#4d000000</color> <!-- 70%透明度的黑色 -->
+
+
+    <color name="ui_black">#3C3C3C</color> <!--主色调 -文字黑色-->
+    <color name="ui_light_gray">#AFAFAF</color> <!--主色调 -文字浅灰色-->
+    <color name="ui_blue">#FF26B5EA</color><!--主色调 -蓝色-->
+    <color name="ui_orange">#FFFFAF00</color><!--主色调 -橙色-->
+</resources>

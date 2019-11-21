@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="statusbarutil_fake_status_bar_view" />
+    <item type="id" name="statusbarutil_translucent_view" />
+    <item type="id" name="refresh_header_progress_view" />
+
+    <!-- Messages IDs -->
+    <item name="auto_focus" type="id"/>
+    <item name="decode" type="id"/>
+    <item name="decode_failed" type="id"/>
+    <item name="decode_succeeded" type="id"/>
+
+
+    <item name="quit" type="id"/>
+    <item name="restart_preview" type="id"/>
+
+
+</resources>

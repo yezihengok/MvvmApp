@@ -1,0 +1,64 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    //支持使用java8
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    //把implementation 用api代替,它是对外部公开的, 所有其他的module就不需要添加该依赖
+    //rxAndroid
+    api 'io.reactivex.rxjava2:rxjava:2.2.11'
+    api 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    //rxlifecycle
+    api 'com.trello.rxlifecycle3:rxlifecycle-components:3.0.0'
+    api 'com.squareup.okhttp3:okhttp:3.12.0'
+    api 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    //retrofit
+    api 'com.squareup.retrofit2:retrofit:2.5.0'
+    api 'com.squareup.retrofit2:converter-gson:2.5.0'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+    //ALog
+    api 'com.blankj:alog:1.9.1'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    //    //智能下拉刷新
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
+    //glide
+    api 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor  'com.github.bumptech.glide:compiler:4.9.0'
+    implementation files('libs/commons-lang-2.6.jar')
+}
