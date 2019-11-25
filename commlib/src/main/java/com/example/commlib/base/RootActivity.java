@@ -25,9 +25,9 @@ import androidx.core.content.ContextCompat;
 
 import com.example.commlib.R;
 import com.example.commlib.utils.DensityUtil;
-import com.example.commlib.utils.permission.PermissionsUtils;
 import com.example.commlib.utils.StatusNavUtils;
 import com.example.commlib.utils.ToastUtils;
+import com.example.commlib.utils.permission.PermissionsUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
 
@@ -69,8 +69,6 @@ public class RootActivity extends RxAppCompatActivity {
 
 
     }
-
-
 
 
     /**
@@ -338,7 +336,7 @@ public class RootActivity extends RxAppCompatActivity {
      * @param refreshLayout
      * @param <T>
      */
-    public <T> void setFooterView(List<T> list, BaseMvvmRecyclerAdapters adapter, SmartRefreshLayout refreshLayout){
+    public <T> void setFooterView(List<T> list, BaseRecyclerAdapters adapter, SmartRefreshLayout refreshLayout){
         adapter.recyclerView.setAdapter(adapter);//切换设置FooterView，需要重新setAdapter,不然会报错
         if(isListNull(list)){
             adapter.setFooterView(R.layout.foot_view);
@@ -348,5 +346,8 @@ public class RootActivity extends RxAppCompatActivity {
             refreshLayout.setEnableLoadMore(true);
         }
     }
+
+
+
 
 }

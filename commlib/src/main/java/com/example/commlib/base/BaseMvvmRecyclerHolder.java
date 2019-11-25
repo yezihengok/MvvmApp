@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @time 2019/10/25 15:03
  */
 public class BaseMvvmRecyclerHolder extends RecyclerView.ViewHolder {
+//public class BaseMvvmRecyclerHolder extends BaseViewHolder {
     public ViewDataBinding binding;
     private SparseArray<View> views;
 

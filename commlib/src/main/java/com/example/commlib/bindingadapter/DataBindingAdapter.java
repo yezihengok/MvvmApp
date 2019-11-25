@@ -85,9 +85,13 @@ public class DataBindingAdapter {
     }
 
 
-    @BindingAdapter({"adapter"})
-    public static void bindAdapter(RecyclerView recyclerView, BaseMvvmRecyclerAdapter adapter) {
+    @BindingAdapter(value ={"adapter", "bindAdapterAnimation"}, requireAll = false)
+    public static void bindAdapter(RecyclerView recyclerView, BaseMvvmRecyclerAdapter adapter, int animation) {
         recyclerView.setAdapter(adapter);
+        //设置动画
+        if (animation != 0) {
+            adapter.openLoadAnimation(animation);
+        }
         //adapter.notifyDataSetChanged();
         // recyclerView.setPageFooter(R.layout.layout_loading_footer);
     }

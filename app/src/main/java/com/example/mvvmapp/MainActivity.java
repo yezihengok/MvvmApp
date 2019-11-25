@@ -51,7 +51,7 @@ public class MainActivity extends BaseMvvmActivity<ActivityMainBinding, MainView
         initBanner();
         mBinding.mRefreshLayout.setOnRefreshListener(refreshLayout ->getHomeList(true));
         mBinding.mRefreshLayout.setOnLoadMoreListener(refreshLayout ->getHomeList(false));
-
+        mViewModel.setRefreshLayout(mBinding.mRefreshLayout);
     }
 
     private void initBanner(){
@@ -73,12 +73,13 @@ public class MainActivity extends BaseMvvmActivity<ActivityMainBinding, MainView
 
     private void getHomeList(boolean isRefresh){
         mViewModel.getHomeList(-1,isRefresh,result -> {
-            setFooterView(result,mViewModel.mAdapter,mBinding.mRefreshLayout);
-                if (isRefresh){
-                    mBinding.mRefreshLayout.finishRefresh();
-                }else{
-                    mBinding.mRefreshLayout.finishLoadMore();
-                }
+            ALog.i("请求到的数据回调给Activity："+result.size());
+//                if (isRefresh){
+//                    mBinding.mRefreshLayout.finishRefresh();
+//                }else{
+//                    mBinding.mRefreshLayout.finishLoadMore();
+//                }
+
         });
     }
 

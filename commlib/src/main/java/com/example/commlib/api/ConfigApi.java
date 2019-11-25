@@ -9,4 +9,6 @@ public class ConfigApi {
 
     public static final String TEM_URL  = "http://106.52.130.188:8082/app/";
 
+    /**是否存在emptyView**/
+    public static  boolean EMPTY_VIEW=false;
 }

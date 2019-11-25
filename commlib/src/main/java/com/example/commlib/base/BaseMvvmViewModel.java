@@ -6,14 +6,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.LayoutRes;
 import androidx.lifecycle.ViewModel;
+
+import com.blankj.ALog;
+import com.example.commlib.R;
+import com.example.commlib.api.ConfigApi;
+import com.example.commlib.utils.CommUtils;
+import com.example.commlib.utils.ToastUtils;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+
+import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 import static com.example.commlib.utils.ButtonUtils.isFastDoubleClick;
+import static com.example.commlib.utils.CommUtils.isListNull;
 
 
 /**
@@ -23,19 +36,22 @@ import static com.example.commlib.utils.ButtonUtils.isFastDoubleClick;
  */
 public  class BaseMvvmViewModel extends ViewModel {
 
-    public int mPage = 0;//列表分页使用
+    public int mPage = 1;//列表分页使用默认1开始
     private CompositeDisposable mCompositeDisposable;
 
     protected Context mContext;
     protected BaseMvvmActivity mActivity;
     protected BaseMvvmFragment mFragment;
     protected Bundle bundle;
+    private SmartRefreshLayout mRefreshLayout;
+
+    public void setRefreshLayout(SmartRefreshLayout refreshLayout) {
+        mRefreshLayout = refreshLayout;
+    }
 
     public BaseMvvmViewModel(BaseMvvmActivity activity) {
         this.mActivity = activity;
         this.mContext = activity;
-
-
     }
 
     public BaseMvvmViewModel(BaseMvvmFragment fragment) {
@@ -68,6 +84,54 @@ public  class BaseMvvmViewModel extends ViewModel {
             this.mCompositeDisposable.clear();
         }
     }
+
+
+    /**
+     *  请求数据后 为下拉刷新的RecyclerView 数据为空时添加空布局，并控制上拉加载状态、以及分页状态
+     * @param list
+     * @param adapter
+     * @param isRefresh 是否是下拉刷新
+     * @param <T>
+     */
+    public <T> void showEmptyView(List<T> list, BaseMvvmRecyclerAdapter adapter,boolean isRefresh, String contet){
+        if(isListNull(list)){
+            adapter.setEmptyView(getEmptyView(contet));
+            if(mRefreshLayout!=null){
+                mRefreshLayout.setEnableLoadMore(false);
+                mRefreshLayout.finishRefresh();
+                mRefreshLayout.finishLoadMore();
+            }
+            ConfigApi.EMPTY_VIEW=true;
+        }else{
+            //请求有数据时分页才++
+            if(isRefresh){
+                mPage=2;
+            }else{
+                mPage++;
+            }
+            if(mRefreshLayout!=null) {
+                mRefreshLayout.setEnableLoadMore(true);
+                mRefreshLayout.finishRefresh();
+                mRefreshLayout.finishLoadMore();
+            }
+            ConfigApi.EMPTY_VIEW=false;
+        }
+        ALog.v(adapter.getEmptyViewCount()+"---adapter.getEmptyViewCount()---下一次请求的分页数："+mPage);
+    }
+
+    private View emptyView;
+    private View getEmptyView(String contet){
+        if(emptyView==null){
+            emptyView=getView(R.layout.foot_view);
+            emptyView.setOnClickListener(v -> ToastUtils.showShort("点击emptyView刷新不够优雅，直接下拉emptyView刷新吧"));
+            ViewGroup.LayoutParams lp=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+            emptyView.setLayoutParams(lp);
+        }
+        CommUtils.setTextValues(emptyView.findViewById(R.id.tv_empty),contet);
+        return emptyView;
+    }
+
+
 
 
     //************************************** Activity跳转(兼容4.4) **************************************//
@@ -188,6 +252,8 @@ public  class BaseMvvmViewModel extends ViewModel {
 
 
     //************************************** Activity跳转 **************************************//
-
+    public View getView(@LayoutRes int layoutId){
+        return LayoutInflater.from(mContext).inflate(layoutId,null);
+    }
 
 }

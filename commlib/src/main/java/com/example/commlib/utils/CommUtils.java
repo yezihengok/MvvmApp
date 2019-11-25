@@ -3,12 +3,11 @@ package com.example.commlib.utils;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -21,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 
 import com.example.commlib.R;
 import com.example.commlib.api.App;
@@ -209,6 +209,23 @@ public class CommUtils {
                 editText.setSelection(editText.getText().length());
             }
 
+        }
+    }
+    /**
+     * 为textview 设值，避免空值情况
+     *
+     * @param tv
+     * @param str
+     */
+    public static void setTextValues(TextView tv, String str) {
+        if (tv != null && !TextUtils.isEmpty(str)) {
+            tv.setText(str);
+        }
+    }
+    public static void setTextValues(TextView tv, @StringRes int id) {
+        String str = tv.getContext().getString(id);
+        if (tv != null && !TextUtils.isEmpty(str)) {
+            tv.setText(str);
         }
     }
 

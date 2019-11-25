@@ -54,11 +54,14 @@ dependencies {
     api 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
     //ALog
     api 'com.blankj:alog:1.9.1'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     //    //智能下拉刷新
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
     //glide
     api 'com.github.bumptech.glide:glide:4.9.0'
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47'
+
     annotationProcessor  'com.github.bumptech.glide:compiler:4.9.0'
     implementation files('libs/commons-lang-2.6.jar')
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.0.0'
 }
