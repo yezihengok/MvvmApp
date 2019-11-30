@@ -1,6 +1,7 @@
 package com.example.mvvmapp;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 
 import androidx.lifecycle.Observer;
 
@@ -8,6 +9,7 @@ import com.blankj.ALog;
 import com.example.commlib.base.BaseMvvmActivity;
 import com.example.commlib.rx.RxBus;
 import com.example.commlib.rx.RxBusCode;
+import com.example.commlib.utils.AppUtils;
 import com.example.commlib.utils.CommUtils;
 import com.example.commlib.utils.GlideImageLoader;
 import com.example.commlib.utils.StatusBarUtil;
@@ -42,6 +44,7 @@ public class MainActivity extends BaseMvvmActivity<ActivityMainBinding, MainView
 
     @Override
     protected MainViewModel initMVVMViewModel() {
+        //MainViewModel model = ViewModelProviders.of(this).get(MainViewModel.class);
         return new MainViewModel(this);
     }
 
@@ -52,6 +55,13 @@ public class MainActivity extends BaseMvvmActivity<ActivityMainBinding, MainView
         mBinding.mRefreshLayout.setOnRefreshListener(refreshLayout ->getHomeList(true));
         mBinding.mRefreshLayout.setOnLoadMoreListener(refreshLayout ->getHomeList(false));
         mViewModel.setRefreshLayout(mBinding.mRefreshLayout);
+
+        mViewModel.toastEvent.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                ToastUtils.showShort(s);
+            }
+        });
     }
 
     private void initBanner(){
@@ -112,5 +122,30 @@ public class MainActivity extends BaseMvvmActivity<ActivityMainBinding, MainView
         });
 
     }
+
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (AppUtils.isDebug()) {
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_VOLUME_DOWN:
+                        startActivity(TestWeightActivity.class);
+                    return super.onKeyDown(keyCode, event);
+                case KeyEvent.KEYCODE_VOLUME_UP:
+
+
+                    return super.onKeyDown(keyCode, event);
+                case KeyEvent.KEYCODE_MENU:
+
+                    return true;
+                case KeyEvent.KEYCODE_BACK:
+                    return true;
+            }
+        }
+
+        return true;
+    }
+
 
 }

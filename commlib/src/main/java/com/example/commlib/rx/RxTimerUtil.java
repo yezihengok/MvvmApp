@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.blankj.ALog;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -34,7 +36,7 @@ public class RxTimerUtil {
      */
     public static void timer(long seconds, final String name, final IRxNext next) {
         if(mDisposableMap.containsKey(name)){
-            Log.e("RxTimerUtil",TextUtils.concat("已经有定时器【",name,"】在执行了，本次重复定时器不在执行").toString());
+            ALog.e(TextUtils.concat("已经有定时器【",name,"】在执行了，本次重复定时器不在执行").toString());
             return;
         }
         Observable.timer(seconds, TimeUnit.SECONDS)
@@ -76,7 +78,7 @@ public class RxTimerUtil {
      */
     public static void interval(long milliseconds, final String name , final IRxNext next) {
         if(mDisposableMap.containsKey(name)){
-            Log.e("RxTimerUtil",TextUtils.concat("已经有定时器【",name,"】在执行了，本次重复定时器不在执行").toString());
+            ALog.e(TextUtils.concat("已经有定时器【",name,"】在执行了，本次重复定时器不在执行").toString());
             return;
         }
         Observable.interval(milliseconds, TimeUnit.SECONDS)
@@ -97,11 +99,12 @@ public class RxTimerUtil {
                     @Override
                     public void onError(@NonNull Throwable e) {
                         cancel(name);
-                        Log.e("RxTimerUtil","---onError---");
+                        ALog.e("---onError---");
                     }
 
                     @Override
                     public void onComplete() {
+                        cancel(name);
                     }
                 });
     }
@@ -112,7 +115,7 @@ public class RxTimerUtil {
      */
     public static void interval(long milliseconds, TimeUnit unit, final String name, final IRxNext next) {
         if(mDisposableMap.containsKey(name)){
-            Log.e("RxTimerUtil",TextUtils.concat("已经有定时器【",name,"】在执行了，本次重复定时器不在执行").toString());
+            ALog.e(TextUtils.concat("已经有定时器【",name,"】在执行了，本次重复定时器不在执行").toString());
             return;
         }
         Observable.interval(milliseconds,unit)
@@ -137,17 +140,18 @@ public class RxTimerUtil {
 
                     @Override
                     public void onComplete() {
+                        cancel(name);
                     }
                 });
     }
 
 
     /**
-     * 验证码倒计时
+     * 每隔xx后执行next操作
      */
     public static void countDownTimer(final long seconds, final String name, final TextView tv) {
         if(mDisposableMap.containsKey(name)){
-            Log.e("RxTimerUtil",TextUtils.concat("已经有定时器【",name,"】在执行了，本次重复定时器不在执行").toString());
+            ALog.e(TextUtils.concat("已经有定时器【",name,"】在执行了，本次重复定时器不在执行").toString());
             return;
         }
         Observable.interval(0, 1, TimeUnit.SECONDS)
@@ -180,6 +184,46 @@ public class RxTimerUtil {
                 //回复原来初始状态
                 tv.setEnabled(true);
                 tv.setText("发送验证码");
+                cancel(name);
+            }
+        });
+    }
+
+
+    /**
+     * 每隔xx后执行next操作
+     */
+    public static void countDownTimer(final long seconds, final String name,ITimer iTimer) {
+        if(mDisposableMap.containsKey(name)){
+            ALog.e(TextUtils.concat("已经有定时器【",name,"】在执行了，本次重复定时器不在执行").toString());
+            return;
+        }
+        Observable.interval(0, 1, TimeUnit.SECONDS)
+                .take(seconds + 1)
+                .map(new Function<Long, Long>() {
+                    @Override
+                    public Long apply(Long aLong) throws Exception {
+                        return seconds - aLong;
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())//ui线程中进行控件更新
+                .subscribe(new Observer<Long>() {
+            @Override
+            public void onSubscribe(Disposable disposable) {mDisposableMap.put(name,disposable); }
+            @Override
+            public void onNext(Long num) {
+                //tv.setText("剩余" + num + "秒");
+                iTimer.doNext(num,num==0);
+            }
+            @Override
+            public void onError(Throwable e) {cancel(name);}
+
+            @Override
+            public void onComplete() {
+                //回复原来初始状态
+               // tv.setEnabled(true);
+               // tv.setText("发送验证码");
+                cancel(name);
             }
         });
     }
@@ -203,5 +247,8 @@ public class RxTimerUtil {
 
     public interface IRxNext {
         void doNext(long number, String timerName);
+    }
+    public interface ITimer {
+        void doNext(long number, boolean complete);
     }
 }

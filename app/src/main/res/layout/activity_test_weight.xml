@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/mRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/ui_activity_bg"
+            app:srlEnableLoadMore="true">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <com.example.commlib.weight.QMUIProgressBar
+                    android:id="@+id/mCircleProgressBar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:qmui_max_value="100"
+                    app:qmui_background_color="@color/transparent"
+                    app:qmui_progress_color="@color/new_blue_light"
+                    app:qmui_stroke_width="10dp"
+                    app:qmui_stroke_round_cap="true"
+                    app:qmui_type="type_circle"/>
+            </LinearLayout>
+            </ScrollView>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    </LinearLayout>
+</layout>

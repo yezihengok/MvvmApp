@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableList;
 import androidx.databinding.ViewDataBinding;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.ALog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -49,7 +50,7 @@ public abstract class BaseMvvmRecyclerAdapter<T> extends BaseQuickAdapter<T, Bas
             public void onItemRangeInserted(ObservableList<T> ts, int positionStart, int itemCount) {
                 ALog.e("onItemRangeInserted() "+getEmptyViewCount() +ConfigApi.EMPTY_VIEW);
 
-                //TODO 踩坑提示：使用 quickadapter.setEmptyView 设置空布局后， 刷新又有了数据 必须调用mAdapter.setNewData(mList); 而不是调用notifyDataSetChanged()系列; 否则会报错
+                //踩坑提示：使用 quickadapter.setEmptyView 设置空布局后， 刷新又有了数据 必须调用mAdapter.setNewData(mList); 而不是调用notifyDataSetChanged()系列; 否则会报错
 
 //                if(getEmptyViewCount()>0){ 不能用这个在这里判断,因为mTObservableList有值后getEmptyViewCount 会变成0
                 if(ConfigApi.EMPTY_VIEW){
@@ -95,16 +96,24 @@ public abstract class BaseMvvmRecyclerAdapter<T> extends BaseQuickAdapter<T, Bas
     @Override
     protected void convert(@NonNull BaseMvvmRecyclerAdapter.BindingViewHolder helper, T item) {
         ViewDataBinding binding = helper.getBinding();
-        //todo 建议item.xml里的bean的别名都取itemBean吧，自定义命名的话，构造函数又要增加一个别名参数（variableId）
+        // 建议item.xml里的bean的别名都取itemBean，自定义命名的话，构造函数又要增加一个别名参数（variableId）
         binding.setVariable(com.example.commlib.BR.itemBean, item);
         binding.executePendingBindings();
-        convert(helper, binding, item);
+
+        //BaseQuickAdapter position获取
+        int position = helper.getAdapterPosition();
+        if (position == RecyclerView.NO_POSITION) {
+            return;
+        }
+        position -= this.getHeaderLayoutCount();
+
+        convert(helper, binding, item,position);
     }
 
     /**
      * 填充RecyclerView适配器的方法
      */
-    public abstract void convert(BaseMvvmRecyclerAdapter.BindingViewHolder holder,ViewDataBinding binding, T item);
+    public abstract void convert(BaseMvvmRecyclerAdapter.BindingViewHolder holder,ViewDataBinding binding, T item,int position);
 
 
     public static class BindingViewHolder extends BaseViewHolder {

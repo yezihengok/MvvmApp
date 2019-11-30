@@ -22,6 +22,7 @@
         </activity>
 
         <activity android:name=".MainDetailActivity"/>
+        <activity android:name=".TestWeightActivity"/>
     </application>
 
 </manifest>

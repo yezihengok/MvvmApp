@@ -339,7 +339,7 @@ public class RootActivity extends RxAppCompatActivity {
     public <T> void setFooterView(List<T> list, BaseRecyclerAdapters adapter, SmartRefreshLayout refreshLayout){
         adapter.recyclerView.setAdapter(adapter);//切换设置FooterView，需要重新setAdapter,不然会报错
         if(isListNull(list)){
-            adapter.setFooterView(R.layout.foot_view);
+            adapter.setFooterView(R.layout.empty_view);
             refreshLayout.setEnableLoadMore(false);
         }else{
             adapter.setFooterView(null);

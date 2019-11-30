@@ -32,6 +32,22 @@
     </declare-styleable>
 
 
+    <declare-styleable name="QMUIProgressBar">
+        <attr name="qmui_type" format="enum">
+            <enum name="type_rect" value="0"/>
+            <enum name="type_circle" value="1"/>
+        </attr>
+        <attr name="qmui_progress_color" format="color"/>
+        <attr name="qmui_background_color" format="color"/>
+        <attr name="qmui_max_value" format="integer"/>
+        <attr name="qmui_value" format="integer"/>
+        <attr name="qmui_stroke_width" format="dimension"/>
+        <attr name="qmui_stroke_round_cap" format="boolean"/>
+        <attr name="android:textSize"/>
+        <attr name="android:textColor"/>
+    </declare-styleable>
+
+
 
 
 </resources>

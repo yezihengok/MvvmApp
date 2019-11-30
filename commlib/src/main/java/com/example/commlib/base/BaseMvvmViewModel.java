@@ -28,6 +28,11 @@ import io.reactivex.disposables.Disposable;
 import static com.example.commlib.utils.ButtonUtils.isFastDoubleClick;
 import static com.example.commlib.utils.CommUtils.isListNull;
 
+//import androidx.lifecycle.ViewModel;
+
+// 标准 ViewModel+liveData 使用 MainViewModel model = ViewModelProviders.of(this).get(MainViewModel.class);
+//去创建ViewModel ,且model 里 理应不应持有 Context 对象（acivity/fragment），虽然我这里  添加了对内存泄漏的处理
+
 
 /**
  * @Author： yzh
@@ -122,7 +127,7 @@ public  class BaseMvvmViewModel extends ViewModel {
     private View emptyView;
     private View getEmptyView(String contet){
         if(emptyView==null){
-            emptyView=getView(R.layout.foot_view);
+            emptyView=getView(R.layout.empty_view);
             emptyView.setOnClickListener(v -> ToastUtils.showShort("点击emptyView刷新不够优雅，直接下拉emptyView刷新吧"));
             ViewGroup.LayoutParams lp=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
             emptyView.setLayoutParams(lp);
@@ -252,7 +257,7 @@ public  class BaseMvvmViewModel extends ViewModel {
 
 
     //************************************** Activity跳转 **************************************//
-    public View getView(@LayoutRes int layoutId){
+    private View getView(@LayoutRes int layoutId){
         return LayoutInflater.from(mContext).inflate(layoutId,null);
     }
 

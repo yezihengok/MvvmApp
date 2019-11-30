@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.commlib.R;
 
@@ -59,8 +58,6 @@ public class GlideUtil {
         Glide.with(imageView.getContext())
                 .load(url)
                 .centerCrop()
-
-                .transition(DrawableTransitionOptions.withCrossFade(500))
                 .placeholder(getDefaultPic(type))
                 .error(getDefaultPic(type))
                 .into(imageView);
@@ -185,7 +182,6 @@ public class GlideUtil {
         Glide.with(imageView.getContext())
                 .load(url)
                 .override(dip2px(imageWidthDp),dip2px(imageHeightDp))
-                .transition(DrawableTransitionOptions.withCrossFade(500))
                 .placeholder(getDefaultPic(4))
                 .centerCrop()
                 .error(getDefaultPic(0))

@@ -206,5 +206,24 @@ public class AppUtils
         String t = s.replaceAll(" ", "");
         return t;
     }
-    
+
+
+    public static boolean isDebug() {
+        try {
+            ApplicationInfo info = App.getInstance().getApplicationInfo();
+            return (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+        } catch (Exception e) {
+        }
+        return true;
+    }
+
+    public static void restartApp(Context context) {
+//        Intent intent = new Intent();
+//        intent.setClassName("com.blue.language.langaugepluginprimary", "com.blue.language.langaugepluginprimary.moudle.home.PrimaryHomeActivity");
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        context.startActivity(intent);
+//        System.exit(0);
+//    }
+}
+
 }
