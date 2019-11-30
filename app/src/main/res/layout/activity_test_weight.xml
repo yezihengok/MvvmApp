@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/ui_activity_bg"
-            app:srlEnableLoadMore="true">
+            app:srlEnablePureScrollMode="true">
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -26,7 +26,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:gravity="center"
+                android:orientation="horizontal">
                 <com.example.commlib.weight.QMUIProgressBar
                     android:id="@+id/mCircleProgressBar"
                     android:layout_width="100dp"
@@ -39,6 +40,16 @@
                     app:qmui_stroke_width="10dp"
                     app:qmui_stroke_round_cap="true"
                     app:qmui_type="type_circle"/>
+                <com.example.commlib.weight.CountDownView
+                    android:id="@+id/mCountDownView"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    app:countdownTime="10"
+                    app:progressTextSize="16sp"
+                    app:progressTextColor="@color/ui_gray"
+                    app:ringColor="@color/ui_orange"
+                    app:ringWidth="5dp"/>
             </LinearLayout>
             </ScrollView>
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>

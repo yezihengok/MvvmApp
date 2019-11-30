@@ -31,7 +31,7 @@ public class TestWeightActivity extends BaseMvvmActivity<ActivityTestWeightBindi
             @Override
             public String generateText(QMUIProgressBar progressBar, int value, int maxValue) {
                 if(value==maxValue){
-                    mBinding.mCircleProgressBar.setProgress(-50);
+                    mBinding.mCircleProgressBar.setProgress(0);
                     RxTimerUtil.cancel("TestWeightActivity");
                 }
                 return 100 * value / maxValue + "%";
@@ -42,5 +42,8 @@ public class TestWeightActivity extends BaseMvvmActivity<ActivityTestWeightBindi
             mBinding.mCircleProgressBar.setProgress(num++);
 
         });
+
+        mBinding.mCountDownView.startCountDown();
+        mBinding.mCountDownView.setAddCountDownListener(() -> mBinding.mCountDownView.startCountDown());
     }
 }
