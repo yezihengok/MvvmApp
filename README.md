@@ -4,7 +4,7 @@
 
 
  >  tips:自己使用的是平板 手机运行布局整体偏小，是因为项目里使用的是  [(今日头条的适配方式)](https://mp.weixin.qq.com/s/d9QCoBP6kV9VSWvVldVVwA)
- 自己实际使用请根据设计图修改DensityUtil.setDensity 。不喜欢这种适配 可以屏蔽 自己改用其它 如 smallestWidth 限定符适配方案； 
+ 自己实际使用请根据设计图UI的 dp 去修改RootActivity里的DensityUtil.setDensity 。不喜欢这种适配 可以屏蔽 自己改用其它 如 smallestWidth 限定符适配方案； 
 
  
  
@@ -27,8 +27,8 @@
  
 |MainActivity|MainNewActivity|
 |:---:|:---:|
-|![][手动new创建的ViewModel，ViewModel持有context，并手动添加RxLifecycle、CompositeDisposable 对context内存泄漏管理的方式实现的MVVM]
-|![][ViewModelProviders.of 方式 初始化的ViewModel，ViewModel不持有context，LiveDada通知回调 不用担心管理内存泄漏问题  方式实现的MVVM（推荐这种）]|
+|[手动new创建的ViewModel，ViewModel持有context，并手动添加RxLifecycle、CompositeDisposable 对context内存泄漏管理的方式实现的MVVM]
+|[ViewModelProviders.of 方式 初始化的ViewModel，ViewModel不持有context，LiveDada通知回调 不用担心管理内存泄漏问题  方式实现的MVVM（推荐这种）]|
 
 
 ####简单截图：
