@@ -27,8 +27,8 @@
  
 |MainActivity|MainNewActivity|
 |:---:|:---:|
-|![](手动new创建的ViewModel，ViewModel持有context，并手动添加RxLifecycle、CompositeDisposable 对context内存泄漏管理的方式实现的MVVM)
-|![](ViewModelProviders.of 方式 初始化的ViewModel，ViewModel不持有context，LiveDada通知回调 不用担心管理内存泄漏问题  方式实现的MVVM（推荐这种）)|
+|![][手动new创建的ViewModel，ViewModel持有context，并手动添加RxLifecycle、CompositeDisposable 对context内存泄漏管理的方式实现的MVVM]
+|![][ViewModelProviders.of 方式 初始化的ViewModel，ViewModel不持有context，LiveDada通知回调 不用担心管理内存泄漏问题  方式实现的MVVM（推荐这种）]|
 
 
 ####简单截图：
