@@ -1,4 +1,4 @@
-package com.example.mvvmapp;
+package com.example.mvvmapp.main;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -6,7 +6,7 @@ import android.view.KeyEvent;
 import androidx.lifecycle.Observer;
 
 import com.blankj.ALog;
-import com.example.commlib.base.BaseMvvmActivity;
+import com.example.commlib.base.mvvmold.BaseMvvmActivity;
 import com.example.commlib.rx.RxBus;
 import com.example.commlib.rx.RxBusCode;
 import com.example.commlib.utils.AppUtils;
@@ -16,6 +16,9 @@ import com.example.commlib.utils.StatusBarUtil;
 import com.example.commlib.utils.ToastUtils;
 import com.example.commlib.weight.banner.BannerConfig;
 import com.example.commlib.weight.banner.Transformer;
+import com.example.mvvmapp.MainDetailActivity;
+import com.example.mvvmapp.R;
+import com.example.mvvmapp.TestWeightActivity;
 import com.example.mvvmapp.bean.WanAndroidBannerBean;
 import com.example.mvvmapp.databinding.ActivityMainBinding;
 import com.example.mvvmapp.viewmodel.MainViewModel;
@@ -25,6 +28,9 @@ import java.util.List;
 
 import io.reactivex.disposables.Disposable;
 
+/**
+ * 手动创建ViewModel，ViewModel持有context，并手动添加RxLifecycle、CompositeDisposable 对context内存泄漏管理  方式 实现的MVVM
+ */
 public class MainActivity extends BaseMvvmActivity<ActivityMainBinding, MainViewModel> {
 
     @Override

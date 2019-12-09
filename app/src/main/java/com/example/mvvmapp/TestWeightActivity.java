@@ -1,8 +1,10 @@
 package com.example.mvvmapp;
 
-import com.example.commlib.base.BaseMvvmActivity;
-import com.example.commlib.base.BaseMvvmViewModel;
+import com.example.commlib.base.mvvmold.BaseMvvmActivity;
+import com.example.commlib.base.mvvmold.BaseMvvmViewModel;
 import com.example.commlib.rx.RxTimerUtil;
+import com.example.commlib.utils.animations.Other;
+import com.example.commlib.utils.animations.RxAnimation;
 import com.example.commlib.weight.QMUIProgressBar;
 import com.example.mvvmapp.databinding.ActivityTestWeightBinding;
 
@@ -45,5 +47,11 @@ public class TestWeightActivity extends BaseMvvmActivity<ActivityTestWeightBindi
 
         mBinding.mCountDownView.startCountDown();
         mBinding.mCountDownView.setAddCountDownListener(() -> mBinding.mCountDownView.startCountDown());
+        mBinding.mLineWaveVoiceView.startRecord();
+
+        //示例动画工具类使用
+        RxAnimation.get().setAnimation(Other.pulseAnimator(mBinding.mCountDownView,2))
+                .setDuration(1000)
+                .start();
     }
 }

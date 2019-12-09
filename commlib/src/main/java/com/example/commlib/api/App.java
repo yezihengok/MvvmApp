@@ -10,13 +10,10 @@ import com.blankj.ALog;
 import com.example.commlib.BuildConfig;
 import com.example.commlib.R;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
-import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
 import java.util.ArrayList;
@@ -95,6 +92,8 @@ public class App extends MultiDexApplication {
                 });
         ALog.d(config.toString());
     }
+
+
 
     /**
      *设置SmartRefreshLayout默认的header Footer样式，需要在布局生成之前设置，建议代码放在 Application 中

@@ -1,18 +1,21 @@
 package com.example.commlib.base;
 
 import android.app.ActivityOptions;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -23,7 +26,13 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 
+import com.blankj.ALog;
 import com.example.commlib.R;
+import com.example.commlib.api.ConfigApi;
+import com.example.commlib.base.mvvm.BaseMvvmRecyclerAdapter;
+import com.example.commlib.base.mvvmold.BaseRecyclerAdapters;
+import com.example.commlib.listener.Listener;
+import com.example.commlib.utils.CommUtils;
 import com.example.commlib.utils.DensityUtil;
 import com.example.commlib.utils.StatusNavUtils;
 import com.example.commlib.utils.ToastUtils;
@@ -145,6 +154,7 @@ public class RootActivity extends RxAppCompatActivity {
 
 
     //************************************** Activity跳转(兼容4.4) **************************************//
+
 
     /**
      * Activity跳转
@@ -292,9 +302,69 @@ public class RootActivity extends RxAppCompatActivity {
         }
     }
 
+
+    /**
+     * 跳转公共的一个ContainerActivity 用来显示Fragment
+     *
+     * @param canonicalName 通过 Fragment.class.getCanonicalName()获取
+     */
+    public void startContainerActivity(String canonicalName) {
+        startContainerActivity(canonicalName, null);
+    }
+    /**
+     * 跳转容器页面
+     *
+     * @param canonicalName 通过 Fragment.class.getCanonicalName()获取
+     * @param bundle
+     */
+    public void startContainerActivity(String canonicalName, Bundle bundle) {
+        Intent intent = new Intent(this, ContainerActivity.class);
+        intent.putExtra(ContainerActivity.FRAGMENT, canonicalName);
+        if (bundle != null) {
+            intent.putExtra(ContainerActivity.BUNDLE, bundle);
+        }
+        startActivity(intent);
+    }
+
+
     //************************************** Activity跳转 **************************************//
 
 
+    /**
+     * 8.0需要校验安装未知源权限
+     */
+    public void canInstallAPK(Listener listener){
+        boolean hasInstallPerssion = true;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            hasInstallPerssion = getPackageManager().canRequestPackageInstalls();
+        }
+        if (hasInstallPerssion) {
+            //去下载安装应用
+            listener.onResult();
+        } else {
+            //跳转至“安装未知应用”权限界面，引导用户开启权限，可以在onActivityResult中接收权限的开启结果
+            this.listener=listener;
+            showDialogBysure("应用安装","更新app需要您开启安装权限",() -> {
+                Uri packageURI = Uri.parse("package:"+getPackageName());
+                Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,packageURI);
+                startActivityForResult(intent, 0x33);
+            }).setCancelable(true);
+        }
+    }
+
+    Listener listener;
+    //接收“安装未知应用”权限的开启结果
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==0x33){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O&&resultCode == RESULT_OK) {
+                listener.onResult();
+                listener=null;
+            }
+        }
+
+    }
 
 
     /**
@@ -350,4 +420,55 @@ public class RootActivity extends RxAppCompatActivity {
 
 
 
+
+
+    /**
+     *  请求数据后 为下拉刷新的RecyclerView 数据为空时添加空布局，并控制上拉加载状态
+     * @param list
+     * @param adapter
+     * @param <T>
+     */
+    public <T> void showEmptyView(List<T> list, BaseMvvmRecyclerAdapter adapter, SmartRefreshLayout mRefresh, String content){
+        if(isListNull(list)){
+            adapter.setEmptyView(getEmptyView(content));
+            if(mRefresh!=null){
+                mRefresh.setEnableLoadMore(false);
+                mRefresh.finishRefresh();
+                mRefresh.finishLoadMore();
+            }
+            ConfigApi.EMPTY_VIEW=true;
+        }else{
+            if(mRefresh!=null) {
+                mRefresh.setEnableLoadMore(true);
+                mRefresh.finishRefresh();
+                mRefresh.finishLoadMore();
+            }
+            ConfigApi.EMPTY_VIEW=false;
+        }
+        ALog.v(adapter.getEmptyViewCount()+"---adapter.getEmptyViewCount()");
+    }
+
+    private View emptyView;
+    private View getEmptyView(String contet){
+        if(emptyView==null){
+            emptyView=getView(R.layout.empty_view);
+            emptyView.setOnClickListener(v -> ToastUtils.showShort("点击emptyView刷新不够优雅，直接下拉emptyView刷新吧"));
+            ViewGroup.LayoutParams lp=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+            emptyView.setLayoutParams(lp);
+        }
+        CommUtils.setTextValues(emptyView.findViewById(R.id.tv_empty),contet);
+        return emptyView;
+    }
+
+    /**
+     * 只有确定按钮的简化弹窗
+     * @param title
+     * @param msg
+     * @param listener
+     * @return
+     */
+    public Dialog showDialogBysure(String title, String msg, Listener listener){
+        return CommUtils.showDialog(mContext,title,msg,"确定"
+                ,null, listener,null);
+    }
 }

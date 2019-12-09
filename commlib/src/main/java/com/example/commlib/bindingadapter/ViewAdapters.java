@@ -6,6 +6,10 @@ import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
 
+import com.example.commlib.event.SingleLiveEvent;
+import com.example.commlib.listener.ClickListener;
+import com.example.commlib.utils.ButtonUtils;
+
 /**
  * @Description: ViewAdapter类作用描述
  * @Author: yzh
@@ -32,4 +36,28 @@ public class ViewAdapters {
         }
     }
 
+
+    @BindingAdapter(value = {"onBindingClick"}, requireAll = false)
+    public static void onClicks(View view, ClickListener listener) {
+        if(listener!=null){
+            //view.setOnClickListener(listener::onResult);
+            view.setOnClickListener(v -> {
+                if(!ButtonUtils.isFastDoubleClick()){
+                    listener.onResult(v);
+                }
+            });
+        }
+    }
+
+    @BindingAdapter(value = {"onBindingClick"}, requireAll = false)
+    public static void onClick(View view, SingleLiveEvent event) {
+        if(event!=null){
+            view.setOnClickListener(v -> {
+                if(!ButtonUtils.isFastDoubleClick()){
+                    event.call();
+                }
+            });
+
+        }
+    }
 }

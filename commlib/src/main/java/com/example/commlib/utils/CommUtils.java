@@ -3,9 +3,12 @@ package com.example.commlib.utils;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,6 +24,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.core.content.FileProvider;
 
 import com.example.commlib.R;
 import com.example.commlib.api.App;
@@ -29,6 +33,7 @@ import com.example.commlib.listener.Listener;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.List;
 
 import static com.example.commlib.utils.DensityUtil.getScreenWidth;
@@ -419,6 +424,42 @@ public class CommUtils {
             showDialog.findViewById(R.id.spit).setVisibility(View.GONE);
         }
         return tvContent;
+    }
+
+    /**
+     * 调往系统APK安装界面（适配7.0）
+     *
+     * @return
+     */
+    public static Intent getInstallAppIntent(String filePath) {
+        //apk文件的本地路径
+        File apkfile = new File(filePath);
+        if (!apkfile.exists()) {
+            return null;
+        }
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri contentUri = getUriForFile(apkfile);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        }
+        intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+        return intent;
+    }
+
+    /**
+     * 将文件转换成uri
+     *
+     * @return
+     */
+    public static Uri getUriForFile(File file) {
+        Uri fileUri = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            fileUri = FileProvider.getUriForFile(App.getInstance(), App.getInstance().getPackageName() + ".fileprovider", file);
+        } else {
+            fileUri = Uri.fromFile(file);
+        }
+        return fileUri;
     }
 
 }

@@ -1,10 +1,12 @@
-package com.example.commlib.base;
+package com.example.commlib.base.mvvmold;
 
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+
+import com.example.commlib.base.RootActivity;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;

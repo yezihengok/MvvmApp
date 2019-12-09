@@ -27,9 +27,9 @@ import java.net.URL;
  *  需要断点续传的可使用这个库 ：https://github.com/ssseasonnn/RxDownload
  */
 public class DownloadAPk {
-    private  static int           FILE_LEN    = 0;
-    public   static String        APK_UPGRADE = Environment.getExternalStorageDirectory() + "/DownLoad/apk/downloadApp.apk";
-    private static Context       mContext;
+    private  static int   FILE_LEN    = 0;
+    public   static String  APK_UPGRADE = Environment.getExternalStorageDirectory() + "/DownLoad/apk/downloadApp.apk";
+    private static Context  mContext;
     public static volatile DownloadAPk downloadAPk;
     private static DownLoadListener mListener;
     public static  DownloadAPk getInstance(){
@@ -60,6 +60,7 @@ public class DownloadAPk {
             downloadAPK(url, null);
         }
     }
+
 
     /**
      * 开启安装APK权限(适配8.0)
@@ -161,7 +162,7 @@ public class DownloadAPk {
             if(values[0] ==FILE_LEN){
                 progress=100;
             }else{
-                progress = +values[0] * 100 / FILE_LEN;
+                progress = values[0] * 100 / FILE_LEN;
                 //进度显示2位小数：
               // double progress= ArithUtils.round((values[0] * 100 / (double) FILE_LEN),2);
             }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.mvvmapp.viewmodel.MainNewViewModel"/>
+    </data>
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.example.commlib.weight.banner.Banner
+        android:id="@+id/mBanner"
+        app:title_textcolor="@color/color_write"
+        android:layout_width="match_parent"
+        android:layout_height="220dp" />
+    <TextView
+        android:text='@{"下一次请求的分页数："+viewModel.mPage}'
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
+
+</layout>

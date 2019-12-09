@@ -1,27 +1,45 @@
 package com.example.commlib.base.mvvm;
 
 import android.app.Application;
+import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableInt;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.blankj.ALog;
+import com.example.commlib.base.mvvmold.BaseMvvmViewModel;
+import com.example.commlib.event.SingleLiveEvent;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
+import static com.example.commlib.utils.CommUtils.isListNotNull;
+
 /**
+ * BaseViewModel只使用 LiveData 方式去刷新数据
+ *  也有其实的实现方式（但不太建议） 参见{@link BaseMvvmViewModel}
+ *
  * @anthor yzh
  * @time 2019/11/27 10:07
  */
-public class BaseViewModel extends AndroidViewModel {
-    public int mPage = 1;//列表分页使用默认1开始
+public abstract class BaseViewModel extends AndroidViewModel {
+   // public int mPage = 1;//列表分页使用默认1开始
+    public ObservableInt mPage= new ObservableInt(1);
     private CompositeDisposable mCompositeDisposable;
-    private SmartRefreshLayout mRefreshLayout;
+    private UILiveData mUILiveData;
 
-    public void setRefreshLayout(SmartRefreshLayout refreshLayout) {
-        mRefreshLayout = refreshLayout;
-    }
+//    void initBundle(Bundle bundle) {
+//        onCreate(bundle);
+//    }
+
+    public abstract void onBundle(Bundle bundle);
 
     public BaseViewModel(@NonNull Application application) {
         super(application);
@@ -47,56 +65,151 @@ public class BaseViewModel extends AndroidViewModel {
     }
 
 
+
+    public void showDialog() {
+        getUILiveData().getShowDialogEvent().postValue(null);
+    }
+    public void showDialog(String title) {
+        getUILiveData().getShowDialogEvent().postValue(title);
+    }
+
+    public void dismissDialog() {
+        getUILiveData().getDismissDialogEvent().call();
+    }
+
     /**
-     *  请求数据后 为下拉刷新的RecyclerView 数据为空时添加空布局，并控制上拉加载状态、以及分页状态
-     * @param list
-     * @param adapter
-     * @param isRefresh 是否是下拉刷新
-     * @param <T>
+     * 跳转页面
+     *
+     * @param clz 所跳转的目的Activity类
      */
-//    public <T> void showEmptyView(List<T> list, BaseMvvmRecyclerAdapter adapter, boolean isRefresh, String contet){
-//        if(isListNull(list)){
-//            adapter.setEmptyView(getEmptyView(contet));
-//            if(mRefreshLayout!=null){
-//                mRefreshLayout.setEnableLoadMore(false);
-//                mRefreshLayout.finishRefresh();
-//                mRefreshLayout.finishLoadMore();
-//            }
-//            ConfigApi.EMPTY_VIEW=true;
-//        }else{
-//            //请求有数据时分页才++
-//            if(isRefresh){
-//                mPage=2;
-//            }else{
-//                mPage++;
-//            }
-//            if(mRefreshLayout!=null) {
-//                mRefreshLayout.setEnableLoadMore(true);
-//                mRefreshLayout.finishRefresh();
-//                mRefreshLayout.finishLoadMore();
-//            }
-//            ConfigApi.EMPTY_VIEW=false;
-//        }
-//        ALog.v(adapter.getEmptyViewCount()+"---adapter.getEmptyViewCount()---下一次请求的分页数："+mPage);
-//    }
-//
-//    private View emptyView;
-//    private View getEmptyView(String contet){
-//        if(emptyView==null){
-//            emptyView=getView(R.layout.empty_view);
-//            emptyView.setOnClickListener(v -> ToastUtils.showShort("点击emptyView刷新不够优雅，直接下拉emptyView刷新吧"));
-//            ViewGroup.LayoutParams lp=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-//            emptyView.setLayoutParams(lp);
-//        }
-//        CommUtils.setTextValues(emptyView.findViewById(R.id.tv_empty),contet);
-//        return emptyView;
-//    }
-//
-//
-//    private View getView(@LayoutRes int layoutId){
-//        return LayoutInflater.from(mContext).inflate(layoutId,null);
-//    }
+    public void startActivity(Class<?> clz) {
+        startActivity(clz, null);
+    }
+
+    /**
+     * 跳转页面
+     *
+     * @param clz    所跳转的目的Activity类
+     * @param bundle 跳转所携带的信息
+     */
+    public void startActivity(Class<?> clz, Bundle bundle) {
+        Map<String, Object> params = new HashMap<>();
+        params.put(ParameterType.CLASS, clz);
+        if (bundle != null) {
+            params.put(ParameterType.BUNDLE, bundle);
+        }
+        getUILiveData().startActivityEvent.postValue(params);
+    }
+
+    /**
+     * 跳转显示一个fragment的公共页面
+     *
+     * @param canonicalName 规范名 : Fragment.class.getCanonicalName()
+     */
+    public void startContainerActivity(String canonicalName) {
+        startContainerActivity(canonicalName, null);
+    }
+
+    /**
+     *跳转显示一个fragment的公共页面
+     *
+     * @param canonicalName 规范名 : Fragment.class.getCanonicalName()
+     * @param bundle
+     */
+    public void startContainerActivity(String canonicalName, Bundle bundle) {
+        ALog.i("canonicalName---"+canonicalName);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ParameterType.FARGMENT_NAME, canonicalName);
+        if (bundle != null) {
+            params.put(ParameterType.BUNDLE, bundle);
+        }
+        getUILiveData().startContainerActivityEvent.postValue(params);
+    }
 
 
+    public UILiveData getUILiveData() {
+        if (mUILiveData == null) {
+            mUILiveData = new UILiveData();
+        }
+        return mUILiveData;
+    }
 
+    /**
+     * UILiveData 的作用 放一些常用的事件，减少去new 重复的SingleLiveEvent()
+     */
+    public final class UILiveData extends SingleLiveEvent {
+        private SingleLiveEvent<String> showDialogEvent;
+        private SingleLiveEvent<Void> dismissDialogEvent;
+        private SingleLiveEvent<Map<String, Object>> startActivityEvent;
+        private SingleLiveEvent<Void> finishEvent;
+        private SingleLiveEvent<Void> onBackPressedEvent;
+        private SingleLiveEvent<Map<String, Object>> startContainerActivityEvent;
+        private SingleLiveEvent<?> commEvent;
+
+
+        //普通通用的一般回调事件
+        public SingleLiveEvent<?> getCommEvent() {
+            return commEvent = createLiveData(commEvent);
+        }
+
+
+        public SingleLiveEvent<String> getShowDialogEvent() {
+            return showDialogEvent = createLiveData(showDialogEvent);
+        }
+
+        public SingleLiveEvent<Void> getDismissDialogEvent() {
+            return dismissDialogEvent = createLiveData(dismissDialogEvent);
+        }
+
+        public SingleLiveEvent<Map<String, Object>> getStartActivityEvent() {
+            return startActivityEvent = createLiveData(startActivityEvent);
+        }
+
+
+        public SingleLiveEvent<Void> getFinishEvent() {
+            return finishEvent = createLiveData(finishEvent);
+        }
+
+        public SingleLiveEvent<Void> getOnBackPressedEvent() {
+            return onBackPressedEvent = createLiveData(onBackPressedEvent);
+        }
+        public SingleLiveEvent<Map<String, Object>> getStartContainerActivityEvent() {
+            return startContainerActivityEvent = createLiveData(startContainerActivityEvent);
+        }
+        private SingleLiveEvent createLiveData(SingleLiveEvent liveData) {
+            if (liveData == null) {
+                liveData = new SingleLiveEvent();
+            }
+            return liveData;
+        }
+
+        @Override
+        public void observe(LifecycleOwner owner, Observer observer) {
+            super.observe(owner, observer);
+        }
+    }
+
+    public static final class ParameterType {
+        public static String CLASS = "CLASS";
+        public static String BUNDLE = "BUNDLE";
+        public static String FARGMENT_NAME = "FARGMENT_NAME";
+    }
+
+
+    /**
+     * 请求成功后，设置下一次请求的分页
+     * @param isRefresh 是否是下拉刷新
+     */
+    public void setPage(ObservableArrayList mList,boolean isRefresh){
+        if(isListNotNull(mList)){
+            if(isRefresh){
+                //mPage=2;
+                mPage.set(2);
+            }else{
+                mPage.set(mPage.get()+1);
+               // mPage++;
+            }
+        }
+        ALog.i("下一次请求的分页数："+mPage.get());
+    }
 }

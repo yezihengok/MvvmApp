@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.commlib.base.BaseMvvmRecyclerAdapter;
+import com.example.commlib.base.mvvm.BaseMvvmRecyclerAdapter;
 import com.example.commlib.weight.recyclerview.DividerLine;
 
 import static com.example.commlib.weight.recyclerview.DividerLine.LineDrawMode.BOTH;

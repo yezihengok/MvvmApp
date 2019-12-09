@@ -11,7 +11,7 @@ public class ButtonUtils {
     private static int lastButtonId = -1;
 
     /**
-     * 判断两次点击的间隔，如果小于1000，则认为是多次无效点击
+     * 判断两次点击的间隔，如果小于500，则认为是多次无效点击
      *
      * @return
      */

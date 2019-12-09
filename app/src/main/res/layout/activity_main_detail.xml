@@ -4,9 +4,14 @@
     xmlns:bind="http://schemas.android.com/tools">
 
     <data>
-        <variable
+        <import type="com.example.mvvmapp.TestWeightActivity"/>
+<!--        <variable
             name="bannerBean"
-            type="com.example.mvvmapp.bean.WanAndroidBannerBean"/>
+            type="com.example.mvvmapp.bean.WanAndroidBannerBean"/>-->
+        <variable
+            name="viewModel"
+            type="com.example.mvvmapp.viewmodel.MainDetialViewModel"/>
+
     </data>
 
     <LinearLayout
@@ -41,33 +46,55 @@
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:scaleType="fitXY"
-                    app:displayImg="@{bannerBean.imagePath}"
+                    app:displayImg="@{viewModel.mBannerBean.imagePath}"
                     app:displayType="@{4}"
                     android:id="@+id/primary_message_details_img"/>
 
                 <TextView
                     android:layout_marginTop="5dp"
-                    android:text="@{bannerBean.title}"
+                    android:text="@{viewModel.mBannerBean.title}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
                 <!--示例DataBinding 字符串拼接 注意单引号-->
                 <TextView
                     android:layout_marginTop="5dp"
-                    android:text='@{"文章链接:"+bannerBean.url}'
+                    android:text='@{"文章链接:"+viewModel.mBannerBean.url}'
                     android:layout_width="match_parent"
+                    android:autoLink="web"
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:layout_marginTop="5dp"
-                    android:text='@{"当前下载进度:"+bannerBean.progressValue+"%"}'
+                    android:text='@{"当前下载进度:"+viewModel.mBannerBean.progressValue+"%"}'
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
                 <Button
-                    android:id="@+id/mUpdateButton"
+                    onBindingClick="@{viewModel.permissionsEvent}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="点击测试更新APK" />
+                    android:text="点击体验权限申请" />
+
+                <!--onBindingClick="@{viewModel.downLoadEvent}-->
+                <Button
+                    onBindingClick="@{viewModel.downloadClick}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.downBtnName}" />
+
+                <Button
+                    onBindingClick="@{viewModel.errorClick}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="点击体验闪退的乐趣" />
+
+                <Button
+                    onBindingClick="@{viewModel.fragmentClick}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="示例Fragment使用" />
+
+
             </LinearLayout>
         </ScrollView>
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>

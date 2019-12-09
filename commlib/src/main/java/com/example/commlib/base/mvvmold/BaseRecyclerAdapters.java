@@ -1,4 +1,4 @@
-package com.example.commlib.base;
+package com.example.commlib.base.mvvmold;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -18,7 +18,8 @@ import java.util.List;
  * @Author: yzh
  * @CreateDate: 2019/10/25 15:03
  */
-@Deprecated //这个是自己封装实现的BaseRecyclerAdapter,当然也能实现功能,但没有BaseQuickAdapter功能强大，建议使用 基于BaseQuickAdapter封装的BaseMvvmRecyclerAdapter。
+ //这个是自己封装实现的BaseRecyclerAdapter,当然也能实现功能,但没有BaseQuickAdapter功能强大，建议使用 基于BaseQuickAdapter封装的BaseMvvmRecyclerAdapter。
+
 public abstract class BaseRecyclerAdapters<T> extends RecyclerView.Adapter<BaseMvvmRecyclerHolder> {
     protected Context mContext;
     private List<T> list;//数据源

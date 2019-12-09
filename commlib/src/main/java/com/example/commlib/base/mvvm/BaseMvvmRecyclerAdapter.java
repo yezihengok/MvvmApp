@@ -1,4 +1,4 @@
-package com.example.commlib.base;
+package com.example.commlib.base.mvvm;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,13 +107,13 @@ public abstract class BaseMvvmRecyclerAdapter<T> extends BaseQuickAdapter<T, Bas
         }
         position -= this.getHeaderLayoutCount();
 
-        convert(helper, binding, item,position);
+        convert(helper,item,position);
     }
 
     /**
      * 填充RecyclerView适配器的方法
      */
-    public abstract void convert(BaseMvvmRecyclerAdapter.BindingViewHolder holder,ViewDataBinding binding, T item,int position);
+    public abstract void convert(BaseMvvmRecyclerAdapter.BindingViewHolder holder, T item,int position);
 
 
     public static class BindingViewHolder extends BaseViewHolder {

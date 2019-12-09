@@ -1,4 +1,4 @@
-package com.example.commlib.base;
+package com.example.commlib.base.mvvmold;
 
 import android.graphics.Bitmap;
 import android.util.SparseArray;

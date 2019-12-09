@@ -1,4 +1,4 @@
-package com.example.commlib.base;
+package com.example.commlib.base.mvvmold;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModel;
 import com.blankj.ALog;
 import com.example.commlib.R;
 import com.example.commlib.api.ConfigApi;
+import com.example.commlib.base.mvvm.BaseMvvmRecyclerAdapter;
 import com.example.commlib.utils.CommUtils;
 import com.example.commlib.utils.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -30,14 +31,18 @@ import static com.example.commlib.utils.CommUtils.isListNull;
 
 //import androidx.lifecycle.ViewModel;
 
+
 // 标准 ViewModel+liveData 使用 MainViewModel model = ViewModelProviders.of(this).get(MainViewModel.class);
-//去创建ViewModel ,且model 里 理应不应持有 Context 对象（acivity/fragment），虽然我这里  添加了对内存泄漏的处理
+//去创建ViewModel ,且model 里 理应不应持有 Context 对象（acivity/fragment），
+
+// 我这里的BaseMvvmViewModel 持有了context,  手动添加了对context 内存泄漏的处理。也是一种方法。但使用liveData自动管理生命周期更优雅。
 
 
 /**
- * @Author： yzh
- * @Date: 2019/11/11 17:09
- * @Use： ViewModel基类
+ * 建议使用{@link com.example.commlib.base.mvvm.BaseViewModel}
+ * Author： yzh
+ * Date: 2019/11/11 17:09
+ * Use： ViewModel基类
  */
 public  class BaseMvvmViewModel extends ViewModel {
 
@@ -98,7 +103,7 @@ public  class BaseMvvmViewModel extends ViewModel {
      * @param isRefresh 是否是下拉刷新
      * @param <T>
      */
-    public <T> void showEmptyView(List<T> list, BaseMvvmRecyclerAdapter adapter,boolean isRefresh, String contet){
+    public <T> void showEmptyView(List<T> list, BaseMvvmRecyclerAdapter adapter, boolean isRefresh, String contet){
         if(isListNull(list)){
             adapter.setEmptyView(getEmptyView(contet));
             if(mRefreshLayout!=null){

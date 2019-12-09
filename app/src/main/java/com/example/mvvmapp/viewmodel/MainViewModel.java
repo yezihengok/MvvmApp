@@ -3,13 +3,12 @@ package com.example.mvvmapp.viewmodel;
 import android.annotation.SuppressLint;
 
 import androidx.databinding.ObservableArrayList;
-import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.commlib.api.CommonObserver;
-import com.example.commlib.base.BaseMvvmActivity;
-import com.example.commlib.base.BaseMvvmRecyclerAdapter;
-import com.example.commlib.base.BaseMvvmViewModel;
+import com.example.commlib.api.CommObserver;
+import com.example.commlib.base.mvvmold.BaseMvvmActivity;
+import com.example.commlib.base.mvvm.BaseMvvmRecyclerAdapter;
+import com.example.commlib.base.mvvmold.BaseMvvmViewModel;
 import com.example.commlib.bean.ResultBeans;
 import com.example.commlib.event.SingleLiveEvent;
 import com.example.commlib.listener.ResultCallback;
@@ -47,7 +46,7 @@ public class MainViewModel extends BaseMvvmViewModel {
 
     public BaseMvvmRecyclerAdapter<ArticlesBean> mAdapter=new BaseMvvmRecyclerAdapter<ArticlesBean>(R.layout.item_message, mList) {
         @Override
-        public void convert(BindingViewHolder holder, ViewDataBinding binding, ArticlesBean item,int position) {
+        public void convert(BindingViewHolder holder, ArticlesBean item,int position) {
             holder.itemView.setOnClickListener(v -> {
                 //ToastUtils.showShort(item.getLink());
                 click(item.getLink());
@@ -73,7 +72,7 @@ public class MainViewModel extends BaseMvvmViewModel {
         //todo LiveData的优点：不用手动控制生命周期，不用担心内存泄露，数据变化时会收到通知。
         final MutableLiveData<List<WanAndroidBannerBean>> data = new MutableLiveData<>();
         HttpReq.getInstance().getWanBanner()
-                .subscribe(new CommonObserver<ResultBeans<WanAndroidBannerBean>>(mContext,true) {
+                .subscribe(new CommObserver<ResultBeans<WanAndroidBannerBean>>(mContext,true) {
                     @Override
                     public void success(ResultBeans<WanAndroidBannerBean>  bannerBean) {
                         //ResultBean<WanAndroidBannerBean> 不会为空不需要做为空判断，因为前面调用失败new一个空对象

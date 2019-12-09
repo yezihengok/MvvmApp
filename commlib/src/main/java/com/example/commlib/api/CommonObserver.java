@@ -1,11 +1,9 @@
 package com.example.commlib.api;
 
-import android.content.Context;
-
 import com.blankj.ALog;
+import com.example.commlib.base.mvvm.BaseViewModel;
 import com.example.commlib.bean.ResultBean;
 import com.example.commlib.bean.ResultBeans;
-import com.example.commlib.weight.LoadDialog;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -18,19 +16,13 @@ import static com.example.commlib.api.ConfigApi.ERROR_CODE;
  */
 public abstract class CommonObserver<T> implements Observer<T> {
 
-    protected LoadDialog dialog;
     private boolean isShowDialog;
-    private Context context;
+    private BaseViewModel mViewModel;
 
-    public CommonObserver(Context context, boolean isShowDialog) {
-        this.context = context;
+    public CommonObserver(BaseViewModel mViewModel, boolean isShowDialog) {
+        this.mViewModel = mViewModel;
         this.isShowDialog = isShowDialog;
-        if (this.isShowDialog && dialog == null) {
-            createLoading();
-        }
     }
-
-
 
     public abstract void success(T data);
 
@@ -40,14 +32,14 @@ public abstract class CommonObserver<T> implements Observer<T> {
     public void onError(Throwable e) {
         e.printStackTrace();
         error(e);
-        dismiss();
+        mViewModel.dismissDialog();
         ALog.e("onError==="+e.toString());
     }
 
     @Override
     public void onNext(T t) {
         success(t);
-        dismiss();
+        mViewModel.dismissDialog();
 
         if(t instanceof ResultBean){
             ResultBean<T> bean= (ResultBean<T>) t;
@@ -65,51 +57,15 @@ public abstract class CommonObserver<T> implements Observer<T> {
 
     @Override
     public void onSubscribe(Disposable d) {
-        if (isShowDialog && dialog != null) {
-            dialog.show();
+        if (isShowDialog ) {
+            mViewModel.showDialog();
         }
-
-
     }
 
     @Override
-    public void onComplete() {
-        dismiss();
+    public void onComplete() { mViewModel.dismissDialog();
     }
 
-    /**
-     * 请求时的进度条
-     * @param cancelAble 是否能取消，true_点击外部和返回时取消loading，false_点外部不能取消loading，
-     */
-    public void createLoading(final boolean... cancelAble) {
-        if (dialog != null && dialog.isShowing()) {
-            dialog.dismiss();
-            return;
-        }
-        try {
 
-            if (cancelAble == null || cancelAble.length == 0) {
-                dialog = new LoadDialog(context, "Loading...", false);//默认不可关闭
-            } else {
-                dialog = new LoadDialog(context, "Loading...", cancelAble[0]);
-            }
-            dialog.show();
-
-        } catch (Exception e) {
-            // handle exception
-            // Log.e(TAG, e.toString());
-        }
-
-    }
-
-    public void dismiss(){
-        if (dialog != null) {
-            try {
-                dialog.dismiss();
-                dialog = null;
-            } catch (Exception e) {
-            }
-        }
-    }
     
 }

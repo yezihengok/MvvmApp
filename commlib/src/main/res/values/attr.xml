@@ -61,4 +61,12 @@
     </declare-styleable>
 
 
+    <declare-styleable name="LineWaveVoiceView">
+        <attr name="voiceLineColor" format="color" />
+        <attr name="voiceLineWidth" format="dimension" />
+        <attr name="voiceTextSize" format="dimension" />
+        <attr name="voiceTextColor" format="color"/>
+        <attr name="updateSpeed" format="integer"/>
+    </declare-styleable>
+
 </resources>

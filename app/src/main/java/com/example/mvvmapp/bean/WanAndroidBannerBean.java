@@ -94,4 +94,16 @@ public class WanAndroidBannerBean implements Serializable {
     }
 
 
+    @Override
+    public String toString() {
+        return "WanAndroidBannerBean{" +
+                "progressValue=" + progressValue +
+                ", desc='" + desc + '\'' +
+                ", imagePath='" + imagePath + '\'' +
+                ", title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                ", images=" + images +
+                ", titles=" + titles +
+                '}';
+    }
 }
