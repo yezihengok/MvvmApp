@@ -2,6 +2,7 @@ package com.example.commlib.base.mvvm;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -35,10 +36,7 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         initViewDataBinding();
-
-
         //页面间传值
         if (savedInstanceState != null) {
             initBundle(savedInstanceState);
@@ -65,8 +63,7 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
             if (type instanceof ParameterizedType) {
                 modelClass = (Class) ((ParameterizedType) type).getActualTypeArguments()[1];
             } else {
-                //如果没有指定泛型参数，则默认使用BaseViewModel
-                modelClass = BaseViewModel.class;
+                modelClass = BaseViewModel.class;//如果没有指定泛型参数，则默认使用BaseViewModel
             }
             mViewModel = (VM) createViewModel(this, modelClass);
         }
@@ -96,7 +93,6 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
 
     /**
      * 初始化ViewModel
-     *
      * @return 继承BaseViewModel的ViewModel
      */
     public VM initMVVMViewModel(){
@@ -108,7 +104,7 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
      * 布局文件里的ViewModel默命名为viewModel（命名为其它请重写方法返回自定义的命名）
      */
     public int initVariableId() {
-        //因为commlib 是无法引用 主app 里的BR（com.example.mvvmapp.BR.viewModel）.所以我这里创建activity_meg.xml
+        //因为commlib 是无法引用 主app 里的BR（com.example.mvvmapp.BR.viewModel）.所以我这里创建activity_binding.xml
         // 里命名了一个占位的viewModel以便通过编译期，实际运行时会被替换主app里的BR
         return com.example.commlib.BR.viewModel;
     }
@@ -168,8 +164,6 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
     }
 
 
-
-
     /**
      * 请求时的进度条
      * @param cancelAble 是否能取消，true_点击外部和返回时取消loading，false_点外部不能取消loading，
@@ -220,6 +214,15 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
                 Bundle bundle = (Bundle) params.get(BaseViewModel.ParameterType.BUNDLE);
                 startActivity(clz, bundle);
             }
+        });
+
+        //跳入新页面(共享元素动画)
+        mViewModel.getUILiveData().getStartActivityAnimationEvent().observe(this,stringObjectMap -> {
+            Class<?> clz = (Class<?>) stringObjectMap.get(BaseViewModel.ParameterType.CLASS);
+            Bundle bundle = (Bundle) stringObjectMap.get(BaseViewModel.ParameterType.BUNDLE);
+            View v= (View) stringObjectMap.get(BaseViewModel.ParameterType.VIEW);
+            String name= (String) stringObjectMap.get(BaseViewModel.ParameterType.VIEW_NAME);
+            startActivityAnimation(clz,v,name,bundle);
         });
 
         //finish界面

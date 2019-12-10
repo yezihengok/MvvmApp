@@ -120,7 +120,8 @@ public class MainNewViewModel extends BaseViewModel {
                     data.setValue(mList);
                 });
 
-        addDisposable(subscribe);
+
+       /// addDisposable(subscribe);  不用再手动添加管理，LiveData不会导致内存泄漏
         return data;
     }
 

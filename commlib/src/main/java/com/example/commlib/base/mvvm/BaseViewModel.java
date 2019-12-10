@@ -2,6 +2,7 @@ package com.example.commlib.base.mvvm;
 
 import android.app.Application;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
@@ -26,8 +27,7 @@ import static com.example.commlib.utils.CommUtils.isListNotNull;
  * BaseViewModel只使用 LiveData 方式去刷新数据
  *  也有其实的实现方式（但不太建议） 参见{@link BaseMvvmViewModel}
  *
- * @anthor yzh
- * @time 2019/11/27 10:07
+ * anthor yzh time 2019/11/27 10:07
  */
 public abstract class BaseViewModel extends AndroidViewModel {
    // public int mPage = 1;//列表分页使用默认1开始
@@ -65,7 +65,6 @@ public abstract class BaseViewModel extends AndroidViewModel {
     }
 
 
-
     public void showDialog() {
         getUILiveData().getShowDialogEvent().postValue(null);
     }
@@ -79,7 +78,6 @@ public abstract class BaseViewModel extends AndroidViewModel {
 
     /**
      * 跳转页面
-     *
      * @param clz 所跳转的目的Activity类
      */
     public void startActivity(Class<?> clz) {
@@ -88,9 +86,7 @@ public abstract class BaseViewModel extends AndroidViewModel {
 
     /**
      * 跳转页面
-     *
      * @param clz    所跳转的目的Activity类
-     * @param bundle 跳转所携带的信息
      */
     public void startActivity(Class<?> clz, Bundle bundle) {
         Map<String, Object> params = new HashMap<>();
@@ -102,8 +98,32 @@ public abstract class BaseViewModel extends AndroidViewModel {
     }
 
     /**
+     * Activity跳转(共享元素动画)
+     * @param clz 要跳转的Activity的类名
+     */
+    public void startActivityAnimation(Class<?> clz, View view, String shareView) {
+        startActivityAnimation(clz,view,shareView,null);
+    }
+
+    /**
+     * Activity跳转(共享元素动画,带Bundle数据)
+     * @param clz 要跳转的Activity的类名
+     */
+    public void startActivityAnimation(Class<?> clz, View view, String shareName, Bundle bundle) {
+
+        Map<String, Object> params = new HashMap<>();
+        params.put(ParameterType.CLASS, clz);
+        params.put(ParameterType.VIEW, view);
+        params.put(ParameterType.VIEW_NAME, shareName);
+        if (bundle != null) {
+            params.put(ParameterType.BUNDLE, bundle);
+        }
+        getUILiveData().startActivityAnimationEvent.postValue(params);
+    }
+
+
+    /**
      * 跳转显示一个fragment的公共页面
-     *
      * @param canonicalName 规范名 : Fragment.class.getCanonicalName()
      */
     public void startContainerActivity(String canonicalName) {
@@ -112,11 +132,9 @@ public abstract class BaseViewModel extends AndroidViewModel {
 
     /**
      *跳转显示一个fragment的公共页面
-     *
      * @param canonicalName 规范名 : Fragment.class.getCanonicalName()
-     * @param bundle
      */
-    public void startContainerActivity(String canonicalName, Bundle bundle) {
+    protected void startContainerActivity(String canonicalName, Bundle bundle) {
         ALog.i("canonicalName---"+canonicalName);
         Map<String, Object> params = new HashMap<>();
         params.put(ParameterType.FARGMENT_NAME, canonicalName);
@@ -141,6 +159,7 @@ public abstract class BaseViewModel extends AndroidViewModel {
         private SingleLiveEvent<String> showDialogEvent;
         private SingleLiveEvent<Void> dismissDialogEvent;
         private SingleLiveEvent<Map<String, Object>> startActivityEvent;
+        private SingleLiveEvent<Map<String, Object>> startActivityAnimationEvent;
         private SingleLiveEvent<Void> finishEvent;
         private SingleLiveEvent<Void> onBackPressedEvent;
         private SingleLiveEvent<Map<String, Object>> startContainerActivityEvent;
@@ -161,10 +180,15 @@ public abstract class BaseViewModel extends AndroidViewModel {
             return dismissDialogEvent = createLiveData(dismissDialogEvent);
         }
 
+        //Activity跳转事件
         public SingleLiveEvent<Map<String, Object>> getStartActivityEvent() {
             return startActivityEvent = createLiveData(startActivityEvent);
         }
 
+        //Activity跳转(共享元素动画,带Bundle数据)事件
+        public SingleLiveEvent<Map<String, Object>> getStartActivityAnimationEvent() {
+            return startActivityAnimationEvent = createLiveData(startActivityAnimationEvent);
+        }
 
         public SingleLiveEvent<Void> getFinishEvent() {
             return finishEvent = createLiveData(finishEvent);
@@ -193,6 +217,9 @@ public abstract class BaseViewModel extends AndroidViewModel {
         public static String CLASS = "CLASS";
         public static String BUNDLE = "BUNDLE";
         public static String FARGMENT_NAME = "FARGMENT_NAME";
+        //Activity跳转共享元素动画
+        public static String VIEW = "VIEW";
+        public static String VIEW_NAME = "VIEW_NAME";
     }
 
 

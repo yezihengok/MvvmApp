@@ -204,23 +204,14 @@ public class RootActivity extends RxAppCompatActivity {
 
     /**
      * Activity跳转(共享元素动画)
-     *
      * @param clz 要跳转的Activity的类名
      */
     public void startActivityAnimation(Class<?> clz, View view, String shareView) {
-        if(isFastDoubleClick()){
-            return;
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            startActivity(new Intent(this, clz), ActivityOptions.makeSceneTransitionAnimation(this, view, shareView).toBundle());
-        } else {
-            startActivity(clz);
-        }
+        startActivityAnimation(clz,view,shareView,null);
     }
 
     /**
      * Activity跳转(共享元素动画,带Bundle数据)
-     *
      * @param clz 要跳转的Activity的类名
      */
     public void startActivityAnimation(Class<?> clz, View view, String shareView, Bundle bundle) {
@@ -416,9 +407,6 @@ public class RootActivity extends RxAppCompatActivity {
             refreshLayout.setEnableLoadMore(true);
         }
     }
-
-
-
 
 
 

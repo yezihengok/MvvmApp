@@ -3,11 +3,14 @@ package com.example.commlib.rx;
 import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import com.blankj.ALog;
+import com.example.commlib.R;
+import com.example.commlib.utils.CommUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -193,7 +196,7 @@ public class RxTimerUtil {
     /**
      * 每隔xx后执行next操作
      */
-    public static void countDownTimer(final long seconds, final String name,ITimer iTimer) {
+    public static void countDownTimer(final long seconds, final String name,TextView tv,ITimer iTimer) {
         if(mDisposableMap.containsKey(name)){
             ALog.e(TextUtils.concat("已经有定时器【",name,"】在执行了，本次重复定时器不在执行").toString());
             return;
@@ -207,12 +210,30 @@ public class RxTimerUtil {
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())//ui线程中进行控件更新
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        if(tv!=null){
+                            tv.setVisibility(View.VISIBLE);
+                            CommUtils.setTextColor(tv, R.color.color_write);
+                        }
+
+                    }
+                })
                 .subscribe(new Observer<Long>() {
             @Override
             public void onSubscribe(Disposable disposable) {mDisposableMap.put(name,disposable); }
             @Override
             public void onNext(Long num) {
                 //tv.setText("剩余" + num + "秒");
+
+                if(tv!=null){
+                    if(num<=3){
+                        CommUtils.setTextColor(tv, R.color.color_red);
+                    }
+                    tv.setText(String.valueOf(num));
+                }
+
                 iTimer.doNext(num,num==0);
             }
             @Override
@@ -224,6 +245,10 @@ public class RxTimerUtil {
                // tv.setEnabled(true);
                // tv.setText("发送验证码");
                 cancel(name);
+                if(tv!=null){
+                    tv.setVisibility(View.GONE);
+                }
+
             }
         });
     }

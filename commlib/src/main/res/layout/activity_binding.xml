@@ -11,7 +11,7 @@
         <!-- 随便引用一个对象，只是为了生成一个占位的BR.itemBean-->
         <variable
             name="itemBean"
-            type="com.example.commlib.base.mvvmold.BaseMvvmViewModel"/>
+            type="Object"/>
     </data>
 
     <LinearLayout

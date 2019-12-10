@@ -50,6 +50,10 @@ public class MainActivity extends BaseMvvmActivity<ActivityMainBinding, MainView
 
     @Override
     protected MainViewModel initMVVMViewModel() {
+        //常规的binding的写法
+        //MessageViewModel mViewModel=new MessageViewModel(this);
+        //mBinding.setViewModel(mViewModel);
+
         //MainViewModel model = ViewModelProviders.of(this).get(MainViewModel.class);
         return new MainViewModel(this);
     }

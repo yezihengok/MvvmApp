@@ -69,11 +69,7 @@ public class ContainerActivity extends BaseActivity {
                 fragment.setArguments(args);
             }
             return fragment;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
         throw new RuntimeException("fragment initialization failed!!");

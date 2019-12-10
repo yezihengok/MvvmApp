@@ -11,6 +11,7 @@ import io.reactivex.disposables.Disposable;
 import static com.example.commlib.api.ConfigApi.ERROR_CODE;
 
 /**
+ * ViewModel里 使用的CommonObserver
  * date : 2019/10/21
  * desc : 请求是否加载等待框
  */

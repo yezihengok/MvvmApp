@@ -28,6 +28,22 @@ import java.util.List;
 public abstract class BaseMvvmRecyclerAdapter<T> extends BaseQuickAdapter<T, BaseMvvmRecyclerAdapter.BindingViewHolder> {
     private ObservableList<T> mTObservableList;//让list数据变更后自动notifyItemRangeChanged刷新
 
+    public RecyclerView recyclerView;
+
+    //在RecyclerView提供数据的时候调用
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        this.recyclerView = recyclerView;
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        this.recyclerView = null;
+    }
+
+
     protected BaseMvvmRecyclerAdapter(@LayoutRes int layoutResId, @Nullable List<T> data) {
         super(layoutResId, data);
         this.mTObservableList = data == null ? new ObservableArrayList<T>() : (ObservableList<T>) data;
