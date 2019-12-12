@@ -5,7 +5,7 @@ import com.example.commlib.base.mvvm.BaseViewModel;
 import com.example.commlib.rx.RxTimerUtil;
 import com.example.commlib.utils.animations.Other;
 import com.example.commlib.utils.animations.RxAnimation;
-import com.example.commlib.weight.QMUIProgressBar;
+import com.example.commlib.weight.IProgressBar;
 import com.example.mvvmapp.databinding.ActivityTestWeightBinding;
 
 import java.util.concurrent.TimeUnit;
@@ -34,9 +34,9 @@ public class TestWeightActivity extends BaseActivity<ActivityTestWeightBinding, 
 
     @Override
     protected void initView() {
-        mBinding.mCircleProgressBar.setQMUIProgressBarTextGenerator(new QMUIProgressBar.QMUIProgressBarTextGenerator() {
+        mBinding.mCircleProgressBar.setIProgressBarTextGenerator(new IProgressBar.IProgressBarTextGenerator() {
             @Override
-            public String generateText(QMUIProgressBar progressBar, int value, int maxValue) {
+            public String generateText(IProgressBar progressBar, int value, int maxValue) {
                 if(value==maxValue){
                     mBinding.mCircleProgressBar.setProgress(0);
                     RxTimerUtil.cancel("TestWeightActivity");
@@ -45,6 +45,7 @@ public class TestWeightActivity extends BaseActivity<ActivityTestWeightBinding, 
             }
         });
 
+        //倒计时工具类
         RxTimerUtil.interval(100, TimeUnit.MILLISECONDS,"TestWeightActivity",(number, timerName) -> {
             mBinding.mCircleProgressBar.setProgress(num++);
 

@@ -14,6 +14,7 @@ import com.example.commlib.utils.CommUtils;
 import com.example.commlib.utils.GlideImageLoader;
 import com.example.commlib.utils.StatusBarUtil;
 import com.example.commlib.utils.ToastUtils;
+import com.example.commlib.webview.WebViewActivity;
 import com.example.commlib.weight.banner.BannerConfig;
 import com.example.commlib.weight.banner.Transformer;
 import com.example.mvvmapp.MainDetailActivity;
@@ -123,7 +124,7 @@ public class MainNewActivity extends BaseActivity<ActivityNewMainBinding, MainNe
         if (AppUtils.isDebug()) {
             switch (keyCode) {
                 case KeyEvent.KEYCODE_VOLUME_DOWN:
-                        startActivity(TestWeightActivity.class);
+                    WebViewActivity.loadUrl("https://github.com/yezihengok",null);
                     return super.onKeyDown(keyCode, event);
                 case KeyEvent.KEYCODE_VOLUME_UP:
                     return super.onKeyDown(keyCode, event);

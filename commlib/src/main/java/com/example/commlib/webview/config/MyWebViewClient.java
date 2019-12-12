@@ -81,6 +81,7 @@ public class MyWebViewClient extends WebViewClient {
     // SSL Error. Failed to validate the certificate chain,error: java.security.cert.CertPathValidatorExcept
     @Override
     public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+        ALog.e(error.toString());
 //        if(isDbug){
 //            //测试环境默认信任所有htpps的证书
             handler.proceed();

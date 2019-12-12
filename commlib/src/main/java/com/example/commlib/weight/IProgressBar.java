@@ -43,7 +43,7 @@ import com.example.commlib.utils.DensityUtil;
  * @author cginechen
  * @date 2015-07-29
  */
-public class QMUIProgressBar extends View {
+public class IProgressBar extends View {
 
     public final static int TYPE_RECT = 0;
     public final static int TYPE_CIRCLE = 1;
@@ -56,7 +56,7 @@ public class QMUIProgressBar extends View {
     private final static int PENDING_VALUE_NOT_SET = -1;
     /*circle_progress member*/
     public static int DEFAULT_STROKE_WIDTH = DensityUtil.dip2px(40);
-    QMUIProgressBarTextGenerator mQMUIProgressBarTextGenerator;
+    IProgressBarTextGenerator mIProgressBarTextGenerator;
     /*rect_progress member*/
     RectF mBgRect;
     RectF mProgressRect;
@@ -85,43 +85,43 @@ public class QMUIProgressBar extends View {
     private Point mCenterPoint;
 
 
-    public QMUIProgressBar(Context context) {
+    public IProgressBar(Context context) {
         super(context);
         setup(context, null);
     }
 
-    public QMUIProgressBar(Context context, AttributeSet attrs) {
+    public IProgressBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         setup(context, attrs);
     }
 
-    public QMUIProgressBar(Context context, AttributeSet attrs, int defStyleAttr) {
+    public IProgressBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setup(context, attrs);
     }
 
     public void setup(Context context, AttributeSet attrs) {
-        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.QMUIProgressBar);
-        mType = array.getInt(R.styleable.QMUIProgressBar_qmui_type, TYPE_RECT);
-        mProgressColor = array.getColor(R.styleable.QMUIProgressBar_qmui_progress_color, DEFAULT_PROGRESS_COLOR);
-        mBackgroundColor = array.getColor(R.styleable.QMUIProgressBar_qmui_background_color, DEFAULT_BACKGROUND_COLOR);
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.IProgressBar);
+        mType = array.getInt(R.styleable.IProgressBar_qmui_type, TYPE_RECT);
+        mProgressColor = array.getColor(R.styleable.IProgressBar_qmui_progress_color, DEFAULT_PROGRESS_COLOR);
+        mBackgroundColor = array.getColor(R.styleable.IProgressBar_qmui_background_color, DEFAULT_BACKGROUND_COLOR);
 
-        mMaxValue = array.getInt(R.styleable.QMUIProgressBar_qmui_max_value, 100);
-        mValue = array.getInt(R.styleable.QMUIProgressBar_qmui_value, 0);
+        mMaxValue = array.getInt(R.styleable.IProgressBar_qmui_max_value, 100);
+        mValue = array.getInt(R.styleable.IProgressBar_qmui_value, 0);
 
-        mRoundCap = array.getBoolean(R.styleable.QMUIProgressBar_qmui_stroke_round_cap, false);
+        mRoundCap = array.getBoolean(R.styleable.IProgressBar_qmui_stroke_round_cap, false);
 
         mTextSize = DEFAULT_TEXT_SIZE;
-        if (array.hasValue(R.styleable.QMUIProgressBar_android_textSize)) {
-            mTextSize = array.getDimensionPixelSize(R.styleable.QMUIProgressBar_android_textSize, DEFAULT_TEXT_SIZE);
+        if (array.hasValue(R.styleable.IProgressBar_android_textSize)) {
+            mTextSize = array.getDimensionPixelSize(R.styleable.IProgressBar_android_textSize, DEFAULT_TEXT_SIZE);
         }
         mTextColor = DEFAULT_TEXT_COLOR;
-        if (array.hasValue(R.styleable.QMUIProgressBar_android_textColor)) {
-            mTextColor = array.getColor(R.styleable.QMUIProgressBar_android_textColor, DEFAULT_TEXT_COLOR);
+        if (array.hasValue(R.styleable.IProgressBar_android_textColor)) {
+            mTextColor = array.getColor(R.styleable.IProgressBar_android_textColor, DEFAULT_TEXT_COLOR);
         }
 
         if (mType == TYPE_CIRCLE) {
-            mStrokeWidth = array.getDimensionPixelSize(R.styleable.QMUIProgressBar_qmui_stroke_width, DEFAULT_STROKE_WIDTH);
+            mStrokeWidth = array.getDimensionPixelSize(R.styleable.IProgressBar_qmui_stroke_width, DEFAULT_STROKE_WIDTH);
         }
         array.recycle();
         configPaint(mTextColor, mTextSize, mRoundCap);
@@ -179,7 +179,7 @@ public class QMUIProgressBar extends View {
      * 设置进度文案的文字大小
      *
      * @see #setTextColor(int)
-     * @see #setQMUIProgressBarTextGenerator(QMUIProgressBarTextGenerator)
+     * @see #setIProgressBarTextGenerator(IProgressBarTextGenerator)
      */
     public void setTextSize(int textSize) {
         mTextPaint.setTextSize(textSize);
@@ -190,7 +190,7 @@ public class QMUIProgressBar extends View {
      * 设置进度文案的文字颜色
      *
      * @see #setTextSize(int)
-     * @see #setQMUIProgressBarTextGenerator(QMUIProgressBarTextGenerator)
+     * @see #setIProgressBarTextGenerator(IProgressBarTextGenerator)
      */
     public void setTextColor(int textColor) {
         mTextPaint.setColor(textColor);
@@ -206,14 +206,14 @@ public class QMUIProgressBar extends View {
     }
 
     /**
-     * 通过 {@link QMUIProgressBarTextGenerator} 设置进度文案
+     * 通过 {@link IProgressBarTextGenerator} 设置进度文案
      */
-    public void setQMUIProgressBarTextGenerator(QMUIProgressBarTextGenerator QMUIProgressBarTextGenerator) {
-        mQMUIProgressBarTextGenerator = QMUIProgressBarTextGenerator;
+    public void setIProgressBarTextGenerator(IProgressBarTextGenerator IProgressBarTextGenerator) {
+        mIProgressBarTextGenerator = IProgressBarTextGenerator;
     }
 
-    public QMUIProgressBarTextGenerator getQMUIProgressBarTextGenerator() {
-        return mQMUIProgressBarTextGenerator;
+    public IProgressBarTextGenerator getIProgressBarTextGenerator() {
+        return mIProgressBarTextGenerator;
     }
 
     @Override
@@ -229,8 +229,8 @@ public class QMUIProgressBar extends View {
             }
         }
 
-        if (mQMUIProgressBarTextGenerator != null) {
-            mText = mQMUIProgressBarTextGenerator.generateText(this, mValue, mMaxValue);
+        if (mIProgressBarTextGenerator != null) {
+            mText = mIProgressBarTextGenerator.generateText(this, mValue, mMaxValue);
         }
         if(((mType == TYPE_RECT || mType == TYPE_ROUND_RECT) && mBgRect == null) ||
                 (mType == TYPE_CIRCLE && mCenterPoint == null)){
@@ -338,14 +338,14 @@ public class QMUIProgressBar extends View {
         mMaxValue = maxValue;
     }
 
-    public interface QMUIProgressBarTextGenerator {
+    public interface IProgressBarTextGenerator {
         /**
-         * 设置进度文案, {@link QMUIProgressBar} 会在进度更新时调用该方法获取要显示的文案
+         * 设置进度文案, {@link IProgressBar} 会在进度更新时调用该方法获取要显示的文案
          *
          * @param value    当前进度值
          * @param maxValue 最大进度值
          * @return 进度文案
          */
-        String generateText(QMUIProgressBar progressBar, int value, int maxValue);
+        String generateText(IProgressBar progressBar, int value, int maxValue);
     }
 }

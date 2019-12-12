@@ -32,7 +32,7 @@
     </declare-styleable>
 
 
-    <declare-styleable name="QMUIProgressBar">
+    <declare-styleable name="IProgressBar">
         <attr name="qmui_type" format="enum">
             <enum name="type_rect" value="0"/>
             <enum name="type_circle" value="1"/>

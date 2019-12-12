@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal">
-                <com.example.commlib.weight.QMUIProgressBar
+                <com.example.commlib.weight.IProgressBar
                     android:id="@+id/mCircleProgressBar"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
