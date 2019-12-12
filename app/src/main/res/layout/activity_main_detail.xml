@@ -94,6 +94,17 @@
                     android:layout_height="wrap_content"
                     android:text="示例Fragment使用" />
 
+                <Button
+                    android:onClick="@{()->viewModel.toWebView()}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="示例网页加载出错显示默认网页" />
+
+                <Button
+                    android:onClick="@{()->viewModel.toTestWeight()}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="跳转测试控件" />
 
             </LinearLayout>
         </ScrollView>

@@ -30,5 +30,24 @@
             android:process=":error_activity"
             android:theme="@style/NoTitleDialog" />
         <activity android:name=".base.ContainerActivity" />
+
+        <activity android:name=".webview.WebViewActivity"
+            android:screenOrientation="portrait"
+            android:hardwareAccelerated="true"
+            android:theme="@style/WebViewTheme"
+            android:launchMode="singleTask">
+
+            <!--需要添加下面的intent-filter配置-->
+            <intent-filter tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!--使用http，则只能打开http开头的网页-->
+                <data android:scheme="https" />
+            </intent-filter>
+        </activity>
+
+
     </application>
 </manifest>

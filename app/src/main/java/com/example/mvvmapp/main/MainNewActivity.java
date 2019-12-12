@@ -102,6 +102,7 @@ public class MainNewActivity extends BaseActivity<ActivityNewMainBinding, MainNe
                     }
                     mBinding.include.mBanner.update(images,titles)
                             .setOnBannerListener(position -> {
+
                                 ToastUtils.showShort(dataBeans.get(position).getUrl());
                                 Bundle bundle=new Bundle();
                                 bundle.putSerializable("bannerBean",dataBeans.get(position));
@@ -125,13 +126,12 @@ public class MainNewActivity extends BaseActivity<ActivityNewMainBinding, MainNe
                         startActivity(TestWeightActivity.class);
                     return super.onKeyDown(keyCode, event);
                 case KeyEvent.KEYCODE_VOLUME_UP:
-
-
                     return super.onKeyDown(keyCode, event);
                 case KeyEvent.KEYCODE_MENU:
 
                     return true;
                 case KeyEvent.KEYCODE_BACK:
+
                     return true;
             }
         }

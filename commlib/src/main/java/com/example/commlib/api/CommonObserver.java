@@ -61,6 +61,8 @@ public abstract class CommonObserver<T> implements Observer<T> {
         if (isShowDialog ) {
             mViewModel.showDialog();
         }
+        //调用addSubscribe()添加Disposable，请求与View周期同步
+        mViewModel.addDisposable(d);
     }
 
     @Override

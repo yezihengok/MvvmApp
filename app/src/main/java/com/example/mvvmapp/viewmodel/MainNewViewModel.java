@@ -14,6 +14,7 @@ import com.example.commlib.base.mvvm.BaseViewModel;
 import com.example.commlib.bean.ResultBeans;
 import com.example.commlib.event.SingleLiveEvent;
 import com.example.commlib.utils.ToastUtils;
+import com.example.commlib.webview.WebViewActivity;
 import com.example.mvvmapp.R;
 import com.example.mvvmapp.api.HttpReq;
 import com.example.mvvmapp.bean.ArticlesBean;
@@ -29,7 +30,7 @@ import static com.example.commlib.utils.CommUtils.isListNotNull;
 
 /**
  *
- * @Author: yzh
+ * Author: yzh
  * @CreateDate: 2019/11/16 11:58
  */
 @SuppressLint("CheckResult")
@@ -54,7 +55,8 @@ public class MainNewViewModel extends BaseViewModel {
             holder.itemView.setOnClickListener(v -> {
                 //当然可以直接在这toast,这里示例：回调给activity去处理
                 //ToastUtils.showShort(item.getLink());
-                toastEvent.setValue(item.getLink());
+                toastEvent.setValue("试试点击banner");
+                WebViewActivity.loadUrl(item.getLink(),null);
             });
         }
     };
@@ -72,7 +74,7 @@ public class MainNewViewModel extends BaseViewModel {
                 .subscribe(new CommonObserver<ResultBeans<WanAndroidBannerBean>>(this,true) {
                     @Override
                     public void success(ResultBeans<WanAndroidBannerBean>  bannerBean) {
-                        //ResultBean<WanAndroidBannerBean> 不会为空不需要做为空判断，因为前面调用失败new一个空对象
+                        //ResultBean<WanAndroidBannerBean> 不会为空不需要做为空判断，因为前面调用onErrorReturn失败new一个空对象
  //                       if (bannerBean != null){
 //                           data.setValue(bannerBean);
 //                        } else {
@@ -120,8 +122,8 @@ public class MainNewViewModel extends BaseViewModel {
                     data.setValue(mList);
                 });
 
-
-       /// addDisposable(subscribe);  不用再手动添加管理，LiveData不会导致内存泄漏
+        //没有用 CommonObserver 这里添加addDisposable
+        addDisposable(subscribe);
         return data;
     }
 

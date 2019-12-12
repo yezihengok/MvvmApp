@@ -28,7 +28,7 @@ import okhttp3.ResponseBody;
 import static com.example.commlib.utils.CommUtils.getInstallAppIntent;
 
 /**
- *  功能与MainDetailActivity一样  --只是为了 示例Fragment 使用
+ *  除了下载功能与MainDetailActivity一样  --只是为了 示例Fragment 使用
  * Anthor yzh Date 2019/12/9 13:57
  */
 public class TestDetailFragment extends BaseFragment<ActivityMainDetailBinding,MainDetialViewModel> {
@@ -52,7 +52,7 @@ public class TestDetailFragment extends BaseFragment<ActivityMainDetailBinding,M
                 }
                 @Override
                 public void forbitPermissons() {
-                    ToastUtils.showShort("您拒绝了存储权限");
+                    ToastUtils.showShort("您拒绝了相机权限");
                 }
             });
         });

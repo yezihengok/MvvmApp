@@ -1,7 +1,7 @@
 package com.example.mvvmapp;
 
-import com.example.commlib.base.mvvmold.BaseMvvmActivity;
-import com.example.commlib.base.mvvmold.BaseMvvmViewModel;
+import com.example.commlib.base.mvvm.BaseActivity;
+import com.example.commlib.base.mvvm.BaseViewModel;
 import com.example.commlib.rx.RxTimerUtil;
 import com.example.commlib.utils.animations.Other;
 import com.example.commlib.utils.animations.RxAnimation;
@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  * @anthor yzh
  * @time 2019/11/30 15:07
  */
-public class TestWeightActivity extends BaseMvvmActivity<ActivityTestWeightBinding, BaseMvvmViewModel> {
+public class TestWeightActivity extends BaseActivity<ActivityTestWeightBinding, BaseViewModel> {
 
     int num=0;
     @Override
@@ -22,9 +22,14 @@ public class TestWeightActivity extends BaseMvvmActivity<ActivityTestWeightBindi
         return R.layout.activity_test_weight;
     }
 
+//    @Override
+//    protected BaseMvvmViewModel initMVVMViewModel() {
+//        return null;
+//    }
+
     @Override
-    protected BaseMvvmViewModel initMVVMViewModel() {
-        return null;
+    public void initViewObservable() {
+
     }
 
     @Override

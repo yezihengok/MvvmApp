@@ -50,7 +50,7 @@
                 android:textSize="16sp"
                 android:singleLine="true"
                 android:ellipsize="end"
-                android:textColor="@{(itemBean.visible==1)?@color/colorPrimary:@color/colorAccent}"
+                android:textColor="@{(itemBean.userId==-1)?@color/ui_gray:@color/ui_black}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -60,20 +60,35 @@
                 android:text="@{itemBean.desc}"
                 android:textSize="14sp"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/ui_black"
+                android:textColor="@color/ui_light_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                tools:text="2019-10-23 17:06:47"
+                android:text="@{itemBean.chapterName}"
+                android:textSize="14sp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/new_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/tv_date"
                 tools:text="2019-10-23 17:06:47"
-                android:text="@{itemBean.title}"
+                android:text="@{itemBean.niceDate}"
                 android:textSize="13sp"
                 android:layout_marginTop="5dp"
+                android:gravity="right"
                 android:textColor="@color/ui_light_gray"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
+            </LinearLayout>
 
         </LinearLayout>
         <ImageView

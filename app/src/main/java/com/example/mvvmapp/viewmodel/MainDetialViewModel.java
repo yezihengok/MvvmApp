@@ -10,7 +10,9 @@ import com.blankj.ALog;
 import com.example.commlib.base.mvvm.BaseViewModel;
 import com.example.commlib.event.SingleLiveEvent;
 import com.example.commlib.listener.ClickListener;
+import com.example.commlib.webview.WebViewActivity;
 import com.example.mvvmapp.TestDetailFragment;
+import com.example.mvvmapp.TestWeightActivity;
 import com.example.mvvmapp.bean.WanAndroidBannerBean;
 
 /**
@@ -52,4 +54,14 @@ public class MainDetialViewModel extends BaseViewModel {
     //跳转测试Fragment
     public ClickListener fragmentClick=(v) -> startContainerActivity(TestDetailFragment.class.getCanonicalName(), bundle);
 
+    //跳转网页
+    public void toWebView(){
+       // WebViewActivity.loadUrl("http://www.baidu.com",null);
+        WebViewActivity.loadUrl("http://www.baidu.commmmmmmm",null);
+    }
+
+    //跳转
+    public void toTestWeight(){
+        startActivity(TestWeightActivity.class);
+    }
 }

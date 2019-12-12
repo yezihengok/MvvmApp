@@ -7,16 +7,13 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.commlib.base.RootActivity;
+import com.example.commlib.utils.ClassUtil;
 import com.example.commlib.weight.LoadDialog;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.Map;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -29,7 +26,7 @@ import io.reactivex.disposables.Disposable;
  */
 public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseViewModel> extends RootActivity {
     public V mBinding;
-    public VM mViewModel;
+    public VM mViewModel;//如果某个页面很简单不需要单独的ViewModel去展示。VM直接传BaseViewModel即可，mViewModel对象将不会被创建
     private CompositeDisposable mCompositeDisposable;
     protected LoadDialog dialog;
     @Override
@@ -58,23 +55,17 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
         mViewModel = initMVVMViewModel();
 
         if (mViewModel == null) {
-            Class modelClass;
-            Type type = getClass().getGenericSuperclass();
-            if (type instanceof ParameterizedType) {
-                modelClass = (Class) ((ParameterizedType) type).getActualTypeArguments()[1];
-            } else {
-                modelClass = BaseViewModel.class;//如果没有指定泛型参数，则默认使用BaseViewModel
-            }
-            mViewModel = (VM) createViewModel(this, modelClass);
+            createViewModel();
         }
 
         if (mViewModel != null) {
             mBinding.setVariable(initVariableId(), mViewModel);
+
+            registorLiveDataCallBack();
+            //页面事件监听的方法 用于ViewModel层转到View层的事件注册
+            initViewObservable();
         }
 
-        registorLiveDataCallBack();
-        //页面事件监听的方法 用于ViewModel层转到View层的事件注册
-        initViewObservable();
 
     }
 
@@ -92,13 +83,12 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
     protected abstract int getLayoutId();
 
     /**
-     * 初始化ViewModel
-     * @return 继承BaseViewModel的ViewModel
+     * 不使用类名传来的ViewModel，使用临时自定义的ViewModel
+     * @return 重写次方法返回
      */
     public VM initMVVMViewModel(){
         return null;
     }
-
 
     /**
      * 布局文件里的ViewModel默命名为viewModel（命名为其它请重写方法返回自定义的命名）
@@ -159,8 +149,11 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
     /**
      * 创建ViewModel
      */
-    public <T extends ViewModel> T createViewModel(FragmentActivity activity, Class<T> cls) {
-        return ViewModelProviders.of(activity).get(cls);
+    private void createViewModel() {
+        Class<VM> viewModelClass = ClassUtil.getViewModel(this);
+        if (viewModelClass != null) {
+            this.mViewModel = ViewModelProviders.of(this).get(viewModelClass);
+        }
     }
 
 

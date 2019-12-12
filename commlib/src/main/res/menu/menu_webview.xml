@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/actionbar_share"
+        android:orderInCategory="100"
+        android:title="分享到"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/actionbar_cope"
+        android:orderInCategory="100"
+        android:title="复制链接"
+        app:showAsAction="never" />
+
+
+    <item
+        android:id="@+id/actionbar_webview_refresh"
+        android:orderInCategory="100"
+        android:title="刷新页面"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/actionbar_open"
+        android:orderInCategory="100"
+        android:title="浏览器打开"
+        app:showAsAction="never" />
+</menu>

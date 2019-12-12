@@ -33,7 +33,6 @@ import com.example.commlib.base.mvvm.BaseMvvmRecyclerAdapter;
 import com.example.commlib.base.mvvmold.BaseRecyclerAdapters;
 import com.example.commlib.listener.Listener;
 import com.example.commlib.utils.CommUtils;
-import com.example.commlib.utils.DensityUtil;
 import com.example.commlib.utils.StatusNavUtils;
 import com.example.commlib.utils.ToastUtils;
 import com.example.commlib.utils.permission.PermissionsUtils;
@@ -70,9 +69,9 @@ public class RootActivity extends RxAppCompatActivity {
         Configuration mConfiguration = this.getResources().getConfiguration(); //获取设置的配置信息
         int orientation = mConfiguration.orientation; //获取屏幕方向
         if (orientation == mConfiguration.ORIENTATION_PORTRAIT) {
-            DensityUtil.setDensity(getApplication(), this,600);
+         //   DensityUtil.setDensity(getApplication(), this,600);   根据自己项目设计图去修改值--我这里先屏蔽
         }else {
-            DensityUtil.setDensity(getApplication(), this,960);
+          //  DensityUtil.setDensity(getApplication(), this,960);
         }
         mContext = this;
 
@@ -120,10 +119,10 @@ public class RootActivity extends RxAppCompatActivity {
         //设置相应的  设计图  dp  比率
         if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
             //"横屏"
-            DensityUtil.setDensity(getApplication(), this,960);
+           // DensityUtil.setDensity(getApplication(), this,960);
         }else{
             // "竖屏"
-            DensityUtil.setDensity(getApplication(), this,600);
+           // DensityUtil.setDensity(getApplication(), this,600);
         }
     }
 

@@ -55,7 +55,7 @@ public class MainDetailActivity extends BaseActivity<ActivityMainDetailBinding, 
 
     @Override
     protected void initView() {
-        StatusBarUtil.setColorNoTranslucent(mContext, getColors(R.color.colorPrimary));
+        StatusBarUtil.setColorNoTranslucent(mContext, getColors(R.color.colorAccent));
         //示例如何动态的添加一个BindingView
         mTitleLayoutBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.title_layout,mBinding.topLayout, false);
         mBinding.topLayout.addView(mTitleLayoutBinding.getRoot());

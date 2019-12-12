@@ -59,6 +59,8 @@
     <color name="ui_activity_bg">#F5F5F5</color> <!-- 用于界面底色背景 -->
 
     <color name="colorAccent">#FF4081</color>
-
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPink">#ffb6cf</color>
 
 </resources>

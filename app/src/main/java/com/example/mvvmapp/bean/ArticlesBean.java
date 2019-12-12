@@ -22,7 +22,7 @@ public class ArticlesBean  {
      * visible : 1
      * zan : 0
      */
-
+    private int userId;
     private String apkLink;
     private String author;
     private int chapterId;
@@ -48,6 +48,13 @@ public class ArticlesBean  {
     // 可能没有author 有 shareUser
     private String shareUser;
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
     public String getShareUser() {
         return shareUser;

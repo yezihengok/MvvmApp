@@ -32,7 +32,7 @@ import static com.example.commlib.utils.CommUtils.isListNotNull;
  * @Author: yzh
  * @CreateDate: 2019/11/16 11:58
  */
-@SuppressLint("CheckResult")
+
 public class MainViewModel extends BaseMvvmViewModel {
 
     //使用LiveData 通知Activity去toast

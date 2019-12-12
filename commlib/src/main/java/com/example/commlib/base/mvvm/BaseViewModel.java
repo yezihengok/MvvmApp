@@ -49,7 +49,7 @@ public abstract class BaseViewModel extends AndroidViewModel {
     //1、可以将Rxjava 订阅的时间添至CompositeDisposable进来，Activity销毁时切断订阅
     //2、也可以用 RxLifeCycle 将Rxjava绑定Acitivty/Fragment,销毁时自动取消订阅
 
-    protected void addDisposable(Disposable disposable) {
+    public void addDisposable(Disposable disposable) {
         if (this.mCompositeDisposable == null) {
             this.mCompositeDisposable = new CompositeDisposable();
         }
