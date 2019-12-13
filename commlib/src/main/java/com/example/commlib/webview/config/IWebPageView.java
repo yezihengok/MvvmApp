@@ -2,8 +2,6 @@ package com.example.commlib.webview.config;
 
 import android.content.Intent;
 import android.view.View;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
@@ -82,10 +80,8 @@ public interface IWebPageView {
 
     /**
      * 网页加载失败
-     * @param request
-     * @param error
      */
-    void onReceivedError(WebResourceRequest request, WebResourceError error);
+    void onReceivedError(int errorCode, String description);
 
     void onPageStarted(String url);
 }

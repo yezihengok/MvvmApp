@@ -14,8 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
@@ -261,7 +259,7 @@ public class WebViewActivity extends BaseWebAcivity implements IWebPageView {
     private boolean onPageError;
 
     @Override
-    public void onReceivedError(WebResourceRequest request, WebResourceError error) {
+    public void onReceivedError(int errorCode, String description) {
         onPageError = true;
         ALog.v("onReceivedError---"+onPageError);
     }

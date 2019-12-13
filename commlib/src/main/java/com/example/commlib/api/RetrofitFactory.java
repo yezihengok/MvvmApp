@@ -1,26 +1,15 @@
 package com.example.commlib.api;
 
 
-
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.blankj.ALog;
+import com.ding.library.CaptureInfoInterceptor;
 import com.example.commlib.utils.CommUtils;
 
-import org.apache.commons.lang.StringUtils;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -53,6 +42,7 @@ public class RetrofitFactory {
 
                         }
                     }).setLevel(HttpLoggingInterceptor.Level.BODY))
+                    .addInterceptor(new CaptureInfoInterceptor())//抓包工具，可屏蔽
                     .build();
 
         }

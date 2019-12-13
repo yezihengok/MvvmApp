@@ -60,21 +60,33 @@ public class MyWebViewClient extends WebViewClient {
         super.onPageFinished(view, url);
     }
 
+    @Override
+    public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+        super.onReceivedError(view, errorCode, description, failingUrl);
+        ALog.v(errorCode+"---onReceivedError---"+description);
+        if (errorCode == 404) {
+            //用javascript隐藏系统定义的404页面信息
+//            String data = "Page NO FOUND！";
+//            view.loadUrl("javascript:document.body.innerHTML=\"" + data + "\"");
+
+            view.loadUrl(WebTools.DEFAULT_ERROR);//显示本地失败的html（注意会影响回退栈,失败了返回需要直接finish）
+            mIWebPageView.onReceivedError(errorCode, description);
+        }
+    }
 
     @Override
     public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
         //屏蔽系统默认的错误页面
-      //  super.onReceivedError(view, request, error);
+        super.onReceivedError(view, request, error);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            ALog.v(error.getErrorCode()+"---onReceivedError---"+error.getDescription());
+            int errorCode=error.getErrorCode();
+            ALog.v(errorCode+"---onReceivedError---"+error.getDescription());
+            if (errorCode == 404) {
+                view.loadUrl(WebTools.DEFAULT_ERROR);//显示本地失败的html（注意会影响回退栈,失败了返回需要直接finish）
+                mIWebPageView.onReceivedError(errorCode, error.getDescription().toString());
+            }
         }
 
-        //用javascript隐藏系统定义的404页面信息
-//            String data = "Page NO FOUND！";
-//            view.loadUrl("javascript:document.body.innerHTML=\"" + data + "\"");
-
-        view.loadUrl(WebTools.DEFAULT_ERROR);//显示本地失败的html（注意会影响回退栈,失败了返回需要直接finish）
-        mIWebPageView.onReceivedError(request, error);
     }
 
 
