@@ -4,7 +4,6 @@ package com.example.commlib.api;
 import android.util.Log;
 
 import com.blankj.ALog;
-import com.ding.library.CaptureInfoInterceptor;
 import com.example.commlib.utils.CommUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -42,7 +41,7 @@ public class RetrofitFactory {
 
                         }
                     }).setLevel(HttpLoggingInterceptor.Level.BODY))
-                    .addInterceptor(new CaptureInfoInterceptor())//抓包工具，可屏蔽
+                //    .addInterceptor(new CaptureInfoInterceptor())//com.github.DingProg.NetworkCaptureSelf:library:v1.0.1 抓包工具，可屏蔽
                     .build();
 
         }

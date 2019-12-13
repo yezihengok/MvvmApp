@@ -132,11 +132,11 @@ public class MainNewActivity extends BaseActivity<ActivityNewMainBinding, MainNe
                     return true;
                 case KeyEvent.KEYCODE_BACK:
 
-                    return true;
+                    break;
             }
         }
 
-        return true;
+        return super.onKeyDown(keyCode, event);
     }
 
 

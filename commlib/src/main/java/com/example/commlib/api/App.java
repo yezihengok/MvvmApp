@@ -7,8 +7,10 @@ import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 
 import com.blankj.ALog;
+import com.didichuxing.doraemonkit.DoraemonKit;
 import com.example.commlib.BuildConfig;
 import com.example.commlib.R;
+import com.example.commlib.webview.WebViewActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
@@ -49,6 +51,14 @@ public class App extends MultiDexApplication {
         app=this;
         initALog();
         setSmartRefreshLayout();
+        initDoraemonKit();
+    }
+
+
+    public void initDoraemonKit(){
+        DoraemonKit.install(this);
+        // H5任意门功能需要，非必须（使用自己的H5容器打开这个链接）
+        DoraemonKit.setWebDoorCallback((context, url) ->WebViewActivity.loadUrl(url,"DoraemonKit测试"));
     }
 
     public void initALog() {

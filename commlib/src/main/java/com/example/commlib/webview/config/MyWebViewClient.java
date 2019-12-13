@@ -60,20 +60,24 @@ public class MyWebViewClient extends WebViewClient {
         super.onPageFinished(view, url);
     }
 
+    //这个方法在 android 6.0一下会回调这个
     @Override
     public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
         super.onReceivedError(view, errorCode, description, failingUrl);
         ALog.v(errorCode+"---onReceivedError---"+description);
-        if (errorCode == 404) {
+        //有些网页回调了些错误，但依旧能打开网址：如net::ERR_CONNECTION_REFUSED -6  是不需要显示本地的错误页的
+
+        if (errorCode == 500||errorCode == 404||errorCode == -2) {
             //用javascript隐藏系统定义的404页面信息
 //            String data = "Page NO FOUND！";
 //            view.loadUrl("javascript:document.body.innerHTML=\"" + data + "\"");
 
-            view.loadUrl(WebTools.DEFAULT_ERROR);//显示本地失败的html（注意会影响回退栈,失败了返回需要直接finish）
+            view.loadUrl(WebTools.DEFAULT_ERROR);//加载自定义错误页面html（注意会影响回退栈,失败了返回需要直接finish）
             mIWebPageView.onReceivedError(errorCode, description);
         }
     }
 
+    //这个方法在 android 6.0以上会回调这个
     @Override
     public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
         //屏蔽系统默认的错误页面
@@ -81,7 +85,7 @@ public class MyWebViewClient extends WebViewClient {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             int errorCode=error.getErrorCode();
             ALog.v(errorCode+"---onReceivedError---"+error.getDescription());
-            if (errorCode == 404) {
+            if (errorCode == 500||errorCode == 404||errorCode == -2) {
                 view.loadUrl(WebTools.DEFAULT_ERROR);//显示本地失败的html（注意会影响回退栈,失败了返回需要直接finish）
                 mIWebPageView.onReceivedError(errorCode, error.getDescription().toString());
             }

@@ -72,8 +72,10 @@ dependencies {
 
 
 //  抓包 方便查看接口测试 https://juejin.im/post/5ddddd2a6fb9a07161483fb2
-    debugImplementation 'com.github.DingProg.NetworkCaptureSelf:library:v1.0.1'
-    releaseImplementation 'com.github.DingProg.NetworkCaptureSelf:library_no_op:v1.0.1'
+//    debugImplementation 'com.github.DingProg.NetworkCaptureSelf:library:v1.0.1'
+//    releaseImplementation 'com.github.DingProg.NetworkCaptureSelf:library_no_op:v1.0.1'
 
-
+    //滴滴的调试插件   https://github.com/didi/DoraemonKit
+    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:2.0.1'
+    releaseImplementation 'com.didichuxing.doraemonkit:doraemonkit-no-op:2.0.2'
 }
