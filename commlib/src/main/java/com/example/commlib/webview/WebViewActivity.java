@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
@@ -140,7 +141,7 @@ public class WebViewActivity extends BaseWebAcivity implements IWebPageView {
     }
 
 
-    @SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface"})
+    @SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface", "JavascriptInterface"})
     private void initWebView() {
         WebSettings ws = webView.getSettings();
         // 网页内容的宽度是否可大于WebView控件的宽度
@@ -190,6 +191,22 @@ public class WebViewActivity extends BaseWebAcivity implements IWebPageView {
 
         // 与js交互
         webView.addJavascriptInterface(new MyJavascriptInterface(this), "injectedObject");
+        webView.addJavascriptInterface(this, "androidInjected");
+    }
+
+
+    int time=0;
+    @JavascriptInterface
+    public void reload(String s){
+        ALog.v("reload==="+s);
+        if(time<3){
+            runOnUiThread(() ->webView.reload());
+        }else{
+            ALog.w("java传递参数去调用 js方法");
+            loadJs("javascript:callJsWithArgs('" + "请稍后再试哦~" + "')");
+        }
+
+        time++;
     }
 
     @Override
@@ -396,11 +413,15 @@ public class WebViewActivity extends BaseWebAcivity implements IWebPageView {
      * 4.4以上可用 evaluateJavascript 效率高
      */
     private void loadJs(String jsString) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            webView.evaluateJavascript(jsString, null);
-        } else {
-            webView.loadUrl(jsString);
-        }
+
+        runOnUiThread(() -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                webView.evaluateJavascript(jsString, null);
+            } else {
+                webView.loadUrl(jsString);
+            }
+        });
+
     }
 
     /**

@@ -46,7 +46,7 @@ public class MainDetialViewModel extends BaseViewModel {
     }
 
     //闪退点击事件
-    public ClickListener errorClick=(v) -> errorEvent.setValue("哟哟哟，项目又报空指针错误了呢");
+    public ClickListener errorClick=(v) -> errorEvent.setValue("哟哟哟，项目又报空指针了呢");
 
     //下载
     public ClickListener downloadClick=(v) -> downLoadEvent.setValue("http://s.duapps.com/apks/own/ESFileExplorer-V4.2.1.7.apk");

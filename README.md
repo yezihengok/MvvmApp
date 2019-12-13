@@ -14,12 +14,12 @@
  * 同时也例举了2种防止Rxjava内存泄漏的方式
  * 同时也列举了2种ViewModel创建方式（Mvvm的实现方式）
  
-  > Mvvm的实现方式MainActivity-MainNewActivity(推荐使用MainNewActivity的示例)：
+  > Mvvm的实现方式示例界面 MainActivity---MainNewActivity(推荐使用MainNewActivity的示例)：
   
   
  | MainActivity			|MainNewActivity			 |
  | ------------- |  :-------------|
- | 手动new创建的ViewModel，ViewModel持有context，并手动添加RxLifecycle、CompositeDisposable 对context内存泄漏管理的方式实现的MVVM|ViewModelProviders.of 方式 初始化的ViewModel，ViewModel不持有context，LiveDada通知回调 不用担心管理内存泄漏问题  方式实现的MVVM（推荐这种）|
+ | 手动new创建的ViewModel，ViewModel持有context，并手动添加RxLifecycle、CompositeDisposable 对context内存泄漏管理的方式实现的MVVM|ViewModelProviders.of 方式 初始化的ViewModel，ViewModel不持有context，LiveDada通知回调 不用担心管理内存泄漏问题  方式实现的MVVM（推荐）|
 
 
 
@@ -30,7 +30,7 @@
  * mvvm模式下的 BaseRecyclerAdapter
  * apk下载更新工具类
  * RxAnimation 属性动画工具类
- * 公用的webView页面展示
+ * 公用的webView页面展示、js与Java交互示例
  * 等各种乱七八糟的工具类~ 
 
 

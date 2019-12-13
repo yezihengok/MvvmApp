@@ -2,15 +2,33 @@
 <html lang="en">
 <head>
 
-	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html;charset=HTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no" />
 	<title>404</title>
+
+
+	<script type="text/javascript">
+	function reLoad(){
+		<!--alert("点击了文字");-->
+	}
+
+	<!--这里取到的是 android端传过来的数据-->
+	function callJsWithArgs(data){
+	<!--	 document.getElementById("textStyle").innerHTML +=("<br\>"+data);-->
+		 		 document.getElementById("textStyle").innerHTML =("<br\>"+data);
+	}
+
+
+
+
+</script>
+
 </head>
 <style>
 	*{padding: 0;margin: 0;}
 	i{color: red;}
 	html{width: 100%;height: 100%;font-size: 18px;}
-	.warp{width: 100%;margin-bottom: 50px;text-align: center;margin-top: 45%;}
+	.warp{width: 100%;margin-bottom: 50px;text-align: center;margin-top: 40%;}
 	.warp img{height: auto;width: 30%;}
 	button{width: 100px;height: 50px;}
 	#textStyle{
@@ -18,10 +36,17 @@
 		font-size:15px;
 	}
 </style>
+
+
 <body>
 <div class="warp">
-	<img class="" src="images/error.png" alt="" style="margin-bottom:10px; ">
-	<p id="textStyle">页面没有找到</p>
+
+	<!--js代码调用Java本地方法-->
+	<a onClick="window.androidInjected.reload('js代码调用Java本地方法')">
+		<img class=""  src="images/error.png" alt="" style="margin-bottom:10px;">
+	</a>
+
+	<p id="textStyle" onclick="reLoad()">页面没有找到,点击重试</p>
 </div>
 </body>
 </html>
