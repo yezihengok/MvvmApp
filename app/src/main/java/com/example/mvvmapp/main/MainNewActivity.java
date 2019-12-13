@@ -19,7 +19,6 @@ import com.example.commlib.weight.banner.BannerConfig;
 import com.example.commlib.weight.banner.Transformer;
 import com.example.mvvmapp.MainDetailActivity;
 import com.example.mvvmapp.R;
-import com.example.mvvmapp.TestWeightActivity;
 import com.example.mvvmapp.bean.WanAndroidBannerBean;
 import com.example.mvvmapp.databinding.ActivityNewMainBinding;
 import com.example.mvvmapp.viewmodel.MainNewViewModel;
