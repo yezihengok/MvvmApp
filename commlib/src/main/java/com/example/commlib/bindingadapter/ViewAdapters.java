@@ -6,9 +6,11 @@ import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
 
+import com.blankj.ALog;
 import com.example.commlib.event.SingleLiveEvent;
 import com.example.commlib.listener.ClickListener;
 import com.example.commlib.utils.ButtonUtils;
+import com.example.commlib.utils.CommUtils;
 
 /**
  * @Description: ViewAdapter类作用描述
@@ -60,4 +62,23 @@ public class ViewAdapters {
 
         }
     }
+
+    /**
+     * 设置宽高
+     * @param imageView
+     * @param width
+     * @param height
+     */
+    @BindingAdapter(value = {"setWidth","setHeight"}, requireAll = false)
+    public static void setHW(View imageView, int width,int height) {
+        if(width>0){
+            ALog.w(width+"---------"+ CommUtils.dip2px(width));
+            imageView.getLayoutParams().width= CommUtils.dip2px(width);
+        }
+        if(height>0){
+            imageView.getLayoutParams().height=CommUtils.dip2px(height);
+        }
+    }
+
+
 }

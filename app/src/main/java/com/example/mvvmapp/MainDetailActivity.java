@@ -1,5 +1,7 @@
 package com.example.mvvmapp;
 
+import android.view.View;
+
 import androidx.databinding.DataBindingUtil;
 
 import com.blankj.ALog;
@@ -7,6 +9,8 @@ import com.example.commlib.base.mvvm.BaseActivity;
 import com.example.commlib.downloadapk.DownloadAPk;
 import com.example.commlib.rx.RxBus;
 import com.example.commlib.rx.RxBusCode;
+import com.example.commlib.utils.BarUtils;
+import com.example.commlib.utils.ClickUtils;
 import com.example.commlib.utils.CommUtils;
 import com.example.commlib.utils.StatusBarUtil;
 import com.example.commlib.utils.ToastUtils;
@@ -56,6 +60,8 @@ public class MainDetailActivity extends BaseActivity<ActivityMainDetailBinding, 
     @Override
     protected void initView() {
         StatusBarUtil.setColorNoTranslucent(mContext, getColors(R.color.colorAccent));
+       // BarUtils.addMarginTopEqualStatusBarHeight(mBinding.rootLayout);
+        BarUtils.setStatusBarLightMode(mContext,true);
         //示例如何动态的添加一个BindingView
         mTitleLayoutBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.title_layout,mBinding.topLayout, false);
         mBinding.topLayout.addView(mTitleLayoutBinding.getRoot());
@@ -64,8 +70,28 @@ public class MainDetailActivity extends BaseActivity<ActivityMainDetailBinding, 
        // mBinding.mUpdateButton.setOnClickListener(v -> download());
 
       // WanAndroidBannerBean mBannerBean=(WanAndroidBannerBean) getIntent().getSerializableExtra("bannerBean");
-      //  mBinding.setBannerBean(mBannerBean);
+       // mBinding.setBannerBean(mBannerBean);
         mTitleLayoutBinding.titleText.setText(mViewModel.mBannerBean.getTitle());
+
+
+        //点击工具类使用
+        ClickUtils.applyPressedViewScale(mBinding.btn1,mBinding.btn2);//给view 添加缩放点击效果
+        ClickUtils.applyPressedViewAlpha(mBinding.primaryMessageDetailsImg,0.6f);//给view 透明度点击效果
+        ClickUtils.applyPressedBgAlpha(mBinding.btn3,0.5f);//给view 透明度背景点击效果
+        ClickUtils.applyPressedBgDark(mBinding.btn4);//给view 背景变暗点击效果
+
+        mBinding.primaryMessageDetailsImg.setOnClickListener(new ClickUtils.OnMultiClickListener(5) {
+            @Override
+            public void onTriggerClick(View v) {
+                ToastUtils.showShort("指定时间内连续点击5次触发事件");
+            }
+
+            @Override
+            public void onBeforeTriggerClick(View v, int count) {
+                ToastUtils.showShort(String.valueOf(count));
+            }
+        });
+
     }
 
 

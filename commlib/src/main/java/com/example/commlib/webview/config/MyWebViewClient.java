@@ -67,7 +67,7 @@ public class MyWebViewClient extends WebViewClient {
         ALog.v(errorCode+"---onReceivedError---"+description);
         //有些网页回调了些错误，但依旧能打开网址：如net::ERR_CONNECTION_REFUSED -6  是不需要显示本地的错误页的
 
-        if (errorCode == 500||errorCode == 404||errorCode == -2) {
+        if (errorCode !=-6) {
             //用javascript隐藏系统定义的404页面信息
 //            String data = "Page NO FOUND！";
 //            view.loadUrl("javascript:document.body.innerHTML=\"" + data + "\"");

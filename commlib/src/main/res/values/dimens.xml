@@ -5,4 +5,6 @@
     <dimen name="customactivityoncrash_activity_vertical_margin">16dp</dimen>
 
     <dimen name="customactivityoncrash_error_activity_error_details_text_size">12sp</dimen>
+    <dimen name="dp_5">5dp</dimen>
+    <dimen name="dp_0">0dp</dimen>
 </resources>

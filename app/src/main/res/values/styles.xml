@@ -20,4 +20,11 @@
 <!--        <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless</item>-->
         <item name="android:listDivider">@drawable/divider_bg</item>
     </style>
+
+    <style name="btn_style">
+        <item name="android:background">@color/ui_light_blue</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">5dp</item>
+    </style>
 </resources>

@@ -15,6 +15,7 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/rootLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -69,38 +70,49 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
-                <Button
+                <TextView
+                    style="@style/btn_style"
+                    android:id="@+id/btn1"
                     onBindingClick="@{viewModel.permissionsEvent}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="点击体验权限申请" />
 
                 <!--onBindingClick="@{viewModel.downLoadEvent}-->
-                <Button
+                <TextView
+                    style="@style/btn_style"
+                    android:id="@+id/btn2"
                     onBindingClick="@{viewModel.downloadClick}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.downBtnName}" />
 
-                <Button
+                <TextView
+                    android:id="@+id/btn3"
+                    style="@style/btn_style"
                     onBindingClick="@{viewModel.errorClick}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="点击体验闪退的乐趣" />
 
-                <Button
+                <TextView
+                    android:id="@+id/btn4"
+                    style="@style/btn_style"
                     onBindingClick="@{viewModel.fragmentClick}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="示例Fragment使用" />
 
-                <Button
+                <TextView
+                    android:id="@+id/btn5"
+                    style="@style/btn_style"
                     android:onClick="@{()->viewModel.toWebView()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="示例网页加载出错显示默认网页" />
 
-                <Button
+                <TextView
+                    style="@style/btn_style"
                     android:onClick="@{()->viewModel.toTestWeight()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

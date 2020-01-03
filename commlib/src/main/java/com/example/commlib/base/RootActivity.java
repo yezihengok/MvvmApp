@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
@@ -16,8 +15,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.annotation.LayoutRes;
@@ -33,7 +30,6 @@ import com.example.commlib.base.mvvm.BaseMvvmRecyclerAdapter;
 import com.example.commlib.base.mvvmold.BaseRecyclerAdapters;
 import com.example.commlib.listener.Listener;
 import com.example.commlib.utils.CommUtils;
-import com.example.commlib.utils.StatusNavUtils;
 import com.example.commlib.utils.ToastUtils;
 import com.example.commlib.utils.permission.PermissionsUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -127,28 +123,7 @@ public class RootActivity extends RxAppCompatActivity {
     }
 
 
-    /**
-     * 沉浸式
-     */
 
-    protected void translateStatueBar() {
-//        setTheme(R.style.AppTheme);
-        Window window = getWindow();
-        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-        if (isStatusBarWhite){
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.setStatusBarColor(Color.WHITE);
-            }
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        }else{
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.setStatusBarColor(Color.TRANSPARENT);
-            }
-        }
-        StatusNavUtils.setNavigationBarColor(this,Color.TRANSPARENT);
-    }
 
 
 
