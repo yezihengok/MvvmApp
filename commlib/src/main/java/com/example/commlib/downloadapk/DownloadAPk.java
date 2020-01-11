@@ -12,6 +12,8 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
 
+import com.blankj.ALog;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -210,12 +212,14 @@ public class DownloadAPk {
      * @return
      */
     public static Uri getUriForFile(File file) {
+        ALog.v(file.getPath());
         Uri fileUri = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             fileUri = FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".fileprovider", file);
         } else {
             fileUri = Uri.fromFile(file);
         }
+        ALog.v(fileUri.toString());
         return fileUri;
     }
 

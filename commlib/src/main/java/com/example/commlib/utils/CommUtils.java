@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -22,10 +23,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.ArrayRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.core.content.FileProvider;
 
+import com.blankj.ALog;
 import com.example.commlib.R;
 import com.example.commlib.api.App;
 import com.example.commlib.listener.Listener;
@@ -34,6 +37,7 @@ import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.List;
 
 import static com.example.commlib.utils.DensityUtil.getScreenWidth;
@@ -460,6 +464,94 @@ public class CommUtils {
             fileUri = Uri.fromFile(file);
         }
         return fileUri;
+    }
+
+
+    /**
+     * 根据资源名称获取 资源id
+     * @param name
+     * @param type 资源类型  drawable、 raw
+     * @return
+     */
+
+    public static int getResId(String name,String type){
+        Resources r=App.getInstance().getResources();
+        int id = 0;
+        try {
+            id = r.getIdentifier(name,type, App.getInstance().getPackageName());
+            //踩坑提示  如果是在插件化环境里 context.getPackageName() 获取的包名会变成宿主的包名，建议写死包名或者反射获取
+            ALog.v("BaseApplication.getInstance().getPackageName()=="+App.getInstance().getPackageName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+
+
+    /**
+     * 根据资源名称获取 资源id （通过反射）
+     * @param imageName
+     * @param mipmap   资源类型  例如  R.mipmap.class
+     * @return
+     */
+    public  static int  getResId(String imageName,Class mipmap){
+        //Class mipmap = R.raw.class;
+        //Class mipmap = R.mipmap.class;
+        try {
+            Field field = mipmap.getField(imageName);
+            int resId = field.getInt(imageName);
+            return resId;
+        } catch (NoSuchFieldException | IllegalAccessException e) {//如果没有在"mipmap"下找到imageName,将会返回0
+            return 0;
+        }
+
+    }
+
+    /**
+     * 从arrays.xml中读取数组
+     * @param resId
+     * @return
+     */
+    public static int[] getArrays(@ArrayRes int resId){
+        TypedArray array = App.getInstance().getResources().obtainTypedArray(resId);
+        int len = array.length();
+        int[] intArray = new int[array.length()];
+
+        for(int i = 0; i < len; i++){
+            intArray[i] = array.getResourceId(i, 0);
+        }
+        array.recycle();
+        return intArray;
+    }
+
+
+    /**
+     * 将秒 格式化显示（例：4000秒 =  01:06:40）
+     * @return
+     */
+    // 将秒转化成小时分钟秒
+    public static String showTime(long miss){
+        String hh=miss/3600>9?miss/3600+"":"0"+miss/3600;
+        String  mm=(miss % 3600)/60>9?(miss % 3600)/60+"":"0"+(miss % 3600)/60;
+        String ss=(miss % 3600) % 60>9?(miss % 3600) % 60+"":"0"+(miss % 3600) % 60;
+        if(!"00".equals(hh)){
+            return hh+":"+mm+":"+ss;
+        }else{
+            return mm+":"+ss;
+        }
+    }
+
+
+    /**
+     * 将秒 格式化显示（例：4000秒 =  1:06:40）1小时6分钟40秒
+     * @return
+     */
+    public String showTimes(long miss){
+        String hh=miss/3600>9?miss/3600+"":"0"+miss/3600;
+        String  mm=(miss % 3600)/60>9?(miss % 3600)/60+"":"0"+(miss % 3600)/60;
+        String ss=(miss % 3600) % 60>9?(miss % 3600) % 60+"":"0"+(miss % 3600) % 60;
+        return hh+"小时"+mm+"分钟"+ss+"秒";
     }
 
 }

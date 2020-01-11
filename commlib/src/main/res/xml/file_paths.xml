@@ -8,6 +8,7 @@
     <cache-path name="cache" path="." />
     <!--代表 Environment.getExternalStorageDirectory()-->
     <external-path name="external" path="." />
+    <external-path name="external_storage_root" path="."/>
     <!--代表 context.getExternalFilesDirs()-->
     <external-files-path name="external-files" path="." />
     <!--代表 getExternalCacheDirs()-->

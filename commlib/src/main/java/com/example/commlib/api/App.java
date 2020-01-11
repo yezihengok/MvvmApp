@@ -57,6 +57,8 @@ public class App extends MultiDexApplication {
 
     public void initDoraemonKit(){
         DoraemonKit.install(this);
+        DoraemonKit.setDebug(false);//DoraemonKit疯狂打印日志看了很烦
+
         // H5任意门功能需要，非必须（使用自己的H5容器打开这个链接）
         DoraemonKit.setWebDoorCallback((context, url) ->WebViewActivity.loadUrl(url,"DoraemonKit测试"));
     }

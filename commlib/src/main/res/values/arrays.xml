@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="deleteTips">
+        <item>确认删除收藏文章?</item>
+        <item>确认删除收藏视频?</item>
+        <item>确认删除收藏教材?</item>
+        <item>确认删除收藏单词?</item>
+        <item>确认删除背诵教材?</item>
+        <item>确认删除背诵文章?</item>
+    </string-array>
+    <integer-array name="tabQueryType">
+        <item>2</item>
+        <item>4</item>
+        <item>3</item>
+        <item>1</item>
+        <item>6</item>
+        <item>5</item>
+    </integer-array>
+
+<!--    帧动画资源-->
+<!--    <string-array name="dj_end_anim1">
+        <item>@drawable/dj_end_sh00</item>
+        <item>@drawable/dj_end_sh01</item>
+        <item>@drawable/dj_end_sh02</item>
+        <item>@drawable/dj_end_sh03</item>
+        <item>@drawable/dj_end_sh04</item>
+        <item>@drawable/dj_end_sh05</item>
+        <item>@drawable/dj_end_sh06</item>
+        <item>@drawable/dj_end_sh07</item>
+        <item>@drawable/dj_end_sh08</item>
+        <item>@drawable/dj_end_sh09</item>
+        <item>@drawable/dj_end_sh10</item>
+        <item>@drawable/dj_end_sh11</item>
+        <item>@drawable/dj_end_sh12</item>
+        <item>@drawable/dj_end_sh13</item>
+        <item>@drawable/dj_end_sh14</item>
+        <item>@drawable/dj_end_sh15</item>
+        <item>@drawable/dj_end_sh16</item>
+        <item>@drawable/dj_end_sh17</item>
+        <item>@drawable/dj_end_sh18</item>
+        <item>@drawable/dj_end_sh19</item>
+        <item>@drawable/dj_end_sh20</item>
+        <item>@drawable/dj_end_sh21</item>
+        <item>@drawable/dj_end_sh22</item>
+    </string-array>-->
+
+</resources>
