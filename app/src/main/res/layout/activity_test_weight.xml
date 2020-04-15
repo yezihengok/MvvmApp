@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:toos="http://schemas.android.com/tools"
     xmlns:bind="http://schemas.android.com/tools">
 
     <data>
@@ -132,7 +133,21 @@
                         </com.example.commlib.weight.ShadowLayout>
 
 
+
+
                     </LinearLayout>
+
+
+                    <com.example.commlib.weight.SuperTextView
+                        android:id="@+id/mSuperTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingMultiplier="1.2"
+                        android:textColor="@color/ui_black"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:selectedColor="@color/ui_blue"
+                        toos:text="问题是什么，是什么问题，有什么问题，没什么问题，确定没问题" />
 
                 </LinearLayout>
             </ScrollView>

@@ -9,7 +9,6 @@ import com.blankj.ALog;
 import com.example.commlib.base.mvvm.BaseActivity;
 import com.example.commlib.rx.RxBus;
 import com.example.commlib.rx.RxBusCode;
-import com.example.commlib.utils.AppUtils;
 import com.example.commlib.utils.CommUtils;
 import com.example.commlib.utils.GlideImageLoader;
 import com.example.commlib.utils.StatusBarUtil;
@@ -17,6 +16,7 @@ import com.example.commlib.utils.ToastUtils;
 import com.example.commlib.webview.WebViewActivity;
 import com.example.commlib.weight.banner.BannerConfig;
 import com.example.commlib.weight.banner.Transformer;
+import com.example.mvvmapp.BuildConfig;
 import com.example.mvvmapp.MainDetailActivity;
 import com.example.mvvmapp.R;
 import com.example.mvvmapp.bean.WanAndroidBannerBean;
@@ -120,7 +120,7 @@ public class MainNewActivity extends BaseActivity<ActivityNewMainBinding, MainNe
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (AppUtils.isDebug()) {
+        if (BuildConfig.DEBUG) {
             switch (keyCode) {
                 case KeyEvent.KEYCODE_VOLUME_DOWN:
                     WebViewActivity.loadUrl("https://github.com/yezihengok",null);

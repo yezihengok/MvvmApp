@@ -6,6 +6,7 @@ import com.blankj.ALog;
 import com.example.commlib.BuildConfig;
 import com.example.commlib.utils.AppUtils;
 import com.example.commlib.utils.CheckNetwork;
+import com.example.commlib.utils.DeviceUtils;
 import com.example.commlib.utils.ToastUtils;
 
 import java.io.IOException;
@@ -40,8 +41,8 @@ public class HeaderInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request.Builder builder = chain.request().newBuilder();
        // builder.addHeader("token", SpUtil.getInstance().getString(SpKey.KEY_TOKEN));
-        builder.addHeader("App-Version", String.valueOf(AppUtils.getVersionCode()));
-        builder.addHeader("Model", AppUtils.getDevice());
+        builder.addHeader("App-Version", String.valueOf(AppUtils.getAppVersionCode()));
+        builder.addHeader("Model", DeviceUtils.getDevice());
         builder.addHeader("Content-Type", "application/json;charset=UTF-8");
         builder.addHeader("Accept", "application/json;versions=1");
         if (CheckNetwork.isNetworkConnected()) {
