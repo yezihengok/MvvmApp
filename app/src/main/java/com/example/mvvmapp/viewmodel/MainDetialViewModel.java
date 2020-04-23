@@ -39,7 +39,7 @@ public class MainDetialViewModel extends BaseViewModel {
         this.bundle=bundle;
         if(bundle!=null){
             mBannerBean= (WanAndroidBannerBean) bundle.getSerializable("bannerBean");
-            ALog.w("示例ViewModel获取acitivty的传值:"+mBannerBean.toString());
+            ALog.w("示例ViewModel获取acitivty的传值:"+ (mBannerBean != null ? mBannerBean.toString() : null));
         }
 
 

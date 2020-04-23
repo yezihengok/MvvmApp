@@ -15,6 +15,7 @@ import com.example.commlib.bean.ResultBeans;
 import com.example.commlib.event.SingleLiveEvent;
 import com.example.commlib.utils.ToastUtils;
 import com.example.commlib.webview.WebViewActivity;
+import com.example.mvvmapp.MainDetailActivity;
 import com.example.mvvmapp.R;
 import com.example.mvvmapp.api.HttpReq;
 import com.example.mvvmapp.bean.ArticlesBean;
@@ -57,6 +58,12 @@ public class MainNewViewModel extends BaseViewModel {
                 //ToastUtils.showShort(item.getLink());
                 toastEvent.setValue("试试点击banner");
                 WebViewActivity.loadUrl(item.getLink(),null);
+            });
+            holder.itemView.setOnLongClickListener(v -> {
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("bannerBean",null);
+                startActivity(MainDetailActivity.class,bundle);
+                return true;
             });
         }
     };

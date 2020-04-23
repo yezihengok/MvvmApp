@@ -71,8 +71,10 @@ public class MainDetailActivity extends BaseActivity<ActivityMainDetailBinding, 
 
       // WanAndroidBannerBean mBannerBean=(WanAndroidBannerBean) getIntent().getSerializableExtra("bannerBean");
        // mBinding.setBannerBean(mBannerBean);
-        mTitleLayoutBinding.titleText.setText(mViewModel.mBannerBean.getTitle());
 
+        if(mViewModel.mBannerBean!=null){
+            setTextValues(mTitleLayoutBinding.titleText,mViewModel.mBannerBean.getTitle());
+        }
 
         //点击工具类使用
         ClickUtils.applyPressedViewScale(mBinding.btn1,mBinding.btn2);//给view 添加缩放点击效果

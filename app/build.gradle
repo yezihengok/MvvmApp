@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.didi.dokit'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -28,6 +28,22 @@ android {
 
 }
 
+
+dokitExt {
+    //整个dokit的插件开关
+    dokitPluginSwitch = true
+    //函数耗时的开关
+    slowMethodSwitch = true
+    //大图检测的开关
+    bigImgSwitch = true
+    //函数耗时的自定义阈值 单位为ms 1000ms = 1s
+    thresholdTime = 200
+    //在指定的包名业务代码下插入代码
+    packageNames = ["com.didichuxing.doraemondemo"]
+    //慢函数 黑名单 可以是包名 也可以是全路径的类名
+    //  methodBlacklist = ["com.didichuxing.doraemondemo.dokit"]
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -38,6 +54,11 @@ dependencies {
 
 
    // implementation 'com.android.support:design:28.0.0'
-    implementation 'com.google.android.material:material:1.0.0'//androidx 版本的design包
+    implementation 'com.google.android.material:material:1.1.0'//androidx 版本的design包
     implementation project(path: ':commlib')
+
+
+    //滴滴的调试插件   https://github.com/didi/DoraemonKit
+    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:3.1.4'
+    releaseImplementation 'com.didichuxing.doraemonkit:doraemonkit-no-op:3.1.4'
 }

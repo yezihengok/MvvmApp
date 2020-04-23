@@ -7,9 +7,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import com.blankj.ALog;
+import com.didichuxing.doraemonkit.DoraemonKit;
 import com.example.commlib.api.App;
 import com.example.commlib.crash.CaocConfig;
 import com.example.commlib.crash.MyDefaultErrorActivity;
+import com.example.commlib.webview.WebViewActivity;
 import com.example.mvvmapp.R;
 import com.example.mvvmapp.main.MainNewActivity;
 
@@ -23,6 +25,18 @@ public class AppApplication extends App {
         super.onCreate();
         initCrash();
         registerActivityLifecycleCallbacks(this);
+        initDoraemonKit();
+    }
+
+
+
+    public void initDoraemonKit(){
+        // DoraemonKit.install(this);
+        DoraemonKit.install(this,null,"780a59b23dde39e0527856bc30cd3056");
+        DoraemonKit.setDebug(false);//DoraemonKit疯狂打印日志看了很烦
+
+        // H5任意门功能需要，非必须（使用自己的H5容器打开这个链接）
+        DoraemonKit.setWebDoorCallback((context, url) -> WebViewActivity.loadUrl(url,"DoraemonKit测试"));
     }
 
     private void initCrash() {

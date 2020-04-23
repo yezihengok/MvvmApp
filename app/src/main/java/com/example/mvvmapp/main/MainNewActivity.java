@@ -59,7 +59,10 @@ public class MainNewActivity extends BaseActivity<ActivityNewMainBinding, MainNe
     protected void initView() {
 
         initBanner();
-        mBinding.mRefreshLayout.setOnRefreshListener(refreshLayout ->getHomeList(true));
+        mBinding.mRefreshLayout.setOnRefreshListener(refreshLayout ->{
+            getHomeList(true);
+            getWanBanner();
+        });
         mBinding.mRefreshLayout.setOnLoadMoreListener(refreshLayout ->getHomeList(false));
     }
 

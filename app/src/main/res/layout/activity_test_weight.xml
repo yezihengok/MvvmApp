@@ -149,6 +149,11 @@
                         app:selectedColor="@color/ui_blue"
                         toos:text="问题是什么，是什么问题，有什么问题，没什么问题，确定没问题" />
 
+
+                    <TextView
+                         android:text="e needs 3 things to be truly happy living in the world: some thing to do, some one to love, some thing to hope for"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
             </ScrollView>
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>

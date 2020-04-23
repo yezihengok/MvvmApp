@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -33,6 +32,8 @@ android {
     }
 
 }
+
+
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -76,6 +77,6 @@ dependencies {
 //    releaseImplementation 'com.github.DingProg.NetworkCaptureSelf:library_no_op:v1.0.1'
 
     //滴滴的调试插件   https://github.com/didi/DoraemonKit
-    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:2.0.1'
-    releaseImplementation 'com.didichuxing.doraemonkit:doraemonkit-no-op:2.0.2'
+//    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:3.1.4'
+//    releaseImplementation 'com.didichuxing.doraemonkit:doraemonkit-no-op:3.1.4'
 }

@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
+import com.blankj.ALog;
 import com.example.commlib.R;
 
 
@@ -67,6 +68,8 @@ public final class MyDefaultErrorActivity extends AppCompatActivity {
                     CustomActivityOnCrash.restartApplication(MyDefaultErrorActivity.this, config);
                 }
             });
+
+            ALog.e(CustomActivityOnCrash.getAllErrorDetailsFromIntent(MyDefaultErrorActivity.this, getIntent()));
         } else {
             restartButton.setOnClickListener(new View.OnClickListener() {
                 @Override
