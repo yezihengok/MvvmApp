@@ -42,5 +42,9 @@ public class Test {
         String ss1="ss\n";
         String ss2="ss\nss";
         System.out.println(String.format("ss %s ss1 %s ss2 %s",ss.length(),ss1.length(),ss2.length()));
+
+        int i=1;
+        i++;
+        System.out.println(String.format("i= %s",i));
     }
 }
