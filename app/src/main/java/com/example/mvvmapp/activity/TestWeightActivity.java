@@ -1,4 +1,4 @@
-package com.example.mvvmapp;
+package com.example.mvvmapp.activity;
 
 import com.blankj.ALog;
 import com.example.commlib.base.mvvm.BaseActivity;
@@ -8,6 +8,7 @@ import com.example.commlib.utils.animations.Other;
 import com.example.commlib.utils.animations.RxAnimation;
 import com.example.commlib.weight.IProgressBar;
 import com.example.commlib.weight.SuperTextView;
+import com.example.mvvmapp.R;
 import com.example.mvvmapp.databinding.ActivityTestWeightBinding;
 
 import java.util.concurrent.TimeUnit;

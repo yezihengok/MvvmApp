@@ -2,14 +2,9 @@ package com.example.mvvmapp.api;
 
 
 
-import android.content.Intent;
-
-import com.example.commlib.api.App;
-import com.example.commlib.bean.ResultBean;
 import com.example.commlib.api.RetrofitFactory;
+import com.example.commlib.bean.ResultBean;
 import com.example.commlib.bean.ResultBeans;
-import com.example.commlib.utils.CheckNetwork;
-import com.example.commlib.utils.ToastUtils;
 import com.example.mvvmapp.bean.HomeListBean;
 import com.example.mvvmapp.bean.WanAndroidBannerBean;
 
@@ -18,8 +13,6 @@ import java.util.HashMap;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-
-import static com.example.commlib.api.ConfigApi.ERROR_CODE;
 
 
 /**
@@ -47,13 +40,14 @@ public class HttpReq {
      */
     private  <T> Observable<ResultBean<T>> requests(Observable<ResultBean<T>> beanObservable) {
         return  beanObservable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .onErrorReturn(t -> new ResultBean<>(ERROR_CODE, t.getMessage()));//onErrorReturn 请求失败了返回一个错误信息的对象
+                .observeOn(AndroidSchedulers.mainThread());
+                //onErrorReturn 的作用：请求失败了返回一个错误信息的对象,即使请求失败CommonObserver 里也会回调成功并返回一个错误码：ERROR_CODE的空对象
+               // .onErrorReturn(t -> new ResultBean<>(ERROR_CODE, t.getMessage()));
     }
     private  <T> Observable<ResultBeans<T>> requestss(Observable<ResultBeans<T>> beanObservable) {
         return  beanObservable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .onErrorReturn(t -> new ResultBeans<>(ERROR_CODE, t.getMessage()));
+                .observeOn(AndroidSchedulers.mainThread());
+              //  .onErrorReturn(t -> new ResultBeans<>(ERROR_CODE, t.getMessage()));
     }
 
     private <T> Observable<T> requestT(Observable<T> beanObservable) {
@@ -66,8 +60,8 @@ public class HttpReq {
      */
     private  Observable<ResultBean> request(Observable<ResultBean> beanObservable) {
         return  beanObservable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .onErrorReturn(t -> new ResultBean<>(ERROR_CODE, t.getMessage()));
+                .observeOn(AndroidSchedulers.mainThread());
+             //   .onErrorReturn(t -> new ResultBean<>(ERROR_CODE, t.getMessage()));
     }
 
 

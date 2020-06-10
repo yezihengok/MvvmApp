@@ -6,6 +6,7 @@ import android.util.Log;
 import com.blankj.ALog;
 import com.example.commlib.utils.CommUtils;
 
+import java.net.Proxy;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -19,12 +20,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Retrofit  生产类
  */
 public class RetrofitFactory {
-    public static final int TIMEOUT = 30;
+    public static final int TIMEOUT = 20;
     private static OkHttpClient okHttpClient;
 
     private static OkHttpClient getOkHttpClient() {
         if (okHttpClient == null) {
             okHttpClient= new OkHttpClient.Builder()
+                    //设置禁止代理
+                  //  .proxy(null)
+                    .proxy(Proxy.NO_PROXY)
                     .connectTimeout(TIMEOUT, TimeUnit.SECONDS)//设置连接超时时间
                     .readTimeout(TIMEOUT, TimeUnit.SECONDS)//设置读取超时时间
                     .writeTimeout(TIMEOUT, TimeUnit.SECONDS)//设置写入超时时间

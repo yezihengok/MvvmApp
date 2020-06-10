@@ -145,7 +145,7 @@ public abstract class BaseViewModel extends AndroidViewModel {
     }
 
 
-    public UILiveData getUILiveData() {
+    UILiveData getUILiveData() {
         if (mUILiveData == null) {
             mUILiveData = new UILiveData();
         }
@@ -155,7 +155,7 @@ public abstract class BaseViewModel extends AndroidViewModel {
     /**
      * UILiveData 的作用 放一些常用的事件，减少去new 重复的SingleLiveEvent()
      */
-    public final class UILiveData extends SingleLiveEvent {
+    public static final class UILiveData extends SingleLiveEvent {
         private SingleLiveEvent<String> showDialogEvent;
         private SingleLiveEvent<Void> dismissDialogEvent;
         private SingleLiveEvent<Map<String, Object>> startActivityEvent;

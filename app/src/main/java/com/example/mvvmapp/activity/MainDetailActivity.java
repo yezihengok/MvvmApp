@@ -1,4 +1,4 @@
-package com.example.mvvmapp;
+package com.example.mvvmapp.activity;
 
 import android.view.View;
 
@@ -16,6 +16,7 @@ import com.example.commlib.utils.StatusBarUtil;
 import com.example.commlib.utils.ToastUtils;
 import com.example.commlib.utils.permission.PermissionsUtil;
 import com.example.commlib.utils.permission.PermissionsUtils;
+import com.example.mvvmapp.R;
 import com.example.mvvmapp.databinding.ActivityMainDetailBinding;
 import com.example.mvvmapp.databinding.TitleLayoutBinding;
 import com.example.mvvmapp.viewmodel.MainDetialViewModel;
@@ -77,11 +78,12 @@ public class MainDetailActivity extends BaseActivity<ActivityMainDetailBinding, 
         }
 
         //点击工具类使用
-        ClickUtils.applyPressedViewScale(mBinding.btn1,mBinding.btn2);//给view 添加缩放点击效果
+        ClickUtils.applyPressedViewScale(mBinding.btn1,mBinding.btn2,mBinding.btn7);//给view 添加缩放点击效果
         ClickUtils.applyPressedViewAlpha(mBinding.primaryMessageDetailsImg,0.6f);//给view 透明度点击效果
         ClickUtils.applyPressedBgAlpha(mBinding.btn3,0.5f);//给view 透明度背景点击效果
-        ClickUtils.applyPressedBgDark(mBinding.btn4);//给view 背景变暗点击效果
-
+        ClickUtils.applyPressedBgAlpha(mBinding.btn4,0.3f);
+        ClickUtils.applyPressedBgDark(mBinding.btn5);//给view 背景变暗点击效果
+        ClickUtils.applyPressedBgDark(mBinding.btn6);
         mBinding.primaryMessageDetailsImg.setOnClickListener(new ClickUtils.OnMultiClickListener(5) {
             @Override
             public void onTriggerClick(View v) {

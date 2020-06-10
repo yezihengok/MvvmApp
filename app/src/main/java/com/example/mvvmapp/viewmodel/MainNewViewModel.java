@@ -11,11 +11,12 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.commlib.api.CommonObserver;
 import com.example.commlib.base.mvvm.BaseMvvmRecyclerAdapter;
 import com.example.commlib.base.mvvm.BaseViewModel;
+import com.example.commlib.bean.ResultBean;
 import com.example.commlib.bean.ResultBeans;
 import com.example.commlib.event.SingleLiveEvent;
 import com.example.commlib.utils.ToastUtils;
 import com.example.commlib.webview.WebViewActivity;
-import com.example.mvvmapp.MainDetailActivity;
+import com.example.mvvmapp.activity.MainDetailActivity;
 import com.example.mvvmapp.R;
 import com.example.mvvmapp.api.HttpReq;
 import com.example.mvvmapp.bean.ArticlesBean;
@@ -108,6 +109,7 @@ public class MainNewViewModel extends BaseViewModel {
         }
         final MutableLiveData<List<ArticlesBean>> data = new MutableLiveData<>();
         Disposable subscribe= HttpReq.getInstance().getHomeList(mPage.get(),cid)
+                .onErrorReturn(throwable -> new ResultBean<>(ERROR_CODE, throwable.getMessage()))
                 .subscribe(homeListBean -> { //可以使用CommonObserver弹窗
                     if(homeListBean.getErrorCode()==ERROR_CODE){
                         ToastUtils.showShort("接口请求失败了~~");

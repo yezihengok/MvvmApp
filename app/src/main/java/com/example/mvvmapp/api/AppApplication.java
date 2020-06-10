@@ -13,6 +13,7 @@ import com.example.commlib.crash.CaocConfig;
 import com.example.commlib.crash.MyDefaultErrorActivity;
 import com.example.commlib.webview.WebViewActivity;
 import com.example.mvvmapp.R;
+import com.example.mvvmapp.db.DaoManager;
 import com.example.mvvmapp.main.MainNewActivity;
 
 /**
@@ -26,10 +27,15 @@ public class AppApplication extends App {
         initCrash();
         registerActivityLifecycleCallbacks(this);
         initDoraemonKit();
+        initGreenDao();
     }
 
 
-
+    private void initGreenDao()
+    {
+        DaoManager mManager = DaoManager.getInstance();
+        mManager.init(this);
+    }
     public void initDoraemonKit(){
         // DoraemonKit.install(this);
         DoraemonKit.install(this,null,"780a59b23dde39e0527856bc30cd3056");

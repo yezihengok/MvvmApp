@@ -12,8 +12,9 @@ import com.example.commlib.event.SingleLiveEvent;
 import com.example.commlib.listener.ClickListener;
 import com.example.commlib.webview.WebViewActivity;
 import com.example.mvvmapp.TestDetailFragment;
-import com.example.mvvmapp.TestWeightActivity;
+import com.example.mvvmapp.activity.TestWeightActivity;
 import com.example.mvvmapp.bean.WanAndroidBannerBean;
+import com.example.mvvmapp.activity.GreenDaoAvtivity;
 
 /**
  * Anthor yzh Date 2019/12/6 11:32
@@ -63,5 +64,10 @@ public class MainDetialViewModel extends BaseViewModel {
     //跳转
     public void toTestWeight(){
         startActivity(TestWeightActivity.class);
+    }
+
+    //跳转
+    public void toGreenDaoAvtivity(){
+        startActivity(GreenDaoAvtivity.class);
     }
 }

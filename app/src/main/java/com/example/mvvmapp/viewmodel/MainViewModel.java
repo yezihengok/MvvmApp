@@ -6,9 +6,10 @@ import androidx.databinding.ObservableArrayList;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.commlib.api.CommObserver;
-import com.example.commlib.base.mvvmold.BaseMvvmActivity;
 import com.example.commlib.base.mvvm.BaseMvvmRecyclerAdapter;
+import com.example.commlib.base.mvvmold.BaseMvvmActivity;
 import com.example.commlib.base.mvvmold.BaseMvvmViewModel;
+import com.example.commlib.bean.ResultBean;
 import com.example.commlib.bean.ResultBeans;
 import com.example.commlib.event.SingleLiveEvent;
 import com.example.commlib.listener.ResultCallback;
@@ -102,6 +103,7 @@ public class MainViewModel extends BaseMvvmViewModel {
         //通知给View的方式2：直接简单粗暴将ViewModel 请求的数据 通过接口回调给View
         Disposable subscribe= HttpReq.getInstance().getHomeList(mPage,cid)
                 .compose(mActivity.bindUntilEvent(ActivityEvent.DESTROY))//防止Rxjava内存泄漏方式1：用 RxLifecycle 将Rxjava绑定Acitivty/Fragment,销毁时自动取消订阅
+                .onErrorReturn(throwable -> new ResultBean<>(ERROR_CODE, throwable.getMessage()))
                 .subscribe(homeListBean -> { //可以使用CommonObserver弹窗
                     if(homeListBean.getErrorCode()==ERROR_CODE){
                         ToastUtils.showShort("接口请求失败了~~");

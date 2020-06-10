@@ -24,9 +24,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainDetailActivity"/>
-        <activity android:name=".TestWeightActivity"/>
+        <activity android:name=".activity.MainDetailActivity"/>
+        <activity android:name=".activity.TestWeightActivity"/>
         <activity android:name=".main.MainActivity" />
+        <activity android:name=".activity.GreenDaoAvtivity" />
     </application>
 
 </manifest>

@@ -84,7 +84,7 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
 
     /**
      * 不使用类名传来的ViewModel，使用临时自定义的ViewModel
-     * @return 重写次方法返回
+     * @return 重写此方法返回
      */
     public VM initMVVMViewModel(){
         return null;

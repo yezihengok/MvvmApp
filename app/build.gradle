@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'com.didi.dokit'
 android {
     compileSdkVersion 29
@@ -24,6 +25,15 @@ android {
     compileOptions {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
+    }
+
+    greendao {
+        // 指定数据库schema版本号，迁移等操作会用到
+        schemaVersion 2
+        // 设置生成数据库文件的目录，默认是在build中，可以将生成的文件放到我们的java目录中
+        //targetGenDir 'src/main/java'  （当前版本已不建议配置，会报错）
+        // 设置生成的数据库相关文件的包名，默认为entity所在的包名
+        daoPackage 'com.primary.greendao.gen'
     }
 
 }
@@ -57,7 +67,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'//androidx 版本的design包
     implementation project(path: ':commlib')
 
-
+    implementation 'org.greenrobot:greendao:3.2.2'
     //滴滴的调试插件   https://github.com/didi/DoraemonKit
     debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:3.1.4'
     releaseImplementation 'com.didichuxing.doraemonkit:doraemonkit-no-op:3.1.4'

@@ -1,20 +1,24 @@
 package com.example.commlib.rx;
 
 
+import com.example.commlib.utils.CommUtils;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
-
 /**
  * Created by yzh on 19/11/11.
  */
 public class RxBus {
     /**
-     * 参考: http://hanhailong.com/2015/10/09/RxBus%E2%80%94%E9%80%9A%E8%BF%87RxJava%E6%9D%A5%E6%9B%BF%E6%8D%A2EventBus/
+     * 参考:
      * http://www.loongwind.com/archives/264.html
-     * https://theseyears.gitbooks.io/android-architecture-journey/content/rxbus.html
+     * https://blog.csdn.net/u013651026/article/details/79088442
      */
 
     //RxBus=用RxJava模拟实现的EventBus的功能,不需要再额外引入EventBus库增加app代码量
@@ -29,10 +33,31 @@ public class RxBus {
 //    }
 
 
-    private static volatile RxBus mDefaultInstance;
+//        RxBus.getDefault().postSticky(new EventSticky("aa"));
+//        RxBus.getDefault().toObservableSticky(EventSticky.class).subscribe(new Consumer<EventSticky>() {
+//        @Override
+//        public void accept(EventSticky eventSticky) throws Exception {
+//
+//        }
+//    });
 
-    private RxBus() {
-    }
+//    public class EventSticky {
+//        public String event;
+//
+//        public EventSticky(String event) {
+//            this.event = event;
+//        }
+//
+//        @Override
+//        public String toString() {
+//            return "EventSticky{" +
+//                    "event='" + event + '\'' +
+//                    '}';
+//        }
+//    }
+
+
+    private static volatile RxBus mDefaultInstance;
 
     public static RxBus getDefault() {
         if (mDefaultInstance == null) {
@@ -44,6 +69,11 @@ public class RxBus {
         }
         return mDefaultInstance;
     }
+
+    public RxBus() {
+        mStickyEventMap = new ConcurrentHashMap<>();
+    }
+
 
     private final Subject<Object> _bus = PublishSubject.create().toSerialized();
 
@@ -87,6 +117,7 @@ public class RxBus {
      * @return
      */
     public <T> Observable<T> toObservable(final int code, final Class<T> eventType) {
+        CommUtils.isMainThread();
         return _bus.ofType(RxBusMessage.class)
                 .filter(new Predicate<RxBusMessage>() {
                     @Override
@@ -107,6 +138,75 @@ public class RxBus {
      */
     public boolean hasObservers() {
         return _bus.hasObservers();
+    }
+
+
+
+
+    /**
+     * Stciky 相关
+     */
+    private final Map<Class<?>, Object> mStickyEventMap;
+    /**
+     * 发送一个新Sticky事件
+     */
+    public void postSticky(Object event) {
+        synchronized (mStickyEventMap) {
+            mStickyEventMap.put(event.getClass(), event);
+        }
+        post(event);
+    }
+
+    public void post(Object event) {
+        _bus.onNext(event);
+    }
+    /**
+     * 根据传递的 eventType 类型返回特定类型(eventType)的 被观察者
+     */
+    public <T> Observable<T> toObservableSticky(final Class<T> eventType) {
+        synchronized (mStickyEventMap) {
+            Observable<T> observable = _bus.ofType(eventType);
+            final Object event = mStickyEventMap.get(eventType);
+
+            if (event != null) {
+                return observable.mergeWith(Observable.create(emitter -> {
+                    emitter.onNext(eventType.cast(event));
+                }));
+            } else {
+                return observable;
+            }
+        }
+    }
+
+    /**
+     * 根据eventType获取Sticky事件
+     */
+    public <T> T getStickyEvent(Class<T> eventType) {
+        synchronized (mStickyEventMap) {
+            return eventType.cast(mStickyEventMap.get(eventType));
+        }
+    }
+
+    /**
+     * 移除指定eventType的Sticky事件
+     */
+    public <T> T removeStickyEvent(Class<T> eventType) {
+        synchronized (mStickyEventMap) {
+            return eventType.cast(mStickyEventMap.remove(eventType));
+        }
+    }
+
+
+
+//    在使用Sticky特性时，在不需要某Sticky事件时， 通过removeStickyEvent(Class<T> eventType)移除它，最保险的做法是：在主Activity的onDestroy里removeAllStickyEvents()。
+//    因为我们的RxBus是个单例静态对象，再正常退出app时，该对象依然会存在于JVM，除非进程被杀死，这样的话导致StickyMap里的数据依然存在，为了避免该问题，需要在app退出时，清理StickyMap。
+    /**
+     * 移除所有的Sticky事件
+     */
+    public void removeAllStickyEvents() {
+        synchronized (mStickyEventMap) {
+            mStickyEventMap.clear();
+        }
     }
 
 }

@@ -4,7 +4,7 @@
     xmlns:bind="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.example.mvvmapp.TestWeightActivity"/>
+        <import type="com.example.mvvmapp.activity.TestWeightActivity"/>
 <!--        <variable
             name="bannerBean"
             type="com.example.mvvmapp.bean.WanAndroidBannerBean"/>-->
@@ -112,11 +112,20 @@
                     android:text="示例网页加载出错显示默认网页" />
 
                 <TextView
+                    android:id="@+id/btn6"
                     style="@style/btn_style"
                     android:onClick="@{()->viewModel.toTestWeight()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="跳转测试控件" />
+                    android:text="体验测试控件" />
+
+                <TextView
+                    android:id="@+id/btn7"
+                    style="@style/btn_style"
+                    android:onClick="@{()->viewModel.toGreenDaoAvtivity()}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="示例GreenDao数据库使用" />
 
             </LinearLayout>
         </ScrollView>
