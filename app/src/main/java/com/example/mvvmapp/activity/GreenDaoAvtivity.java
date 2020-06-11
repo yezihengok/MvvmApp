@@ -19,7 +19,7 @@ public class GreenDaoAvtivity extends BaseActivity<ActivityGreendaoBinding, Gree
         return R.layout.activity_greendao;
     }
 
-    String content="【我是修改后的内容】";
+    String content="contentType";
     @Override
     public void initViewObservable() {
         mViewModel.deleteEvent.observe(this, aVoid -> {
@@ -39,14 +39,15 @@ public class GreenDaoAvtivity extends BaseActivity<ActivityGreendaoBinding, Gree
         });
 
         mViewModel.addEvent.observe(this,aVoid ->
-                mBinding.tvContent.postDelayed(() ->
+                mBinding.mScrollView.postDelayed(() ->
                         mBinding.mScrollView.fullScroll(ScrollView.FOCUS_DOWN),300));
 
 
         mViewModel.contentChangeEvent.observe(this,aVoid ->{
             mBinding.tvContent.postDelayed(() ->{
+                //文字高亮工具类
                 EllipsizeUtils.ellipsizeAndHighlight(mBinding.tvContent, mBinding.tvContent.getText().toString(),content,
-                        Color.RED, false, false);
+                        Color.RED, true, false);
             },400);
          });
 

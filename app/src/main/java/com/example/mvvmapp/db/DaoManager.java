@@ -3,6 +3,7 @@ package com.example.mvvmapp.db;
 import android.content.Context;
 
 import com.example.mvvmapp.BuildConfig;
+import com.example.mvvmapp.db.upgrade.DBHelper;
 import com.primary.greendao.gen.DaoMaster;
 import com.primary.greendao.gen.DaoSession;
 
@@ -54,7 +55,8 @@ public class DaoManager {
      */
     public DaoMaster getDaoMaster() {
         if (sDaoMaster == null) {
-            DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, DB_NAME, null);
+            DBHelper helper=new DBHelper(context, DB_NAME);
+            //DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, DB_NAME, null);
             sDaoMaster = new DaoMaster(helper.getWritableDatabase());
         }
         return sDaoMaster;

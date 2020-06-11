@@ -13,6 +13,7 @@ import com.example.commlib.event.SingleLiveEvent;
 import com.example.commlib.utils.GsonUtil;
 import com.example.commlib.utils.ToastUtils;
 import com.example.mvvmapp.bean.ArticleBean;
+import com.example.mvvmapp.bean.TestBean;
 import com.example.mvvmapp.db.CommonDaoUtil;
 import com.example.mvvmapp.db.DaoUtilsStore;
 
@@ -122,6 +123,12 @@ public class GreenDaoViewModel extends BaseViewModel
         }
         mContent.set(builder.toString());
         contentChangeEvent.call();
+
+        //测试TestBean
+        List<TestBean> beans=DaoUtilsStore.getInstance().getTestBeanUtil().queryAll();
+        for(TestBean bean:beans){
+            ALog.v(GsonUtil.getBeanToJson(bean));
+        }
     }
 
 
@@ -131,6 +138,10 @@ public class GreenDaoViewModel extends BaseViewModel
         mDaoUtil.insert(bean);
         updateContent();
         addEvent.call();
+
+        //测试TestBean
+        TestBean testBean=new TestBean("111","222","aaa");
+        DaoUtilsStore.getInstance().getTestBeanUtil().insert(testBean);
     }
 
     public void deleteAll(){

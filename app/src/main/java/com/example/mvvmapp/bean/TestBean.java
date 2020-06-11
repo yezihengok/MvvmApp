@@ -21,20 +21,33 @@ public class TestBean {
   //  @SerializedName("level")
     private String level;
 
-    public TestBean(String title, String level) {
+    private String name;
+
+
+    public TestBean(String title, String level, String name) {
         this.title = title;
         this.level = level;
+        this.name = name;
     }
 
-    @Generated(hash = 2004205718)
-    public TestBean(Long _id, String title, String level) {
+    @Generated(hash = 1216338401)
+    public TestBean(Long _id, String title, String level, String name) {
         this._id = _id;
         this.title = title;
         this.level = level;
+        this.name = name;
     }
 
     @Generated(hash = 2087637710)
     public TestBean() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long get_id() {
