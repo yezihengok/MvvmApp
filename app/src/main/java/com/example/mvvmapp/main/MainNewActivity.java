@@ -17,8 +17,8 @@ import com.example.commlib.webview.WebViewActivity;
 import com.example.commlib.weight.banner.BannerConfig;
 import com.example.commlib.weight.banner.Transformer;
 import com.example.mvvmapp.BuildConfig;
-import com.example.mvvmapp.activity.MainDetailActivity;
 import com.example.mvvmapp.R;
+import com.example.mvvmapp.activity.MainDetailActivity;
 import com.example.mvvmapp.bean.WanAndroidBannerBean;
 import com.example.mvvmapp.databinding.ActivityNewMainBinding;
 import com.example.mvvmapp.viewmodel.MainNewViewModel;
@@ -64,6 +64,7 @@ public class MainNewActivity extends BaseActivity<ActivityNewMainBinding, MainNe
             getWanBanner();
         });
         mBinding.mRefreshLayout.setOnLoadMoreListener(refreshLayout ->getHomeList(false));
+
     }
 
     private void initBanner(){

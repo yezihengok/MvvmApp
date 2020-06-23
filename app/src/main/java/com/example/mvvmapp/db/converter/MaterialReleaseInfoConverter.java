@@ -1,4 +1,4 @@
-package com.example.mvvmapp.db.connverter;
+package com.example.mvvmapp.db.converter;
 
 import com.example.mvvmapp.bean.ArticleBean;
 import com.google.gson.Gson;

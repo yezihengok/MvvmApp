@@ -12,11 +12,11 @@ import java.util.List;
 /**
  * Created by yzh on 2020/6/9 15:18.
  */
-public class ArticleDaoUtil {
-    private static final String TAG = ArticleDaoUtil.class.getSimpleName();
+public class ArticleDao {
+    private static final String TAG = ArticleDao.class.getSimpleName();
 
     private DaoManager mManager;
-    public ArticleDaoUtil() {
+    public ArticleDao() {
         mManager = DaoManager.getInstance();
         mManager.init(App.getInstance());
     }

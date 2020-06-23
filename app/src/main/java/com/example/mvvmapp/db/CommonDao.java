@@ -14,14 +14,14 @@ import java.util.List;
  * 公用DaoUtil ,避免使用一个对象就创建一个DaoUtil
  * Created by yzh on 2020/6/10 11:03.
  */
-public class CommonDaoUtil<T> {
-    private static final String TAG = CommonDaoUtil.class.getSimpleName();
+public class CommonDao<T> {
+    private static final String TAG = CommonDao.class.getSimpleName();
 
     private DaoSession daoSession;
     private Class<T> entityClass;
     private AbstractDao<T, Long> entityDao;
 
-    public CommonDaoUtil(Class<T> pEntityClass, AbstractDao<T, Long> pEntityDao) {
+    public CommonDao(Class<T> pEntityClass, AbstractDao<T, Long> pEntityDao) {
         DaoManager mManager = DaoManager.getInstance();
         daoSession = mManager.getDaoSession();
         entityClass = pEntityClass;

@@ -28,24 +28,25 @@ public class DaoUtilsStore {
     }
 
 
-    private CommonDaoUtil<ArticleBean> mArticleBeanUtil;
-    private CommonDaoUtil<TestBean> mTestBeanUtil;
+    private CommonDao<ArticleBean> mArticleBeanUtil;
+    private CommonDao<TestBean> mTestBeanUtil;
 
-    public CommonDaoUtil<ArticleBean> getArticleBeanUtil() {
+    public CommonDao<ArticleBean> getArticleBeanUtil() {
         if (mArticleBeanUtil == null) {
             ArticleBeanDao articleBeanDao = mManager.getDaoSession().getArticleBeanDao();
-            mArticleBeanUtil = new CommonDaoUtil<>(ArticleBean.class, articleBeanDao);
+            mArticleBeanUtil = new CommonDao<>(ArticleBean.class, articleBeanDao);
         }
         return mArticleBeanUtil;
     }
 
-    public CommonDaoUtil<TestBean> getTestBeanUtil() {
+    public CommonDao<TestBean> getTestBeanUtil() {
         if (mTestBeanUtil == null) {
             TestBeanDao testBeanDao = mManager.getDaoSession().getTestBeanDao();
-            mTestBeanUtil = new CommonDaoUtil<>(TestBean.class, testBeanDao);
+            mTestBeanUtil = new CommonDao<>(TestBean.class, testBeanDao);
         }
         return mTestBeanUtil;
     }
+
 
 
 }

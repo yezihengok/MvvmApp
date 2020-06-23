@@ -1,4 +1,4 @@
-package com.example.mvvmapp.db.connverter;
+package com.example.mvvmapp.db.converter;
 
 import org.greenrobot.greendao.converter.PropertyConverter;
 
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class StringConverter implements PropertyConverter<List<String> , String> {
 
-    private static final String SPIT="#spit#";
+    private static final String SPIT="#;#";
     @Override
     public List<String> convertToEntityProperty(String databaseValue) {
         if (databaseValue == null) {

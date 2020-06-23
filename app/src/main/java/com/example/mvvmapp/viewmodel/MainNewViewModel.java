@@ -79,7 +79,7 @@ public class MainNewViewModel extends BaseViewModel {
 
         final MutableLiveData<List<WanAndroidBannerBean>> data = new MutableLiveData<>();
         HttpReq.getInstance().getWanBanner()
-                .subscribe(new CommonObserver<ResultBeans<WanAndroidBannerBean>>(this,true) {
+                .subscribe(new CommonObserver<ResultBeans<WanAndroidBannerBean>>(this,false) {
                     @Override
                     public void success(ResultBeans<WanAndroidBannerBean>  bannerBean) {
                         //ResultBean<WanAndroidBannerBean> 不会为空不需要做为空判断，因为前面调用onErrorReturn失败new一个空对象

@@ -1,9 +1,9 @@
 package com.example.mvvmapp.bean;
 
 
-import com.example.mvvmapp.db.connverter.MaterialReleaseInfoConverter;
-import com.example.mvvmapp.db.connverter.ParagrapBeanConvent;
-import com.example.mvvmapp.db.connverter.StringConverter;
+import com.example.mvvmapp.db.converter.MaterialReleaseInfoConverter;
+import com.example.mvvmapp.db.converter.ParagrapBeanConvent;
+import com.example.mvvmapp.db.converter.StringConverter;
 import com.google.gson.annotations.SerializedName;
 
 import org.greenrobot.greendao.annotation.Convert;

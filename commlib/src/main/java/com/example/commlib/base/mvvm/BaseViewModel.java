@@ -30,8 +30,8 @@ import static com.example.commlib.utils.CommUtils.isListNotNull;
  * anthor yzh time 2019/11/27 10:07
  */
 public abstract class BaseViewModel extends AndroidViewModel {
-   // public int mPage = 1;//列表分页使用默认1开始
-    public ObservableInt mPage= new ObservableInt(1);
+    /**下一次分页请求的页数**/
+    public ObservableInt mPage= new ObservableInt(1);//默认1开始
     private CompositeDisposable mCompositeDisposable;
     private UILiveData mUILiveData;
 
@@ -231,7 +231,7 @@ public abstract class BaseViewModel extends AndroidViewModel {
         if(isListNotNull(mList)){
             if(isRefresh){
                 //mPage=2;
-                mPage.set(2);
+                mPage.set(2);//不是1哦，
             }else{
                 mPage.set(mPage.get()+1);
                // mPage++;

@@ -14,7 +14,7 @@ import com.example.commlib.utils.GsonUtil;
 import com.example.commlib.utils.ToastUtils;
 import com.example.mvvmapp.bean.ArticleBean;
 import com.example.mvvmapp.bean.TestBean;
-import com.example.mvvmapp.db.CommonDaoUtil;
+import com.example.mvvmapp.db.CommonDao;
 import com.example.mvvmapp.db.DaoUtilsStore;
 
 import java.util.List;
@@ -33,11 +33,11 @@ public class GreenDaoViewModel extends BaseViewModel
     public SingleLiveEvent<Void> contentChangeEvent = new SingleLiveEvent<>();
     public SingleLiveEvent<Void> addEvent = new SingleLiveEvent<>();
 
-   // ArticleDaoUtil daoUtil;
-    CommonDaoUtil<ArticleBean> mDaoUtil;
+   // ArticleDao daoUtil;
+    CommonDao<ArticleBean> mDaoUtil;
     public GreenDaoViewModel(@NonNull Application application) {
         super(application);
-       // daoUtil=new ArticleDaoUtil();
+       // daoUtil=new ArticleDao();
         mDaoUtil= DaoUtilsStore.getInstance().getArticleBeanUtil();
     }
 
@@ -141,7 +141,9 @@ public class GreenDaoViewModel extends BaseViewModel
 
         //测试TestBean
         TestBean testBean=new TestBean("111","222","aaa");
+
         DaoUtilsStore.getInstance().getTestBeanUtil().insert(testBean);
+
     }
 
     public void deleteAll(){
