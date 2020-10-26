@@ -44,6 +44,7 @@ public class GreenDaoAvtivity extends BaseActivity<ActivityGreendaoBinding, Gree
 
 
         mViewModel.contentChangeEvent.observe(this,aVoid ->{
+                            EllipsizeUtils.ellipsizeAndHighlight(mBinding.tvContent, mBinding.tvContent.getText().toString(),"_id", Color.BLUE, true, false);
             mBinding.tvContent.postDelayed(() ->{
                 //文字高亮工具类
                 EllipsizeUtils.ellipsizeAndHighlight(mBinding.tvContent, mBinding.tvContent.getText().toString(),content,

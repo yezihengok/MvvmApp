@@ -95,7 +95,6 @@ public class ActivityManager {
         for (Activity activity: activities) {
             if (null != activity){
                 activity.finish();
-                activity = null;
             }
         }
         activities.clear();

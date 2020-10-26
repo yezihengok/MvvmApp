@@ -22,6 +22,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Rxjava2.x实现轮询定时器.
@@ -43,6 +44,7 @@ public class RxTimerUtil {
             return;
         }
         Observable.timer(seconds, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Long>() {
                     @Override
@@ -85,6 +87,7 @@ public class RxTimerUtil {
             return;
         }
         Observable.interval(milliseconds, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Long>() {
                     @Override
@@ -122,6 +125,7 @@ public class RxTimerUtil {
             return;
         }
         Observable.interval(milliseconds,unit)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Long>() {
                     @Override
@@ -165,6 +169,7 @@ public class RxTimerUtil {
                         return seconds - aLong;
                     }
                 })
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())//ui线程中进行控件更新
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
@@ -209,6 +214,7 @@ public class RxTimerUtil {
                         return seconds - aLong;
                     }
                 })
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())//ui线程中进行控件更新
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override

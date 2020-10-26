@@ -1,6 +1,7 @@
 package com.example.mvvmapp.main;
 
 import android.os.Bundle;
+import android.util.SparseIntArray;
 import android.view.KeyEvent;
 
 import androidx.lifecycle.Observer;
@@ -33,6 +34,58 @@ import io.reactivex.disposables.Disposable;
  */
 public class MainNewActivity extends BaseActivity<ActivityNewMainBinding, MainNewViewModel> {
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        SparseIntArray sparseIntArray=new SparseIntArray();
+        sparseIntArray.put(0,3);
+        sparseIntArray.put(4,7);
+        sparseIntArray.put(8,11);
+        sparseIntArray.put(12,12);
+
+        getPlayInterval(12,sparseIntArray);
+    }
+    /**
+     * 根据播放的playPosition 计算出 当前连续播放的区间.
+     * @param playPosition
+     * @param sparseArray
+     * @return
+     */
+    public static int[]  getPlayInterval(int playPosition,SparseIntArray sparseArray){
+        int[] interval=new int[]{0,0};
+        if(sparseArray!=null&&sparseArray.size()>0){
+            for (int i = playPosition; i >=0; i--) {
+                int indexOfKey=sparseArray.indexOfKey(i);
+                if(indexOfKey>=0){
+                    int key=sparseArray.keyAt(indexOfKey);
+                    int value=sparseArray.get(key);
+                    interval[0]=key;
+                    interval[1]=value;
+                    break;
+                }
+            }
+
+/*            label:
+            for (int j = 0; j <sparseArray.size() ; j++) {
+                int value=sparseArray.get(j);
+                if(value<playPosition){
+                    continue;
+                }
+                for (int i = playPosition; i >=0; i--) {
+                    int key=sparseArray.indexOfKey(i);
+                    if(key>=0){
+                        interval[0]=key;
+                        interval[1]=value;
+                        break label;
+                    }
+                }
+            }*/
+            ALog.a(interval);
+        }
+        return interval;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

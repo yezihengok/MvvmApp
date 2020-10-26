@@ -38,7 +38,10 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.example.commlib.utils.DensityUtil.getScreenWidth;
 
@@ -487,7 +490,21 @@ public class CommUtils {
         return id;
     }
 
-
+    /**
+     * 正则表达式判断字符串是数字，可以为正数，可以为负数，可含有小数点，不能含有字符。
+     */
+    public static boolean isNumeric(String values) {
+        if (isEmpty(values)) {
+            return false;
+        }
+        //Pattern pattern = Pattern.compile("-?[0-9]*.?[0-9]*");
+        Pattern pattern = Pattern.compile("^(\\-|\\+)?\\d+(\\.\\d+)?$");
+        Matcher isNum = pattern.matcher(values);
+        if (!isNum.matches()) {
+            return false;
+        }
+        return true;
+    }
 
     /**
      * 根据资源名称获取 资源id （通过反射）
@@ -552,6 +569,108 @@ public class CommUtils {
         String  mm=(miss % 3600)/60>9?(miss % 3600)/60+"":"0"+(miss % 3600)/60;
         String ss=(miss % 3600) % 60>9?(miss % 3600) % 60+"":"0"+(miss % 3600) % 60;
         return hh+"小时"+mm+"分钟"+ss+"秒";
+    }
+
+    /**
+     * 正则表达式匹配两个指定字符串中间的内容 biru
+     * @param str
+     * @param rgex 例如  ： "abc(.*?)abc"  "(?<=\\{)(.+?)(?=\\})"
+     * @return
+     */
+    public static List<String> getSubUtil(String str,String rgex){
+        List<String> list = new ArrayList<String>();
+        Pattern pattern = Pattern.compile(rgex);// 匹配的模式
+        Matcher m = pattern.matcher(str);
+        while (m.find()) {
+            int i = 1;
+            list.add(m.group(i));
+            System.out.println(m.group(i));
+           // i++;
+        }
+        return list;
+    }
+
+    /**
+     * 正则表达式匹配两个指定字符串中间的内容 并去掉 可能包含的 "-" 符号 并且是数字
+     * @param str
+     * @param rgex 例如  ： "abc(.*?)abc"  "(?<=\\{)(.+?)(?=\\})"
+     * @return
+     */
+    public static List<String> getSubUtil1(String str,String rgex){
+        List<String> list = new ArrayList<String>();
+        Pattern pattern = Pattern.compile(rgex);// 匹配的模式
+        Matcher m = pattern.matcher(str);
+        while (m.find()) {
+            int i = 1;
+            String s=m.group(i);
+            if(isNoEmpty(s)){
+                s=s.replace("-","");
+                if(isNumeric(s)){
+                    list.add(s);
+                }
+            }
+            System.out.println(m.group(i));
+            // i++;
+        }
+        return list;
+    }
+
+    /**
+     * 正则表达式匹配两个指定字符串中间的内容 并且是中文数字
+     * @param str
+     * @param rgex 例如  ： "abc(.*?)abc"  "(?<=\\{)(.+?)(?=\\})"
+     * @return
+     */
+    public static List<String> getSubUtil2(String str,String rgex){
+        List<String> list = new ArrayList<String>();
+        Pattern pattern = Pattern.compile(rgex);// 匹配的模式
+        Matcher m = pattern.matcher(str);
+        while (m.find()) {
+            int i = 1;
+            String s=m.group(i);
+            if(isNoEmpty(s)){
+                s=s.replace("-","");
+                if(isChineseNumber(s)){
+                    list.add(s);
+                }
+            }
+            System.out.println(m.group(i));
+            // i++;
+        }
+        return list;
+    }
+
+    /**
+     * 正则表达式匹配两个指定字符串中间的内容 biru
+     * @param str
+     * @param rgex 例如  ： "abc(.*?)abc"  "(?<=\\{)(.+?)(?=\\})"
+     * @return
+     */
+    public static List<String> getSubUtil3(String str,String rgex,String left,String right){
+        List<String> list = new ArrayList<String>();
+        Pattern pattern = Pattern.compile(rgex);// 匹配的模式
+        Matcher m = pattern.matcher(str);
+        while (m.find()) {
+            int i = 1;
+            list.add(left+m.group(i)+right);//在追加上 匹配的前后缀
+            System.out.println(m.group(i));
+            // i++;
+        }
+        return list;
+    }
+
+    /**
+     * pan
+     * @return
+     */
+    public static boolean isChineseNumber(String s){
+        String regex="^[零一二三四五六七八九十百千万亿壹贰叁肆伍陆柒捌玖拾佰仟萬億]+$";
+        Pattern p=Pattern.compile(regex);
+        Matcher m=p.matcher(s);
+        if(m.matches()){
+            System.out.println(s+" 是汉字的数字");
+        }
+        return m.matches();
     }
 
 }

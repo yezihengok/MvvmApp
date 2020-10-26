@@ -9,6 +9,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -150,5 +151,99 @@ public class GsonUtil {
     public static String getBeanToJson(Object bean) {
         Gson gson = new Gson();
         return gson.toJson(bean);
+    }
+
+
+    //----------------------手动解析json类---------------------------
+    public static JSONArray getJSONArray(JSONObject object, String name) {
+        if (object.isNull(name)) {
+            ALog.e("没有找到节点：" + name);
+            return null;
+        }
+        try {
+            return object.getJSONArray(name);
+        } catch (JSONException e) {
+            //Log.e("", e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * 加工json节点的数据，如果有节点则取节点数据，如果没有节点则返回空字符串
+     * @param object
+     * @param name
+     * @return
+     */
+    public static String getString(JSONObject object, String name) {
+        if(object==null){
+            return "";
+        }
+        if (object.isNull(name)) {
+            //CommUtils.logD("没有找到节点：" + name);
+            return "";
+        }
+        try {
+            return object.getString(name);
+        } catch (JSONException e) {
+            //Log.e("", e.getMessage());
+            return "";
+        }
+    }
+
+    public static String getDoubleString(JSONObject object, String name) {
+        if (object.isNull(name)) {
+            //Log.e("", "没有找到节点："+name);
+            return "0";
+        }
+        try {
+            return object.getString(name);
+        } catch (JSONException e) {
+            //Log.e("", e.getMessage());
+            return "0";
+        }
+    }
+
+
+    /**
+     * 获取json节点的数据并换行为Long型，否则返回0
+     * @param object
+     * @param name
+     * @return
+     */
+    public static double getDouble(JSONObject object, String name) {
+        if (object.isNull(name)) {
+            return 0;
+        }
+        try {
+            return object.getDouble(name);
+        } catch (JSONException e) {
+            return 0;
+        }
+    }
+
+
+    public static int getInt(JSONObject object, String name) {
+        if (object.isNull(name)) {
+            return 0;
+        }
+        try {
+            return object.getInt(name);
+        } catch (JSONException e) {
+            return 0;
+        }
+    }
+    /**
+     * <获取json节点的数据并换行为int型，否则返回0>
+     *
+     */
+    public static String getIntString(JSONObject object, String name) {
+        if (object.isNull(name)) {
+            return "0";
+        }
+        try {
+            return object.getString(name);
+        } catch (JSONException e) {
+            return "0";
+        }
     }
 }

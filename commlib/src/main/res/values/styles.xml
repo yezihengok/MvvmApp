@@ -26,6 +26,8 @@
         <item name="android:windowIsTranslucent">true</item>
         <!-- 对话框是否有遮盖 -->
         <item name="android:windowContentOverlay">@null</item>
+        <!-- 设置背景模糊的透明度-->
+        <item name="android:backgroundDimAmount">0.5</item>
     </style>
 
     <style name="NoTitleDialog" parent="Theme.AppCompat.Light.Dialog">

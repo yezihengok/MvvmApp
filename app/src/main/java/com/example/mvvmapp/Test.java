@@ -23,7 +23,7 @@ public class Test {
 
         List<String> strings=new ArrayList<>();
         strings.add("aaa");
-//        strings.add("bb");
+        strings.add("bb");
 //        strings.add("cc");
 //        strings.add("dd");
 //        strings.add("ee");
@@ -42,5 +42,12 @@ public class Test {
         }
         System.out.println("test:"+strings.get(0));
 
+
+        double target= 4/7d*100;
+        System.out.println("target:="+(int) target);
     }
+
+
+
+
 }
