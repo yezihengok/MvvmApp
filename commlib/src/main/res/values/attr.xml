@@ -100,5 +100,14 @@
             <enum name="changeColor" value="2"/>
         </attr>
     </declare-styleable>
+    <declare-styleable name="AlignTextView">
+        <attr name="alignOnlyOneLine" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="UnderlinedTextView" >
+        <attr name="underlineWidth" format="dimension" />
+        <attr name="underlineColor" format="color" />
+        <attr name="underlineTopMargin" format="dimension" />
+    </declare-styleable>
 
 </resources>
