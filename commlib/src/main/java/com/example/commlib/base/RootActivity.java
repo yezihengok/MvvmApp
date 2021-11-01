@@ -411,14 +411,14 @@ public class RootActivity extends RxAppCompatActivity {
     }
 
     private View emptyView;
-    private View getEmptyView(String contet){
+    private View getEmptyView(String content){
         if(emptyView==null){
             emptyView=getView(R.layout.empty_view);
             emptyView.setOnClickListener(v -> ToastUtils.showShort("点击emptyView刷新不够优雅，直接下拉emptyView刷新吧"));
             ViewGroup.LayoutParams lp=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
             emptyView.setLayoutParams(lp);
         }
-        CommUtils.setTextValues(emptyView.findViewById(R.id.tv_empty),contet);
+        CommUtils.setTextValues(emptyView.findViewById(R.id.tv_empty),content);
         return emptyView;
     }
 

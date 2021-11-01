@@ -8,11 +8,13 @@ import android.graphics.Color;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -667,5 +669,62 @@ public class StatusBarUtil {
         green = (int) (green * a + 0.5);
         blue = (int) (blue * a + 0.5);
         return 0xff << 24 | red << 16 | green << 8 | blue;
+    }
+
+
+    /**
+     * Set the status bar's light mode.
+     *
+     * @param activity    The activity.
+     * @param isLightMode True to set status bar light mode, false otherwise.
+     */
+    public static void setStatusBarLightMode(@NonNull final Activity activity,
+                                             final boolean isLightMode) {
+        setStatusBarLightMode(activity.getWindow(), isLightMode);
+    }
+
+    /**
+     * Set the status bar's light mode.
+     *
+     * @param window      The window.
+     * @param isLightMode True to set status bar light mode, false otherwise.
+     */
+    public static void setStatusBarLightMode(@NonNull final Window window,
+                                             final boolean isLightMode) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            View decorView = window.getDecorView();
+            int vis = decorView.getSystemUiVisibility();
+            if (isLightMode) {
+                vis |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            } else {
+                vis &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            }
+            decorView.setSystemUiVisibility(vis);
+        }
+    }
+
+    /**
+     * Is the status bar light mode.
+     *
+     * @param activity The activity.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isStatusBarLightMode(@NonNull final Activity activity) {
+        return isStatusBarLightMode(activity.getWindow());
+    }
+
+    /**
+     * Is the status bar light mode.
+     *
+     * @param window The window.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isStatusBarLightMode(@NonNull final Window window) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            View decorView = window.getDecorView();
+            int vis = decorView.getSystemUiVisibility();
+            return (vis & View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR) != 0;
+        }
+        return false;
     }
 }

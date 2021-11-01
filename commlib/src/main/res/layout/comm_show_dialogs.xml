@@ -10,6 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:background="#6BC6F7"/>-->
+    <!--    <android.support.v7.widget.CardView-->
+    <!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--        android:id="@+id/rl_index_banner"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="center_horizontal"-->
+    <!--        android:orientation="vertical"-->
+    <!--        app:cardCornerRadius="5dp"-->
+    <!--        app:cardUseCompatPadding="true"-->
+    <!--        app:cardPreventCornerOverlap="true"-->
+    <!--        app:elevation="5dp">-->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -21,21 +32,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="提示"
+            android:text="系统提示"
             android:padding="12dp"
-            android:textColor="@color/ui_black"
+            android:textColor="@color/message_selected_color"
             android:textSize="17sp" />
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:minHeight="60dp"
-            android:gravity="center|top"
+            android:gravity="center"
             android:orientation="vertical"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-
             android:paddingBottom="10dp">
-
             <TextView
                 android:id="@+id/tvShow_content"
                 android:layout_width="match_parent"
@@ -46,16 +55,6 @@
                 tools:text="这是一条提示消息"
                 android:textColor="@color/ui_black"
                 android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/tvShow_content_des"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="left|center"
-                android:textColor="@color/ui_blue"
-                android:textSize="14sp"
-                android:visibility="gone" />
         </LinearLayout>
 
         <View
@@ -74,7 +73,7 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
+                android:background="@drawable/selector_ripple"
                 android:gravity="center"
                 android:text="@android:string/ok"
                 android:textColor="@color/ui_blue"
@@ -91,12 +90,12 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
+                android:background="@drawable/selector_ripple"
                 android:gravity="center"
                 android:text="@android:string/cancel"
                 android:textColor="@color/ui_blue"
                 android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
-
+    <!--    </android.support.v7.widget.CardView>-->
 </LinearLayout>

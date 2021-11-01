@@ -63,6 +63,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorPink">#ffb6cf</color>
 
+    <color name="message_selected_color">#282828</color>
     <color name="default_shadow_color">#2a000000</color>
     <color name="default_shadowback_color">#fff</color>
+    <color name="background_tab_pressed">#40999999</color>
+    <color name="background_tab_pressed2">#ccffffff</color>
 </resources>

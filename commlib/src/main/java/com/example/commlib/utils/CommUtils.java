@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Looper;
@@ -24,8 +25,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.ArrayRes;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.blankj.ALog;
@@ -34,6 +38,7 @@ import com.example.commlib.api.App;
 import com.example.commlib.listener.Listener;
 
 import org.apache.commons.lang.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -343,6 +348,31 @@ public class CommUtils {
             showDialog.findViewById(R.id.spit).setVisibility(View.GONE);
         }
         return showDialog;
+    }
+
+    /**
+     * 只有确定按钮的简化弹窗
+     * @param msg
+     * @param
+     * @return
+     */
+    @NotNull
+    public static Dialog showDialogBySure(Context context, String msg){
+        return showDialogBySure(context,msg,null);
+    }
+    @NotNull
+    public static Dialog showDialogBySure(Context context, String msg, Listener rightListener){
+        return showDialogBySure(context,null,msg,rightListener);
+    }
+    @NotNull
+    public static Dialog showDialogBySure(Context context, String title, String msg, Listener rightListener){
+        return CommUtils.showDialog(context,title,msg,null
+                ,"确定", null,rightListener);
+    }
+    @NotNull
+    public static Dialog showDialogByCancelSure(Context context, String msg, Listener leftListener, Listener rightListener){
+        return CommUtils.showDialog(context,null,msg,"取消"
+                ,"确定", leftListener,rightListener);
     }
 
     /**
@@ -671,6 +701,73 @@ public class CommUtils {
             System.out.println(s+" 是汉字的数字");
         }
         return m.matches();
+    }
+
+    /**
+     * 获取 String
+     * @param id R.string.id
+     * @return String
+     */
+    public static String getString(@StringRes final int id) {
+        try {
+            return App.getInstance().getResources().getString(id);
+        } catch (Exception e) {
+            ALog.eTag("TAG", e, "getString");
+        }
+        return "";
+    }
+
+    /**
+     * 获取 String
+     * @param id         R.string.id
+     * @param formatArgs 格式化参数
+     * @return String
+     */
+    public static String getString(@StringRes final int id, final Object... formatArgs) {
+        try {
+            return App.getInstance().getResources().getString(id, formatArgs);
+        } catch (Exception e) {
+            ALog.eTag("TAG", e, "getString");
+        }
+        return null;
+    }
+
+    /**
+     * 获取 Color
+     * @param colorId R.color.id
+     * @return Color
+     */
+    public static int getColor(@ColorRes final int colorId) {
+        try {
+            return ContextCompat.getColor(App.getInstance(), colorId);
+        } catch (Exception e) {
+            ALog.eTag("TAG", e, "getColor");
+        }
+        return -1;
+    }
+
+    /**
+     * 获取 Drawable
+     * @param drawableId R.drawable.id
+     * @return {@link Drawable}
+     */
+    public static Drawable getDrawable(@DrawableRes final int drawableId) {
+        try {
+            return ContextCompat.getDrawable(App.getInstance(), drawableId);
+        } catch (Exception e) {
+            ALog.eTag("TAG", e, "getDrawable");
+        }
+        return null;
+    }
+    public static String getStringFormat(@StringRes int id, Object... args){
+        return String.format(getString(id),args);
+    }
+    public static void setForegroundPressBg(@NonNull View ...views){
+        if (views!=null&&Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            for (View v:views){
+                v.setForeground(ContextCompat.getDrawable(App.getInstance(),R.drawable.selector_ripple));
+            }
+        }
     }
 
 }

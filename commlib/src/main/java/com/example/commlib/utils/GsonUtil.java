@@ -1,6 +1,7 @@
 package com.example.commlib.utils;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.blankj.ALog;
 import com.google.gson.Gson;
@@ -20,6 +21,8 @@ import java.util.Map;
 
 /**
  * Gson 工具类
+ *  @Author： yzh
+ *  @Date: 2018/12/02 17:09
  */
 public class GsonUtil {
     private static String TAG = GsonUtil.class.getSimpleName();
@@ -51,7 +54,7 @@ public class GsonUtil {
         try {
             t = gson.fromJson(json, cls);
         } catch (Exception e) {
-
+            ALog.e(e);
         }
         return t;
     }
