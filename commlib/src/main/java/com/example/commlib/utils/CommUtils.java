@@ -138,6 +138,20 @@ public class CommUtils {
         }
         return true;
     }
+    /**
+     * 避免数组越界(判断list是否 不为空未越界)
+     *
+     * @param list
+     * @param index
+     * @param <T>
+     * @return
+     */
+    public static <T> boolean isNotIndexOutOf(List<T> list, int index) {
+        if(index<0){
+            return false;
+        }
+        return list != null && !list.isEmpty() && index < list.size();
+    }
 
     public static boolean isEmpty(String s) {
         return s == null || s.length() == 0 || s.equals("null");

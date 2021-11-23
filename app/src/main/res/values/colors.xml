@@ -17,7 +17,7 @@
     <!--全透明-->
     <color name="alltmcolor">#00000000</color>
     <color name="ui_gray">#a0a0a0</color> <!-- 用于辅助性文字颜色 -->
-    <color name="ui_activity_bg">#EFF9FF</color> <!-- 用于界面底色背景 -->
+    <color name="ui_activity_bg">#F5F5F5</color> <!-- 用于界面底色背景 -->
     <color name="ui_gray2"> #CCCCCC</color>
     <color name="gray">#DEDEDE</color>
     <color name="black_aplsh5">#0D000000</color> <!-- 5%透明度的黑色 -->
