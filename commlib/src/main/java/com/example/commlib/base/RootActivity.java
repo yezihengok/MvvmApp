@@ -430,7 +430,6 @@ public class RootActivity extends RxAppCompatActivity {
      * @return
      */
     public Dialog showDialogBysure(String title, String msg, Listener listener){
-        return CommUtils.showDialog(mContext,title,msg,"确定"
-                ,null, listener,null);
+        return CommUtils.showDialogBySure(mContext,title,msg,listener);
     }
 }

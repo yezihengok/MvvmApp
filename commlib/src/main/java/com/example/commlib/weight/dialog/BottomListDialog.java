@@ -1,4 +1,4 @@
-package com.example.commlib.weight;
+package com.example.commlib.weight.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.blankj.ALog;
 import com.example.commlib.R;
 import com.example.commlib.base.BaseRecyclerAdapter;
-import com.example.commlib.base.MyBaseRecyclerAdapter;
 import com.example.commlib.bean.BottomItem;
 import com.example.commlib.listener.ResultCallback;
 import com.example.commlib.utils.CommUtils;
@@ -23,7 +22,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.commlib.utils.ScreenUtils.getScreenWidth;

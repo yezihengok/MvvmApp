@@ -36,6 +36,7 @@ import com.blankj.ALog;
 import com.example.commlib.R;
 import com.example.commlib.api.App;
 import com.example.commlib.listener.Listener;
+import com.example.commlib.weight.dialog.CommAlertDialog;
 
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -275,94 +276,7 @@ public class CommUtils {
     }
 
 
-    /**
-     * 优化确认取消弹窗方法 2016-3-1 yzh update
-     *
-     * @param msg           弹框信息
-     * @param leftName      左边按钮名称
-     * @param rightName     右边按钮名称 (传null表示只显示一个按钮)
-     * @param leftlistener  左边按钮监听 (无需监听事件可传null)
-     * @param rightlistener 右边按钮监听 (无需监听事件可传null)
-     * @param color         设置按钮文字颜色  #FFFFFF (可传null取默认)
-     * @return
-     */
-    public static Dialog showDialog(Context context, String title, String msg, String leftName, String rightName
-            , final Listener leftlistener, final Listener rightlistener, String... color) {
 
-        final Dialog showDialog = new Dialog(context);
-        showDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        showDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-
-        showDialog.getWindow().setGravity(Gravity.CENTER);
-        showDialog.setContentView(R.layout.comm_show_dialogs);
-        showDialog.setCancelable(false);
-        if (!((Activity) context).isFinishing()) {
-            showDialog.show();
-        }
-
-        LinearLayout lyrame;
-        Button btSure, btCancel;
-        TextView tvContent;
-
-        lyrame =showDialog.findViewById(R.id.lyShow_Frame);
-        btSure =  showDialog.findViewById(R.id.btShow_sure);
-        btCancel =showDialog.findViewById(R.id.btShow_cancle);
-        tvContent = showDialog.findViewById(R.id.tvShow_content);
-        lyrame.getLayoutParams().width = getScreenWidth() - dip2px(100);
-
-        tvContent.setText(msg);
-
-        if(msg.length()>=20){
-            tvContent.setGravity(Gravity.LEFT);
-        }else{
-            tvContent.setGravity(Gravity.CENTER);
-        }
-        if (color != null && color.length > 0) {
-            btSure.setTextColor(Color.parseColor(color[0]));
-            if (color.length >1) {
-                btCancel.setTextColor(Color.parseColor(color[1]));
-            }
-
-        } else {
-            //默认颜色
-            setTextColor(btSure, R.color.ui_blue);
-            setTextColor(btCancel,R.color.ui_blue);
-        }
-
-        if(StringUtil.isNoEmpty(title)){
-            TextView tvTitle =showDialog.findViewById(R.id.tvTitle);
-            tvTitle.setText(title);
-        }
-
-        if (StringUtil.isEmpty(leftName)) {
-            btSure.setVisibility(View.GONE);
-            showDialog.findViewById(R.id.spit).setVisibility(View.GONE);
-        } else {
-            btSure.setText(leftName);
-            btSure.setOnClickListener(v -> {
-                showDialog.dismiss();
-                if (leftlistener != null)
-                    leftlistener.onResult();
-            });
-        }
-
-        if (StringUtil.isEmpty(rightName)) {
-            btCancel.setVisibility(View.GONE);
-            showDialog.findViewById(R.id.spit).setVisibility(View.GONE);
-        } else {
-            btCancel.setText(rightName);
-            btCancel.setOnClickListener(v -> {
-                showDialog.dismiss();
-                if (rightlistener != null)
-                    rightlistener.onResult();
-            });
-        }
-
-        if (StringUtils.isEmpty(rightName) || StringUtils.isEmpty(leftName)) {
-            showDialog.findViewById(R.id.spit).setVisibility(View.GONE);
-        }
-        return showDialog;
-    }
 
     /**
      * 只有确定按钮的简化弹窗
@@ -370,112 +284,24 @@ public class CommUtils {
      * @param
      * @return
      */
-    @NotNull
+    @NonNull
     public static Dialog showDialogBySure(Context context, String msg){
         return showDialogBySure(context,msg,null);
     }
-    @NotNull
+    @NonNull
     public static Dialog showDialogBySure(Context context, String msg, Listener rightListener){
         return showDialogBySure(context,null,msg,rightListener);
     }
-    @NotNull
+    @NonNull
     public static Dialog showDialogBySure(Context context, String title, String msg, Listener rightListener){
-        return CommUtils.showDialog(context,title,msg,null
-                ,"确定", null,rightListener);
+        return CommAlertDialog.get(context).showDialog(title,msg,null,"确定", null,rightListener);
     }
-    @NotNull
+    @NonNull
     public static Dialog showDialogByCancelSure(Context context, String msg, Listener leftListener, Listener rightListener){
-        return CommUtils.showDialog(context,null,msg,"取消"
-                ,"确定", leftListener,rightListener);
+        return CommAlertDialog.get(context).showDialog(null,msg,"取消","确定", leftListener,rightListener);
     }
 
-    /**
-     * 点击按钮后需要手动关闭的弹窗
-     *
-     * @param msg           弹框信息
-     * @param leftName      左边按钮名称
-     * @param rightName     右边按钮名称 (传null表示只显示一个按钮)
-     * @param leftlistener  左边按钮监听 (无需监听事件可传null)
-     * @param rightlistener 右边按钮监听 (无需监听事件可传null)
-     * @param color         设置按钮文字颜色  #FFFFFF (可传null取默认)
-     * @return
-     */
-    public static TextView showDialogs(Context context, String title, String msg, String leftName, String rightName
-            , final Listener leftlistener, final Listener rightlistener, String... color) {
 
-        final Dialog showDialog = new Dialog(context);
-        showDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        showDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-
-        showDialog.getWindow().setGravity(Gravity.CENTER);
-        showDialog.setContentView(R.layout.comm_show_dialogs);
-        showDialog.setCancelable(false);
-        if (!((Activity) context).isFinishing()) {
-            showDialog.show();
-        }
-
-        LinearLayout lyrame;
-        Button btSure, btCancel;
-        TextView tvContent;
-
-        lyrame =showDialog.findViewById(R.id.lyShow_Frame);
-        btSure =  showDialog.findViewById(R.id.btShow_sure);
-        btCancel =showDialog.findViewById(R.id.btShow_cancle);
-        tvContent = showDialog.findViewById(R.id.tvShow_content);
-        lyrame.getLayoutParams().width = getScreenWidth() - dip2px(100);
-        tvContent.setText(msg);
-
-        if(msg.length()>=20){
-            tvContent.setGravity(Gravity.LEFT);
-        }else{
-            tvContent.setGravity(Gravity.CENTER);
-        }
-        if (color != null && color.length > 0) {
-            btSure.setTextColor(Color.parseColor(color[0]));
-            if (color.length >1) {
-                btCancel.setTextColor(Color.parseColor(color[1]));
-            }
-
-        } else {
-            //默认颜色
-            setTextColor(btSure, R.color.ui_blue);
-            setTextColor(btCancel,R.color.ui_blue);
-        }
-
-        if(StringUtil.isNoEmpty(title)){
-            TextView tvTitle =showDialog.findViewById(R.id.tvTitle);
-            tvTitle.setText(title);
-        }
-
-        if (StringUtil.isEmpty(leftName)) {
-            btSure.setVisibility(View.GONE);
-            showDialog.findViewById(R.id.spit).setVisibility(View.GONE);
-        } else {
-            btSure.setText(leftName);
-            btSure.setOnClickListener(v -> {
-               // showDialog.dismiss();
-                if (leftlistener != null)
-                    leftlistener.onResult();
-            });
-        }
-
-        if (StringUtil.isEmpty(rightName)) {
-            btCancel.setVisibility(View.GONE);
-            showDialog.findViewById(R.id.spit).setVisibility(View.GONE);
-        } else {
-            btCancel.setText(rightName);
-            btCancel.setOnClickListener(v -> {
-                //showDialog.dismiss();
-                if (rightlistener != null)
-                    rightlistener.onResult();
-            });
-        }
-
-        if (StringUtils.isEmpty(rightName) || StringUtils.isEmpty(leftName)) {
-            showDialog.findViewById(R.id.spit).setVisibility(View.GONE);
-        }
-        return tvContent;
-    }
 
     /**
      * 调往系统APK安装界面（适配7.0）

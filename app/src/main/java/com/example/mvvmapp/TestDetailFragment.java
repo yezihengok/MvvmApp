@@ -81,20 +81,18 @@ public class TestDetailFragment extends BaseFragment<ActivityMainDetailBinding,M
 
 
     public void downloadApk(String url){
-        CommUtils.showDialog(mActivity,"提示","测试Retrofit方式更新apk"
-                ,"确定","取消",() -> {
-                    PermissionsUtils.getInstance().chekPermissions(mActivity, PermissionsUtil.PERMISSION_FILE, new PermissionsUtils.IPermissionsResult() {
-                        @Override
-                        public void passPermissons() {
-                            canInstallAPK(() -> downLoad(url));
+        CommUtils.showDialogByCancelSure(mActivity, "测试更新apk", null, () ->
+                PermissionsUtils.getInstance().chekPermissions(mActivity, PermissionsUtil.PERMISSION_FILE, new PermissionsUtils.IPermissionsResult() {
+            @Override
+            public void passPermissons() {
+                canInstallAPK(() -> downLoad(url));
 
-                        }
-                        @Override
-                        public void forbitPermissons() {
-                            ToastUtils.showShort("您拒绝了存储权限，将无法下载更新");
-                        }
-                    });
-                },null);
+            }
+            @Override
+            public void forbitPermissons() {
+                ToastUtils.showShort("您拒绝了存储权限，将无法下载更新");
+            }
+        }));
 
     }
     public void downLoad(String url){

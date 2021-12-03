@@ -9,6 +9,7 @@ import com.example.commlib.base.BaseRecyclerAdapter;
 import com.example.commlib.bean.PayTypeBean;
 import com.example.commlib.listener.ResultCallback;
 import com.example.commlib.utils.CommUtils;
+import com.example.commlib.weight.dialog.BottomListDialog;
 
 import java.util.List;
 

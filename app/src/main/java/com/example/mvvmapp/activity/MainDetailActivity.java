@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil;
 import com.blankj.ALog;
 import com.example.commlib.base.mvvm.BaseActivity;
 import com.example.commlib.downloadapk.DownloadAPk;
+import com.example.commlib.listener.Listener;
 import com.example.commlib.rx.RxBus;
 import com.example.commlib.rx.RxBusCode;
 import com.example.commlib.utils.BarUtils;
@@ -100,34 +101,33 @@ public class MainDetailActivity extends BaseActivity<ActivityMainDetailBinding, 
 
 
     public void download(String url){
-        CommUtils.showDialog(mContext,"提示","测试更新apk"
-                ,"确定","取消",() -> {
-                    PermissionsUtils.getInstance().chekPermissions(this, PermissionsUtil.PERMISSION_FILE, new PermissionsUtils.IPermissionsResult() {
-                        @Override
-                        public void passPermissons() {
+        CommUtils.showDialogByCancelSure(mContext, "测试更新apk", null, () -> {
+            PermissionsUtils.getInstance().chekPermissions(this, PermissionsUtil.PERMISSION_FILE, new PermissionsUtils.IPermissionsResult() {
+                @Override
+                public void passPermissons() {
+                    canInstallAPK(() ->
+                            DownloadAPk.getInstance().downApk(mContext, url
+                                    , new DownloadAPk.DownLoadListener() {
+                                        @Override
+                                        public void onProgressUpdate(int progress) {
+                                            mViewModel.mBannerBean.progressValue.set(progress);
+                                        }
 
-                            canInstallAPK(() ->
-                                DownloadAPk.getInstance().downApk(mContext, url
-                                        , new DownloadAPk.DownLoadListener() {
-                                            @Override
-                                            public void onProgressUpdate(int progress) {
-                                                mViewModel.mBannerBean.progressValue.set(progress);
-                                            }
+                                        @Override
+                                        public void finish(String filePath) {
+                                            ALog.d(filePath);
+                                        }
+                                    })
+                    );
 
-                                            @Override
-                                            public void finish(String filePath) {
-                                                ALog.d(filePath);
-                                            }
-                                        })
-                            );
+                }
+                @Override
+                public void forbitPermissons() {
+                    ToastUtils.showShort("您拒绝了存储权限，将无法下载更新");
+                }
+            });
+        });
 
-                        }
-                        @Override
-                        public void forbitPermissons() {
-                            ToastUtils.showShort("您拒绝了存储权限，将无法下载更新");
-                        }
-                    });
-        },null);
     }
 
     @Override

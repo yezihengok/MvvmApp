@@ -581,8 +581,7 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
      * @return
      */
     public Dialog showDialogBysure(String title, String msg, Listener listener){
-        return CommUtils.showDialog(mActivity,title,msg,"确定"
-                ,null, listener,null);
+        return CommUtils.showDialogBySure(mActivity,title,msg,listener);
     }
 
 }

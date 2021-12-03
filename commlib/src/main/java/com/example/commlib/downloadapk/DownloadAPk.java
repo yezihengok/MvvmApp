@@ -13,6 +13,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
 
 import com.blankj.ALog;
+import com.example.commlib.api.App;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -29,8 +30,16 @@ import java.net.URL;
  *  需要断点续传的可使用这个库 ：https://github.com/ssseasonnn/RxDownload
  */
 public class DownloadAPk {
+    /**
+     * sd 本应用 目录下
+     */
+    public static final String ROOT_PATH = App.getInstance().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+
+    public static  String APK_UPGRADE = ROOT_PATH + "/apk/downloadApp.apk";
+  //  public   static String  APK_UPGRADE = Environment.getExternalStorageDirectory() + "/DownLoad/apk/downloadApp.apk";
+
     private  static int   FILE_LEN    = 0;
-    public   static String  APK_UPGRADE = Environment.getExternalStorageDirectory() + "/DownLoad/apk/downloadApp.apk";
+
     private static Context  mContext;
     public static volatile DownloadAPk downloadAPk;
     private static DownLoadListener mListener;
