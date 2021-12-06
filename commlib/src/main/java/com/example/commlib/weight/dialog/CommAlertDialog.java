@@ -72,7 +72,7 @@ public class CommAlertDialog {
         showDialog.getWindow().setGravity(Gravity.CENTER);
         showDialog.setContentView(R.layout.comm_show_dialogs);
         showDialog.setCancelable(false);
-
+        this.showDialog=showDialog;
         if (!((Activity) context).isFinishing()&&isNoEmpty(msg)) {
             showDialog.show();
         }
@@ -138,7 +138,6 @@ public class CommAlertDialog {
         if (isEmpty(rightName) || isEmpty(leftName)) {
             showDialog.findViewById(R.id.spit).setVisibility(View.GONE);
         }
-        this.showDialog=showDialog;
         return showDialog;
     }
 
@@ -164,6 +163,7 @@ public class CommAlertDialog {
         showDialog.getWindow().setGravity(Gravity.CENTER);
         showDialog.setContentView(R.layout.comm_show_dialogs);
         showDialog.setCancelable(false);
+        this.showDialog=showDialog;
         if (!((Activity) context).isFinishing()&&isNoEmpty(msg)) {
             showDialog.show();
         }
