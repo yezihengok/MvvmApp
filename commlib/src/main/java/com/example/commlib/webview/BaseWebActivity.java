@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.DownloadListener;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -35,7 +36,7 @@ import com.example.commlib.webview.config.WebProgress;
 /**
  * Created by yzh on 2019/12/11 16:06.
  */
-public abstract class BaseWebAcivity<V extends ViewDataBinding, VM extends BaseViewModel>  extends BaseActivity<V,VM> implements IWebPageView {
+public abstract class BaseWebActivity<V extends ViewDataBinding, VM extends BaseViewModel>  extends BaseActivity<V,VM> implements IWebPageView {
     // 加载视频相关
     private MyWebChromeClient mWebChromeClient;
     // 全屏时视频加载view
@@ -146,7 +147,15 @@ public abstract class BaseWebAcivity<V extends ViewDataBinding, VM extends BaseV
                 return handleLongImage();
             }
         });
-
+        webView.setDownloadListener(new DownloadListener() {
+            @Override
+            public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimeType, long contentLength) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+        });
         // 与js交互
         webView.addJavascriptInterface(new MyJavascriptInterface(this), "injectedObject");
         webView.addJavascriptInterface(this, "androidInjected");
@@ -156,7 +165,8 @@ public abstract class BaseWebAcivity<V extends ViewDataBinding, VM extends BaseV
     @JavascriptInterface
     public void reload(String s){
         ALog.v("reload==="+s);
-        if(time<3){
+        if(time<2){
+            //测试
             runOnUiThread(() ->{
                 webView.goBack();//先关闭加载的本地404页面,在刷新
                 webView.postDelayed(() ->webView.reload(),1000);

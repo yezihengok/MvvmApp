@@ -108,8 +108,7 @@ public class DownloadAPk {
             FileOutputStream fos = null;
             try {
                 URL url = new URL(apkUrl);
-                HttpURLConnection conn = (HttpURLConnection) url
-                        .openConnection();
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 // 设置连接超时时间
                 conn.setConnectTimeout(20000);
                 // 设置下载数据超时时间
@@ -142,17 +141,21 @@ public class DownloadAPk {
                 fos.flush();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
+                mListener.finish(false,e.toString());
             } catch (SocketTimeoutException e) {
                 // 处理超时异常，提示用户在网络良好情况下重试
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
+                mListener.finish(false,e.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+                mListener.finish(false,e.toString());
             } finally {
                 if (is != null) {
                     try {
                         is.close();
                     } catch (IOException e) {
                         e.printStackTrace();
+                        mListener.finish(false,e.toString());
                     }
                 }
                 if (fos != null) {
@@ -160,6 +163,7 @@ public class DownloadAPk {
                         fos.close();
                     } catch (IOException e) {
                         e.printStackTrace();
+                        mListener.finish(false,e.toString());
                     }
                 }
             }
@@ -173,7 +177,7 @@ public class DownloadAPk {
             if(values[0] ==FILE_LEN){
                 progress=100;
             }else{
-                progress = values[0] * 100 / FILE_LEN;
+                progress = (int) (values[0] * 1.0f / FILE_LEN * 100);
                 //进度显示2位小数：
               // double progress= ArithUtils.round((values[0] * 100 / (double) FILE_LEN),2);
             }
@@ -185,7 +189,7 @@ public class DownloadAPk {
         @Override
         protected void onPostExecute(Void result) {
             Log.v("DownloadAPk","下载完成");
-            mListener.finish(APK_UPGRADE);
+            mListener.finish(true,APK_UPGRADE);
 
             mContext.startActivity(getInstallAppIntent(APK_UPGRADE));
         }
@@ -234,6 +238,6 @@ public class DownloadAPk {
 
    public interface DownLoadListener{
         void onProgressUpdate(int progress);
-        void finish(String filePath);
+        void finish(boolean success,String msg);
     }
 }

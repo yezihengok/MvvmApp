@@ -106,15 +106,14 @@ public class MainDetailActivity extends BaseActivity<ActivityMainDetailBinding, 
                 @Override
                 public void passPermissons() {
                     canInstallAPK(() ->
-                            DownloadAPk.getInstance().downApk(mContext, url
-                                    , new DownloadAPk.DownLoadListener() {
+                            DownloadAPk.getInstance().downApk(mContext, url, new DownloadAPk.DownLoadListener() {
                                         @Override
                                         public void onProgressUpdate(int progress) {
                                             mViewModel.mBannerBean.progressValue.set(progress);
                                         }
 
                                         @Override
-                                        public void finish(String filePath) {
+                                        public void finish(boolean b,String filePath) {
                                             ALog.d(filePath);
                                         }
                                     })

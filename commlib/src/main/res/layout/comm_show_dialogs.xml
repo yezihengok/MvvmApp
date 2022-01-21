@@ -6,56 +6,45 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-    <!--<View
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="#6BC6F7"/>-->
-    <!--    <android.support.v7.widget.CardView-->
-    <!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--        android:id="@+id/rl_index_banner"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_gravity="center_horizontal"-->
-    <!--        android:orientation="vertical"-->
-    <!--        app:cardCornerRadius="5dp"-->
-    <!--        app:cardUseCompatPadding="true"-->
-    <!--        app:cardPreventCornerOverlap="true"-->
-    <!--        app:elevation="5dp">-->
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@drawable/dialog_shape_bgs"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="系统提示"
             android:padding="12dp"
+            android:text="系统提示"
             android:textColor="@color/message_selected_color"
             android:textSize="17sp" />
+
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:minHeight="60dp"
             android:gravity="center"
+            android:minHeight="60dp"
             android:orientation="vertical"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
             android:paddingBottom="10dp">
+
             <TextView
                 android:id="@+id/tvShow_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:paddingLeft="2dp"
                 android:lineSpacingExtra="4dp"
-                tools:text="这是一条提示消息"
                 android:textColor="@color/ui_black"
-                android:textSize="15sp" />
+                android:textSize="15dp"
+                tools:text="这是一条提示消息" />
         </LinearLayout>
+
 
         <View
             android:layout_width="fill_parent"
@@ -66,7 +55,7 @@
             android:layout_width="fill_parent"
             android:layout_height="50.0dip"
             android:gravity="center"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btShow_sure"
@@ -97,5 +86,5 @@
                 android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
-    <!--    </android.support.v7.widget.CardView>-->
+
 </LinearLayout>

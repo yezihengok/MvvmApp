@@ -27,7 +27,7 @@ import com.example.commlib.utils.StatusBarUtil;
  * Created by yzh on 2019/12/11.
  */
 
-public class WebViewActivity extends BaseWebAcivity<ActivityWebviewBinding, BaseViewModel> {
+public class WebViewActivity extends BaseWebActivity<ActivityWebviewBinding, BaseViewModel> {
 
     // 网页链接
     private String mUrl;

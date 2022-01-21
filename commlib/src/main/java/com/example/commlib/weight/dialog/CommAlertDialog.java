@@ -4,9 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -15,9 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import androidx.core.content.ContextCompat;
+
 import com.example.commlib.R;
 import com.example.commlib.listener.Listener;
-import com.example.commlib.utils.ScreenUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -31,26 +33,28 @@ import static com.example.commlib.utils.ScreenUtils.getScreenWidth;
  */
 
 public class CommAlertDialog {
-    private final Context context;
-    private final WeakReference<Context> contextWeakReference;
-    private  Dialog showDialog;
-    public CommAlertDialog(Context context) {
-        contextWeakReference=new WeakReference<>(context);
-        this.context = contextWeakReference.get();
-    }
+    @SuppressLint("StaticFieldLeak")
+    private static Context context;
+    private static WeakReference<Context> contextWeakReference;
+    private static Dialog dialog;
+
+//    public CommAlertDialog(Context context) {
+//        contextWeakReference=new WeakReference<>(context);
+//        this.context = contextWeakReference.get();
+//    }
 
     @SuppressLint("StaticFieldLeak")
-    private static volatile CommAlertDialog instance;
-    public  static CommAlertDialog get(Context context){
-        if(instance==null){
-            synchronized (CommAlertDialog.class){
-                if(instance==null){
-                    instance=new CommAlertDialog(context);
-                }
-            }
-        }
-        return instance;
-    }
+//    private static volatile CommAlertDialog instance;
+//    public  static CommAlertDialog get(Context context){
+//        if(instance==null){
+//            synchronized (CommAlertDialog.class){
+//                if(instance==null){
+//                    instance=new CommAlertDialog(context);
+//                }
+//            }
+//        }
+//        return instance;
+//    }
 
     /**
      * 优化确认取消弹窗方法
@@ -62,9 +66,10 @@ public class CommAlertDialog {
      * @param rightListener 右边按钮监听 (无需监听事件可传null)
      * @param color         设置按钮文字颜色  #FFFFFF (可传null取默认)
      */
-    public  Dialog showDialog(String title, String msg, String leftName, String rightName
+    public static Dialog showDialog(Context con, String title, String msg, String leftName, String rightName
             , final Listener leftListener, final Listener rightListener, String... color) {
-
+        contextWeakReference=new WeakReference<>(con);
+        context = contextWeakReference.get();
         final Dialog showDialog = new Dialog(context);
         showDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         showDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
@@ -72,9 +77,11 @@ public class CommAlertDialog {
         showDialog.getWindow().setGravity(Gravity.CENTER);
         showDialog.setContentView(R.layout.comm_show_dialogs);
         showDialog.setCancelable(false);
-        this.showDialog=showDialog;
+        dialog=showDialog;
         if (!((Activity) context).isFinishing()&&isNoEmpty(msg)) {
             showDialog.show();
+        }else{
+            Log.e("ee","((Activity) context).isFinishing()==="+((Activity) context).isFinishing());
         }
 
         LinearLayout lyrame;
@@ -85,7 +92,7 @@ public class CommAlertDialog {
         btSure =  showDialog.findViewById(R.id.btShow_sure);
         btCancel =showDialog.findViewById(R.id.btShow_cancle);
         tvContent = showDialog.findViewById(R.id.tvShow_content);
-        lyrame.getLayoutParams().width = ScreenUtils.getScreenWidth()*4/5;
+        lyrame.getLayoutParams().width = getScreenWidth()*4/5;
 
         tvContent.setText(msg);
 
@@ -138,6 +145,7 @@ public class CommAlertDialog {
         if (isEmpty(rightName) || isEmpty(leftName)) {
             showDialog.findViewById(R.id.spit).setVisibility(View.GONE);
         }
+        dialog=showDialog;
         return showDialog;
     }
 
@@ -153,9 +161,10 @@ public class CommAlertDialog {
      * @param color         设置按钮文字颜色  #FFFFFF (可传null取默认)
      */
     @Deprecated
-    public Dialog showDialog(String title, String msg, String leftName, String rightName
+    public static Dialog showDialog(Context con, String title, String msg, String leftName, String rightName
             , final View.OnClickListener leftListener, final View.OnClickListener rightListener, String... color) {
-
+        contextWeakReference=new WeakReference<>(con);
+        context = contextWeakReference.get();
         final Dialog showDialog = new Dialog(context);
         showDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         showDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
@@ -163,11 +172,10 @@ public class CommAlertDialog {
         showDialog.getWindow().setGravity(Gravity.CENTER);
         showDialog.setContentView(R.layout.comm_show_dialogs);
         showDialog.setCancelable(false);
-        this.showDialog=showDialog;
         if (!((Activity) context).isFinishing()&&isNoEmpty(msg)) {
             showDialog.show();
         }
-
+        dialog=showDialog;
         LinearLayout lyrame;
         Button btSure, btCancel;
         TextView tvContent;
@@ -229,16 +237,15 @@ public class CommAlertDialog {
         if (isEmpty(rightName) || isEmpty(leftName)) {
             showDialog.findViewById(R.id.spit).setVisibility(View.GONE);
         }
-        this.showDialog=showDialog;
         return showDialog;
     }
 
 
-    public void dismissDialog(){
-        if(showDialog!=null&&showDialog.isShowing()){
-            showDialog.dismiss();
+    public static void dismissDialog(){
+        if(dialog!=null&&dialog.isShowing()){
+            dialog.dismiss();
             contextWeakReference.clear();
-            showDialog=null;
+            dialog=null;
         }
     }
 
@@ -251,17 +258,14 @@ public class CommAlertDialog {
         boolean bool=s == null || s.length() == 0 || s.equals("null");
         return !bool;
     }
+
     /**
      * 在代码中为TextView 设置color资源
      *
      * @param tv
-     * @param color 例如 R.color.oranges
+     * @param colorId 例如 R.color.oranges
      */
-    public static void setTextColor(TextView tv, int color) {
-        Resources resource = (Resources) tv.getContext().getResources();
-//        ColorStateList csl = (ColorStateList) resource.getColorStateList(color);
-//        if(csl!=null){
-//        }
-        tv.setTextColor(resource.getColor(color));
+    public static void setTextColor(TextView tv, int colorId) {
+        tv.setTextColor(ContextCompat.getColor(tv.getContext(), colorId));
     }
 }

@@ -294,11 +294,11 @@ public class CommUtils {
     }
     @NonNull
     public static Dialog showDialogBySure(Context context, String title, String msg, Listener rightListener){
-        return CommAlertDialog.get(context).showDialog(title,msg,null,"确定", null,rightListener);
+        return CommAlertDialog.showDialog(context,title,msg,null,"确定", null,rightListener);
     }
     @NonNull
     public static Dialog showDialogByCancelSure(Context context, String msg, Listener leftListener, Listener rightListener){
-        return CommAlertDialog.get(context).showDialog(null,msg,"取消","确定", leftListener,rightListener);
+        return CommAlertDialog.showDialog(context,null,msg,"取消","确定", leftListener,rightListener);
     }
 
 
